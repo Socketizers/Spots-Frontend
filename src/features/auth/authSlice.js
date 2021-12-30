@@ -34,7 +34,7 @@ export const initialState = {
     friends: [],
     story: {},
   },
-  status: "idle", // pending || idle || rejected
+  status: "notAuth", // pending || idle || rejected
   error: null,
 };
 
@@ -57,7 +57,22 @@ export const signUp = createAsyncThunk("auth/sign-in", async (body) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+        state.user = {
+        email: "",
+        username: "",
+        fullName: "",
+        image: "",
+        onlineStatus: false,
+        lastSeen: "",
+        friends: [],
+        story: {},};
+        state.status="notAuth";
+        state.error=null;
+        cookie.remove("token");
+},
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {
@@ -77,4 +92,5 @@ const authSlice = createSlice({
   },
 });
 
+export const {logOut} = authSlice.actions;
 export default authSlice.reducer;

@@ -1,7 +1,6 @@
 import React from "react";
 import { signUp } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
-// import FormData from "form-data";
 
 function SignUp() {
   const dispatcher = useDispatch();
