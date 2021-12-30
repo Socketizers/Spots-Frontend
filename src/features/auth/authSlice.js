@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import base64 from "base-64";
-// import jwt from "jsonwebtoken";
 import cookie from "react-cookies";
 import api from "../../app/api";
+
 // Sign-In API
 const signInApi = async (username, password) => {
   return await axios.post(
@@ -34,13 +34,11 @@ export const initialState = {
     friends: [],
     story: {},
   },
-  // pending || idle || rejected
-  status: "idle",
+  status: "idle", // pending || idle || rejected
   error: null,
 };
-export const signIn = createAsyncThunk(
-  "auth/sign-in",
-  async ({ username, password }) => {
+
+export const signIn = createAsyncThunk("auth/sign-in", async ({ username, password }) => {
     const response = await signInApi(username, password);
     return response.data;
   }
