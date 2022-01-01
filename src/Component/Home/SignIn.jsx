@@ -18,10 +18,10 @@ const {status} = useSelector(state=> state.auth)
       })
     );
   };
-  useEffect(() => {
+  // useEffect(() => {
 
-    if(cookie.load("token")) dispatcher(logIn());
-  }, []);
+  //   if(cookie.load("token")) dispatcher(logIn());
+  // }, []);
 
   return (
     <div>
