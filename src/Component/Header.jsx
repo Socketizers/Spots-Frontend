@@ -6,6 +6,7 @@ function Header() {
     <div>
       <div>logo</div>
       <div>Spots</div>
+      <Link to="/">Home</Link>
       <Link to="/sign-in">Sign IN</Link>
       <Link to="/about-us">About Us</Link>
     </div>

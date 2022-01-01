@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import base64 from "base-64";
-// import jwt from "jsonwebtoken";
 import cookie from "react-cookies";
 import api from "../../app/api";
+
 // Sign-In API
 const signInApi = async (username, password) => {
   return await axios.post(
@@ -34,13 +34,11 @@ export const initialState = {
     friends: [],
     story: {},
   },
-  // pending || idle || rejected
-  status: "idle",
+  status: "notAuth", // pending || idle || rejected
   error: null,
 };
-export const signIn = createAsyncThunk(
-  "auth/sign-in",
-  async ({ username, password }) => {
+
+export const signIn = createAsyncThunk("auth/sign-in", async ({ username, password }) => {
     const response = await signInApi(username, password);
     return response.data;
   }
@@ -59,7 +57,22 @@ export const signUp = createAsyncThunk("auth/sign-in", async (body) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+        state.user = {
+        email: "",
+        username: "",
+        fullName: "",
+        image: "",
+        onlineStatus: false,
+        lastSeen: "",
+        friends: [],
+        story: {},};
+        state.status="notAuth";
+        state.error=null;
+        cookie.remove("token");
+},
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {
@@ -79,4 +92,5 @@ const authSlice = createSlice({
   },
 });
 
+export const {logOut} = authSlice.actions;
 export default authSlice.reducer;
