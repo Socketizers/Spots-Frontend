@@ -1,0 +1,47 @@
+.landing {
+  background: rgb(0, 0, 0, 0.6) url(/src/assets/images/landinsize.jpg) no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 48rem;
+}
+
+.NavBar {
+  position: fixed;
+  height: 105px;
+  background-color: rgba(209, 209, 209, 0);
+  color: white;
+  font-weight:600 ;
+  font-size:1em;
+
+}
+
+.landing-header {
+  margin: 5em;
+}
+
+.landing-header h1 {
+  font-size: 2.7em;
+  font-weight: 400;
+  color: white;
+  margin-top: 1em;
+}
+
+.landing-header h2 {
+  font-size: 2.7em;
+  font-weight: 700;
+  color: #ff9000;
+}
+
+.landing-header button {
+  height: 2.7em;
+  width: 11em;
+  border-radius: 50px;
+  border-color: transparent;
+  background-color: #f8f9fac7;
+  color: #104567;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-bottom: 6px;
+  border-width: 0;
+  margin-top: 2em;
+}

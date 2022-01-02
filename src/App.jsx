@@ -11,6 +11,8 @@ import ServerList from "./Component/user-page/ServerList";
 import Chat from "./Component/user-page/server/Chat";
 import { logIn } from "./features/auth/authSlice";
 import cookie from "react-cookies";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const status = useSelector((state) => state.auth.status);
@@ -22,7 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route
           path="/"
@@ -32,6 +34,7 @@ function App() {
           path="/sign-in"
           element={
             <>
+            <Header /> 
               <SignIn />
               <SignUp />
             </>
