@@ -9,28 +9,30 @@ export const initialState = {
   error: null,
 };
 
-export const getFriendsList = createAsyncThunk("user/friends", async () => {
-  const response = await api.get("/user/friends");
-  return response.data;
+
+export const getFriendsRequest = createAsyncThunk("friends/new-request", async () => {
+  const response = await api.get("/friends/new-request");
+  console.log("requests=======>",response.data.users);
+  return response.data.users;
 });
 
 
-const friendsListSlice = createSlice({
+const friendsRequestsSlice = createSlice({
   name: "friends",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getFriendsList.pending, (state) => {
+      .addCase(getFriendsRequest.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(getFriendsList.fulfilled, (state, action) => {
+      .addCase(getFriendsRequest.fulfilled, (state, action) => {
         state.status = "idle";
-        state.users = action.payload.users;
-        state.message = action.payload.message;
+        state.users = action.payload;
+        state.message = action.payload;
         state.error = null;
       })
-      .addCase(getFriendsList.rejected, (state, action) => {
+      .addCase(getFriendsRequest.rejected, (state, action) => {
         state.error = action.error;
         state.users = initialState.users;
         state.status = "rejected";
@@ -38,4 +40,4 @@ const friendsListSlice = createSlice({
   },
 });
 
-export default friendsListSlice.reducer;
+export default friendsRequestsSlice.reducer;
