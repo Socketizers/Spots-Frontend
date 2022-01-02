@@ -1,0 +1,28 @@
+.landing{
+background: rgb(0,0,0,0.6) url(/src/assets/images/landinsize.jpg) no-repeat;
+background-position:center;
+background-size: cover;
+height: 63.5rem;
+
+
+
+}
+
+.NavBar{
+    position: fixed;
+/* width: 1440px; */
+height: 105px;
+left: 0px;
+top: 0px;
+
+background-color: rgba(209, 209, 209, 0);
+}
+
+h1{
+Font-style: Medium;
+Font-size: 40px;
+Line-height: 52px;
+Line-height: 95%;
+Align: Left;
+Vertical-align: Top;
+}
