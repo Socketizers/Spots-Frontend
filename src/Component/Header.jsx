@@ -10,7 +10,8 @@ function Header() {
       <Link to="/sign-in">Sign IN</Link>
       <Link to="/about-us">About Us</Link>
       <Link to="/servers">Servers list</Link>
-      <Link to="/chat">Chat</Link>
+      <Link to="/rooms">Chat</Link>
+      <Link to="/private-chat">Private Chat</Link>
     </div>
   );
 }

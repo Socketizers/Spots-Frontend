@@ -8,9 +8,10 @@ import SignIn from "./Component/Home/SignIn";
 import SignUp from "./Component/Home/SignUp";
 import UserHomePage from "./Component/user-page/UserHomePage";
 import ServerList from "./Component/user-page/ServerList";
-import Chat from "./Component/user-page/server/Chat";
 import { logIn } from "./features/auth/authSlice";
 import cookie from "react-cookies";
+import RoomsList from "./Component/user-page/server/RoomsList";
+import PrivateChat from "./Component/user-page/private-room/PrivateChat";
 
 function App() {
   const status = useSelector((state) => state.auth.status);
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     if (cookie.load("token")) dispatcher(logIn());
-  }, []);
+  }, [dispatcher]);
 
   return (
     <BrowserRouter>
@@ -39,7 +40,10 @@ function App() {
         />
         <Route path="/servers" element={<ServerList />} />
         <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/rooms" element={<RoomsList />}>
+          <Route path=":id" element={<></>} />
+        </Route>
+        <Route path="/private-chat" element={<PrivateChat />} />
       </Routes>
     </BrowserRouter>
   );
