@@ -1,54 +1,32 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch , useSelector} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { getFriendsList } from "../../features/friends/friendsSlice";
 import FriendList from "./friends/FriendList";
-import {storage} from "../../app/firebase";
-import api from "../../app/api";
-
+import MyStory from "./profile/MyStory";
+import Button from "@mui/material/Button";
 
 function UserHomePage() {
-const [file, setFile] = useState('');
+  const [open, setOpen] = useState(false);
+
   const dispatcher = useDispatch();
 
-const handleChange = e => {
-  e.preventDefault();
-  setFile(e.target.files[0]);
-};
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-const handleUpload = () => {
-  const name = +new Date() + "-" + file.name;
-  const uploadTask = storage.ref(`images/${name}`).put(file);
-  console.log('uploaded successfully')
-  uploadTask.on(   "state_changed",
-  snapshot => {},
-  error => {
-    console.log(error);
-  },
-    () => {
-      storage
-        .ref("images")
-        .child(name)
-        .getDownloadURL()
-        .then(url => {
-          const body = {};
-          body[name]= url;
-          api.put(`/story/${name}`, body);
-        });
-    }
-  );
-};
-
-  useEffect(()=>{ 
+  useEffect(() => {
     dispatcher(getFriendsList());
-    }, [ ]);
-    
-  return <div>User Home Page
-    <h2>Add Story</h2>
-      <input type="file" onChange={handleChange} />
-      <button onClick={handleUpload}>Upload</button>
+  }, []);
 
-    <FriendList/>
-  </div>;
+  return (
+    <div>
+      <h2>User Home Page</h2>
+      <div>
+        <Button onClick={handleOpen}>Add Story</Button>
+        <MyStory open={open} handleClose={handleClose} />
+      </div>
+      <FriendList />
+    </div>
+  );
 }
 
 export default UserHomePage;
