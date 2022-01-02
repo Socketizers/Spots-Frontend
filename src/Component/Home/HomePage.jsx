@@ -15,12 +15,12 @@ export const HomePage = (props) => {
   
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="me-auto">
-        <Nav.Link href="/">Home</Nav.Link>
-      <Nav.Link href="/sign-in">Sign-In</Nav.Link>
-      <Nav.Link to="/about-us">About Us</Nav.Link>
-      <Nav.Link to="/servers">Servers list</Nav.Link>
-      <Nav.Link to="/chat">Chat</Nav.Link>
+      <Nav >
+        <Nav.Link style={{color:'white'}} className="me-auto" href="/">Home</Nav.Link>
+      <Nav.Link style={{color:'white'}}  to="/about-us">About Us</Nav.Link>
+      <Nav.Link style={{color:'white'}}  href="/sign-in">Sign Up</Nav.Link>
+      <Nav.Link style={{color:'white'}} href="/sign-up">Login</Nav.Link>
+
       </Nav>
     </Navbar.Collapse>
   </Container>
@@ -29,14 +29,14 @@ export const HomePage = (props) => {
 <div className="landing-header">
 <img
         src= {logo}
-        width="450"
-        height="100"
+        width="400"
+        height="90"
         className="d-inline-block align-top"
         alt="React Bootstrap logo"
       />
 <h1>CONNECT AND SHARE.</h1>
 <h2>FIND YOUR SPOT IN THE WORLD!</h2>
-<Button/>
+<button>Get Started </button>
 </div>
 
 
