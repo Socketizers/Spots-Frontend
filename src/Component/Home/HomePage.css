@@ -1,0 +1,144 @@
+.landing {
+  background: rgb(0, 0, 0, 0.6) url(/src/assets/images/landinsize.jpg) no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 47rem;
+  width: 100%;
+  position: absolute;
+  top:0
+}
+
+.NavBar {
+  height: 100px;
+  background-color: rgba(209, 209, 209, 0);
+  color: white;
+  font-weight:600 ;
+  font-size:1em;
+}
+.active {
+  background-color: #0A95B6;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 3%);
+
+
+}
+
+
+.signUp{
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 1em;
+  height: 2em;
+ 
+
+}
+
+.landing-header {
+  margin: 5em;
+  padding-top: 5em;
+
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+     opacity: 3;
+  }
+}
+
+.landing-header h1 {
+  font-size: 2.7em;
+  font-weight: 400;
+  color: white;
+  margin-top: 1em;
+}
+
+.landing-header h2 {
+  font-size: 2.7em;
+  font-weight: 700;
+  color: #ff9000;
+}
+
+.landing-header button {
+  height: 2.7em;
+  width: 11em;
+  border-radius: 50px;
+  border-color: transparent;
+  background-color: #f8f9fac7;
+  color: #104567;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-bottom: 6px;
+  border-width: 0;
+  margin-top: 2em;
+}
+
+.featureImg {
+  border-radius: 1em;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 3%);
+}
+.feature-1 h1 {
+  font-size: 3.2em;
+    font-weight: 650;
+    color: #104567;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+}
+
+.feature-1  p {
+  font-size: 1.2em;
+}
+
+.feature-1 button {
+  height: 2.7em;
+  width: 11em;
+  border-radius: 50px;
+  border: 3px solid #0A95B6;
+  background-color: #ffffff;
+  color: #0A95B6;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding-bottom: 6px;
+  margin-top: 2em;
+}
+
+#about button {
+  height: 3em;
+  width: 10.5em;
+  border-radius: 5px;
+  border: transparent;
+  background-color: #000000;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  padding-bottom: 6px;
+  margin-top: 2em;
+  margin-right: 1em;
+  position: relative;
+  text-align: left;
+  padding-left: 1em;
+}
+#about  button p {
+  position: absolute;
+    top: 0.5em;
+    left: 3em;
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
