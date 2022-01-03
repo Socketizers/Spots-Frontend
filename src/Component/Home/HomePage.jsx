@@ -51,10 +51,10 @@ function changeHeader() {
             <Nav.Link style={{ color: "white",fontSize:'1.1em' }} href="#about">
               About Us
             </Nav.Link>
-            <Nav.Link className="signUp" style={{ color: "#0A95B6",fontSize:'1.1em', marginLeft:navBar?'65%':'40%', paddingTop: '4px' }} href="/sign-in">
+            <Nav.Link className="signUp" style={{ color: "#0A95B6",fontSize:'1.1em', marginLeft:navBar?'65%':'40%', paddingTop: '4px' }} href="/sign-up">
              Sign Up
             </Nav.Link>
-            <Nav.Link style={{ color: "white",fontSize:'1.1em'}} href="/sign-up">
+            <Nav.Link style={{ color: "white",fontSize:'1.1em'}} href="/sign-in">
               Login
             </Nav.Link>
           </Navbar.Collapse>
