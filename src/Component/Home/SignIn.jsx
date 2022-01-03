@@ -5,10 +5,14 @@ import { Form, Button, Image } from "react-bootstrap";
 import loginImg from "../../assets/images/login.png";
 import "./SignIn.css";
 import { Link } from "react-router-dom";
+// import { logOut } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/SPOTSLOGO-PP.png";
 
 function SignIn() {
-  // const { status } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.auth);
   const dispatcher = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +22,11 @@ function SignIn() {
         username: e.target.username.value,
         password: e.target.password.value,
       })
-    );
+    ).then(() => {
+      if (status === "idle") {
+        navigate("/");
+      }
+    });
   };
 
   return (
@@ -29,7 +37,9 @@ function SignIn() {
 
       <div id="signInFormDiv">
         <Form onSubmit={handleSubmit} id="signInForm">
-          <h1>Log In</h1>
+          <h1>
+            Log In <br /> <img src={logo} id="logo" />
+          </h1>
           <Form.Group className="mb-3">
             <Form.Label>Username</Form.Label>
             <Form.Control

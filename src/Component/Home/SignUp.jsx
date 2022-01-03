@@ -3,6 +3,7 @@ import { signUp } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { Form, Button, Image } from "react-bootstrap";
 import signUpImg from "../../assets/images/signup.png";
+import logo from "../../assets/SPOTSLOGO-PP.png";
 import "./SignUp.css";
 import { Link } from "react-router-dom";
 
@@ -27,9 +28,11 @@ function SignUp() {
       <div id="signUpDiv">
         <div id="signUpFormDiv">
           <Form onSubmit={handleSubmit} id="signUpForm">
-            <h2>SignUp</h2>
-            <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: "bold" }}>Username</Form.Label>
+            <h2>
+              SignUp <br /> <img src={logo} id="logo" />
+            </h2>
+            <Form.Group>
+              <Form.Label className="labels">Username</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your Username"
@@ -37,8 +40,8 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: "bold" }}>Full Name</Form.Label>
+            <Form.Group>
+              <Form.Label className="labels">Full Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your Full Name"
@@ -46,8 +49,8 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: "bold" }}>Email</Form.Label>
+            <Form.Group>
+              <Form.Label className="labels">Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter Your Email"
@@ -55,15 +58,13 @@ function SignUp() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: "bold" }}>
-                Pick Your Image
-              </Form.Label>
+            <Form.Group>
+              <Form.Label className="labels">Pick Your Image</Form.Label>
               <Form.Control type="file" id="files" />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label style={{ fontWeight: "bold" }}>Password</Form.Label>
+            <Form.Group>
+              <Form.Label className="labels">Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Enter Your Password"

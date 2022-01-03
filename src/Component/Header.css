@@ -4,17 +4,25 @@
 }
 
 #logoImg {
-  width: 30%;
+  width: 25%;
   height: 80%;
   object-fit: cover;
   margin-left: 15%;
+  margin-right: 40px;
   cursor: pointer;
 }
 
 .headerLinks {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: right;
+  padding-right: 10%;
+}
+
+#logoCol {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
 }
 
 .link {

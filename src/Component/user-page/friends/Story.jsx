@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Player } from "video-react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../app/api";
 import Box from "@mui/material/Box";
@@ -25,11 +24,10 @@ function Story(props) {
   const [type, setType] = useState("img");
   // let type = "img";
   // let counter = 0;
-  var timeout ;
+  var timeout;
 
   function renderStory(counter) {
-  
-    if (counter < storyArr.length  ) {
+    if (counter < storyArr.length) {
       if (storyArr[counter].includes("video")) {
         setType("video");
       } else {
@@ -39,7 +37,7 @@ function Story(props) {
       console.log("counter====>", counter, type);
 
       setInterval(() => {
-        renderStory(counter+1);
+        renderStory(counter + 1);
       }, 5000);
     } else {
       onClose();
@@ -50,8 +48,8 @@ function Story(props) {
     props.handleClose();
     console.log("closed");
   }
-  const view =() => {
-      renderStory(0);
+  const view = () => {
+    renderStory(0);
   };
 
   return (

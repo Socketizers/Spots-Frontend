@@ -15,7 +15,7 @@
 
 #signInFormDiv {
   width: 50%;
-  height: 70%;
+  /* height: 70%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,4 +74,10 @@
 #muted-text-signIn {
   color: #0a95b6 !important;
   float: right;
+}
+
+#logo {
+  width: 50px;
+  height: 50px;
+  margin-top: 15px;
 }

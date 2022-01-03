@@ -6,16 +6,15 @@ function Header() {
   return (
     <div>
       <Navbar className="Nav">
-        <Col xs={4}>
+        <Col xs={6} id="logoCol">
           <img
             src={logo}
             className="d-inline-block align-top"
             alt="logo"
-            href="/"
+            to="/"
             id="logoImg"
           />
-        </Col>
-        <Col xs={4} className="headerLinks">
+
           <Nav.Link href="/" className="link">
             Home
           </Nav.Link>
@@ -23,7 +22,8 @@ function Header() {
             About Us
           </Nav.Link>
         </Col>
-        <Col xs={4} className="headerLinks">
+
+        <Col xs={6} className="headerLinks">
           <Nav.Link href="/sign-up" id="sign_up">
             Sign Up
           </Nav.Link>
