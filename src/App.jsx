@@ -12,6 +12,7 @@ import Chat from "./Component/user-page/server/Chat";
 import { logIn } from "./features/auth/authSlice";
 import cookie from "react-cookies";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from "./Component/Footer";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/chat" element={<Chat />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
