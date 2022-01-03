@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={status === "idle" ? <UserHomePage /> : <Home />}
+          element={status === "idle" ? <><Header /> <UserHomePage /></> : <Home />}
         />
         <Route
           path="/sign-in"
