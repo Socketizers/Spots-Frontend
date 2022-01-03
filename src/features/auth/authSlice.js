@@ -3,6 +3,7 @@ import axios from "axios";
 import base64 from "base-64";
 import cookie from "react-cookies";
 import api from "../../app/api";
+import Swal from "sweetalert2";
 
 // Sign-In API
 const signInApi = async (username, password) => {
@@ -38,9 +39,19 @@ export const initialState = {
   error: null,
 };
 
-export const signIn = createAsyncThunk("auth/sign-in", async ({ username, password }) => {
-    const response = await signInApi(username, password);
-    return response.data;
+export const signIn = createAsyncThunk(
+  "auth/sign-in",
+  async ({ username, password }) => {
+    try {
+      const response = await signInApi(username, password);
+      return response.data;
+    } catch (e) {
+      Swal.fire({
+        title: "Invalid Login",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
   }
 );
 
@@ -50,8 +61,24 @@ export const logIn = createAsyncThunk("auth/sign-in", async () => {
 });
 
 export const signUp = createAsyncThunk("auth/sign-in", async (body) => {
-  const response = await signUpApi(body);
-  return response.data;
+  try {
+    const response = await signUpApi(body);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Account Created Successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    return response.data;
+  } catch (e) {
+    Swal.fire({
+      title: "Error!",
+      text: "Try Again Please",
+      icon: "error",
+      confirmButtonText: "Close",
+    });
+  }
 });
 
 const authSlice = createSlice({
@@ -59,7 +86,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logOut: (state) => {
-        state.user = {
+      state.user = {
         email: "",
         username: "",
         fullName: "",
@@ -67,11 +94,12 @@ const authSlice = createSlice({
         onlineStatus: false,
         lastSeen: "",
         friends: [],
-        story: {},};
-        state.status="notAuth";
-        state.error=null;
-        cookie.remove("token");
-},
+        story: {},
+      };
+      state.status = "notAuth";
+      state.error = null;
+      cookie.remove("token");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,5 +120,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {logOut} = authSlice.actions;
+export const { logOut } = authSlice.actions;
 export default authSlice.reducer;

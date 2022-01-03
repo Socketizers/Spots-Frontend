@@ -1,11 +1,28 @@
+.Nav {
+  height: 10vh;
+  background-color: #0a95b6;
+}
 
+#logoImg {
+  width: 30%;
+  height: 80%;
+  object-fit: cover;
+  margin-left: 15%;
+  cursor: pointer;
+}
 
-.Nav{
-    position: fixed;
-/* width: 1440px; */
-height: 105px;
-left: 0px;
-top: 0px;
+.headerLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-background-color: #0A95B6;
+.link {
+  color: white !important;
+}
+
+#sign_up {
+  background-color: white;
+  color: #0a95b6 !important;
+  border-radius: 10px;
 }
