@@ -3,20 +3,48 @@
   background-position: center;
   background-size: cover;
   height: 47rem;
+  width: 100%;
+  position: absolute;
+  top:0
 }
 
 .NavBar {
-  position: fixed;
-  height: 105px;
+  height: 100px;
   background-color: rgba(209, 209, 209, 0);
   color: white;
   font-weight:600 ;
   font-size:1em;
+}
+.active {
+  background-color: #0A95B6;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 3%);
+
+
+}
+
+
+.signUp{
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 1em;
+  height: 2em;
+ 
 
 }
 
 .landing-header {
   margin: 5em;
+  padding-top: 5em;
+
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+     opacity: 3;
+  }
 }
 
 .landing-header h1 {
