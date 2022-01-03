@@ -18,7 +18,6 @@ function UserHomePage() {
   useEffect(() => {
     dispatcher(getFriendsList());
     dispatcher(getFriendsRequest());
-
   }, []);
 
   return (
