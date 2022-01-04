@@ -3,6 +3,7 @@ import api from "../../app/api";
 
 export const initialState = {
   users: [""],
+  requests:[""],
   message:"",
   status: "rejected", // pending || idle || rejected
   error: null,
@@ -10,9 +11,9 @@ export const initialState = {
 
 export const getFriendsList = createAsyncThunk("user/friends", async () => {
   const response = await api.get("/user/friends");
-  console.log("data=======>",response.data);
   return response.data;
 });
+
 
 const friendsListSlice = createSlice({
   name: "friends",
@@ -33,7 +34,7 @@ const friendsListSlice = createSlice({
         state.error = action.error;
         state.users = initialState.users;
         state.status = "rejected";
-      });
+      })
   },
 });
 

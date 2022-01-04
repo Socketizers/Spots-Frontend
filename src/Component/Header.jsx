@@ -1,17 +1,39 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Nav, Navbar, Col } from "react-bootstrap";
+import "./Header.css";
+import logo from "../assets/images/SPOTSLOGO00.png";
 function Header() {
   return (
     <div>
-      <div>logo</div>
-      <div>Spots</div>
-      <Link to="/">Home</Link>
-      <Link to="/sign-in">Sign IN</Link>
-      <Link to="/about-us">About Us</Link>
-      <Link to="/servers">Servers list</Link>
-      <Link to="/rooms">Chat</Link>
-      <Link to="/private-chat">Private Chat</Link>
+      <Navbar className="Nav">
+        <Col xs={6} id="logoCol">
+          <img
+            src={logo}
+            className="d-inline-block align-top"
+            alt="logo"
+            to="/"
+            id="logoImg"
+          />
+
+          <Nav.Link href="/" className="link">
+            Home
+          </Nav.Link>
+          <Nav.Link to="/about-us" className="link">
+            About Us
+          </Nav.Link>
+        </Col>
+
+        <Col xs={6} className="headerLinks">
+          <Nav.Link href="/sign-up" id="sign_up">
+            Sign Up
+          </Nav.Link>
+          <Nav.Link href="/sign-in" className="link">
+            Sign In
+          </Nav.Link>
+          {/* <Nav.Link to="/servers">Servers list</Nav.Link> */}
+          {/* <Nav.Link to="/chat">Chat</Nav.Link> */}
+        </Col>
+      </Navbar>
     </div>
   );
 }
