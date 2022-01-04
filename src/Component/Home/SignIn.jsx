@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 // import { logOut } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/SPOTSLOGO-PP.png";
+import { getAllServers } from "../../features/server/serverSlice";
 
 function SignIn() {
   const { status } = useSelector((state) => state.auth);
@@ -22,11 +23,14 @@ function SignIn() {
         username: e.target.username.value,
         password: e.target.password.value,
       })
-    ).then(() => {
+    );
+
+    setTimeout(() => {
       if (status === "idle") {
+        dispatcher(getAllServers());
         navigate("/");
       }
-    });
+    }, 500);
   };
 
   return (

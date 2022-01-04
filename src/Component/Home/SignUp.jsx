@@ -19,7 +19,7 @@ function SignUp() {
     body.append("email", e.target.email.value);
     body.append("password", e.target.password.value);
     if (file) body.append("image", file);
-    console.log(body);
+    // console.log(body);
     dispatcher(signUp(body));
   };
 
