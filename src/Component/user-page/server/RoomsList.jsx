@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Chat from "./Chat";
-import Media from "./Media";
+import Media1 from "./Media1";
 import Podcast from "./Podcast";
 import api from "../../../app/api";
 import io from "socket.io-client";
@@ -10,7 +10,8 @@ function RoomsList() {
   const [ioConnection, setIoConnection] = useState(null);
 
   useEffect(() => {
-    const connection = io.connect("socketizers.herokuapp.com");
+    const connection = io.connect("http://localhost:8000");
+    // const connection = io.connect("socketizers.herokuapp.com");
     setIoConnection(connection);
     return () => connection.close();
   }, []);
@@ -28,7 +29,7 @@ function RoomsList() {
         rooms={rooms.filter((room) => room.type === "podcast")}
         ioConnection={ioConnection}
       />
-      <Media
+      <Media1
         rooms={rooms.filter((room) => room.type === "voice")}
         ioConnection={ioConnection}
       />

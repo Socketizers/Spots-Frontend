@@ -6,11 +6,11 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.6",
+    "@mui/material": "^5.2.7",
     "@reduxjs/toolkit": "^1.7.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "base-64": "^1.0.0",
     "bootstrap": "^5.1.3",
@@ -18,18 +18,20 @@
     "firebase": "^9.6.1",
     "jsrsasign": "^10.5.1",
     "jsrsasign-util": "^1.0.5",
-    "peerjs": "^1.3.2",
+    "process": "^0.11.10",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.4",
+    "react-bootstrap": "^2.1.0",
     "react-cookies": "^0.1.1",
     "react-dom": "^17.0.2",
+    "react-error-overlay": "^6.0.10",
     "react-if": "^4.1.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-webcam": "^6.0.0",
-    "socket.io-client": "^4.4.0",
-    "video-react": "^0.14.1"
+    "simple-peer": "^9.11.0",
+    "simple-peer-light": "^9.10.0",
+    "socket.io-client": "^4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,5 +53,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "//": "See https://github.com/facebook/create-react-app/issues/11773",
+    "react-error-overlay": "6.0.9"
   }
 }
