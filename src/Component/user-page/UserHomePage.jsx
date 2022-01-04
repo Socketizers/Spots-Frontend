@@ -39,10 +39,13 @@ function UserHomePage() {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
+    if(cookie.load('token')){
     dispatcher(getFriendsList());
     dispatcher(getFriendsRequest());
-    if (cookie.load("token")) dispatcher(getAllServers());
-  }, []);
+    dispatcher(getAllServers());
+    }
+
+  }, [cookie.load('token')]);
 
   return (
     <>

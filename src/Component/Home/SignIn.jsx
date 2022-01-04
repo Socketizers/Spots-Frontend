@@ -25,12 +25,10 @@ function SignIn() {
       })
     );
 
-    setTimeout(() => {
-      if (status === "idle") {
+
         dispatcher(getAllServers());
         navigate("/");
-      }
-    }, 500);
+
   };
 
   return (
