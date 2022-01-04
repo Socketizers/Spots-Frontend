@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+.serversCol {
+  height: 78vh;
+  margin: 1vh 0;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+/*********** Slider Styling + Image hover ************************ */
+
+.sliderDiv {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  width: 100%;
+}
+
+.sliderImg {
+  width: 100% !important;
+  height: 7em;
+  border-radius: 15px;
+  display: block;
+  object-fit: cover;
+}
+
+.sliderImgContainer {
+  position: relative;
+  width: 12em !important;
+}
+
+.sliderOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #0a94b6b6;
+}
+
+.sliderImgContainer:hover .sliderOverlay {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.sliderText {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/********************************************************/
+
+.slick-prev:before,
+.slick-next:before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+
+  opacity: 0.75;
+  color: black !important;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/**********************Scroll bar edit*************************/
+
+/* width */
+.serversCol::-webkit-scrollbar {
+  width: 8px;
+  /* display: none; */
+}
+
+/* Track */
+.serversCol::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+.serversCol::-webkit-scrollbar-thumb {
+  background: #0a94b6;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.serversCol::-webkit-scrollbar-thumb:hover {
+  background: #0d6e86;
+}
+
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+/********** Footer *******************/
+
+#footerRow {
+  background-color: #0a94b6;
+  height: 9.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ownedServer {
+  width: 50%;
+  overflow-x: scroll;
+}
+
+#ownedServer::-webkit-scrollbar {
+  display: none;
+}
+
+#notOwnedServers {
+  width: 50%;
+  overflow-x: scroll;
+}
+
+#notOwnedServers::-webkit-scrollbar {
+  display: none;
+}
+
+#createServerIcon {
+  width: 50px;
+  height: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+.serverSpan {
+  position: relative;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.footerServerListImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.settingsIcon {
+  position: absolute;
+  top: -15px;
+  left: 0;
+}

@@ -1,24 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import Webcam from "react-webcam";
 import { storage } from "../../../app/firebase";
 import api from "../../../app/api";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { Modal } from "react-bootstrap";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 700,
-  bgcolor: "background.paper",
-  border: "0px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 function MyStory(props) {
   const [file, setFile] = useState("");
@@ -28,6 +13,8 @@ function MyStory(props) {
   const mediaRecorderRef = React.useRef(null);
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
+  const [fileUpload, setFileUpload] = useState(false);
+
 
   const videoConstraints = {
     facingMode: "user",
@@ -89,6 +76,7 @@ function MyStory(props) {
     }
     reader.readAsDataURL(e.target.files[0])
     setFile(e.target.files[0]);
+    setFileUpload(true);
   };
 
   const handleUpload = () => {
@@ -120,6 +108,7 @@ function MyStory(props) {
     const name = +new Date() + "-" + file.name;
     const uploadTask = storage.ref(`images/${name}`).put(file);
     console.log("uploaded successfully");
+    setImgSrc(null); setFileUpload(false)
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -144,7 +133,7 @@ function MyStory(props) {
     const uploadTask = storage
       .ref(`images/${name}`)
       .putString(file, "data_url");
-    console.log("uploaded successfully");
+      setImgSrc(null); setFileUpload(false)
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -165,23 +154,16 @@ function MyStory(props) {
     );
   };
 
-  
   return (
-    <Modal
-      open={props.open}
-      onClose={props.handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Story
-        </Typography>
-        {!!imgSrc ? (
+    <Modal show={props.open} onHide={props.handleClose} size='lg' >
+        <Modal.Header closeButton>
+          <Modal.Title>Add Story</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> {!!imgSrc ? (
           <>
-            <img src={imgSrc} />
-            <button onClick={() => setImgSrc(null)}>Retake</button>
-            <button onClick={handleUploadScreen}>Upload</button>
+            <img src={imgSrc}  style={{width:'47.7em'}}/>
+            <button className="story-btn" onClick={() => {setImgSrc(null); setFileUpload(false)}}><i class="fas fa-reply"></i></button>
+           {!fileUpload &&<button className="story-btn" onClick={handleUploadScreen}><i class="fas fa-upload"></i></button>}
           </>
         ) : (
           <>
@@ -190,26 +172,31 @@ function MyStory(props) {
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
+              style={{width:'47.7em'}}
             />
             {capturing ? (
-              <button onClick={handleStopCaptureClick}>Stop Capture</button>
+              <button className="story-btn" onClick={handleStopCaptureClick}><i class="fas fa-stop"></i></button>
             ) : (
               <>
-                <button onClick={capture}>Capture photo</button>
-                <button onClick={handleStartCaptureClick}>Start Capture</button>
+                <button className="story-btn" onClick={capture} ><i class="fas fa-camera"></i></button>
+                <button className="story-btn" onClick={handleStartCaptureClick}><i class="fas fa-video"></i></button>
               </>
             )}
             {recordedChunks.length > 0 && (
-              <button onClick={handleDownload}>Upload</button>
+              <> 
+              <button className="story-btn" onClick={handleDownload}><i class="fas fa-upload"></i></button>
+              <button className="story-btn" onClick={() => {setImgSrc(null); setFileUpload(false); setFile(''); setRecordedChunks([])}}><i class="fas fa-reply"></i></button>
+              </>
             )}
           </>
-        )}
 
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
-        <input type="file" onChange={handleChange} />
-        <button onClick={handleUploadFile}>Upload</button>
-      </Box>
-    </Modal>
+        )}
+        
+        {!fileUpload ? !recordedChunks.length > 0&&!capturing&&!imgSrc&&<input type="file" onChange={handleChange} />: <button className="story-btn" onClick={handleUploadFile}><i class="fas fa-upload"></i></button>}
+        </Modal.Body>
+        
+      </Modal>
+ 
   );
 }
 

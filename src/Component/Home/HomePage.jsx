@@ -29,36 +29,55 @@ export const HomePage = (props) => {
     700: 3,
   };
 
-function changeHeader() {
-  if(window.scrollY >= 100){
-    setNavBar(true);
-  }else{
-    setNavBar(false);
+  function changeHeader() {
+    if (window.scrollY >= 100) {
+      setNavBar(true);
+    } else {
+      setNavBar(false);
+    }
   }
-}
-  window.addEventListener('scroll', changeHeader);
+  window.addEventListener("scroll", changeHeader);
   return (
     <>
-     <Navbar className={navBar?"NavBar  active":"NavBar"} sticky="top">
-          <Navbar.Brand className="mr-lg-5" href="/" style={{visibility:navBar?'visible':'hidden'}}>
-            <img src={logo1} className="logo" width="200" />
-          </Navbar.Brand>
+      <Navbar className={navBar ? "NavBar  active" : "NavBar"} sticky="top">
+        <Navbar.Brand
+          className="mr-lg-5"
+          href="/"
+          style={{ visibility: navBar ? "visible" : "hidden" }}
+        >
+          <img src={logo1} className="logo" width="200" />
+        </Navbar.Brand>
 
-          <Navbar.Collapse id="basic-navbar-nav links" style={{marginLeft:navBar?'2%':'30%'}}>
-            <Nav.Link style={{ color: "white",fontSize:'1.1em' }}  href="/">
-              Home
-            </Nav.Link>
-            <Nav.Link style={{ color: "white",fontSize:'1.1em' }} href="#about">
-              About Us
-            </Nav.Link>
-            <Nav.Link className="signUp" style={{ color: "#0A95B6",fontSize:'1.1em', marginLeft:navBar?'65%':'40%', paddingTop: '4px' }} href="/sign-up">
-             Sign Up
-            </Nav.Link>
-            <Nav.Link style={{ color: "white",fontSize:'1.1em'}} href="/sign-in">
-              Login
-            </Nav.Link>
-          </Navbar.Collapse>
-        </Navbar>
+        <Navbar.Collapse
+          id="basic-navbar-nav links"
+          style={{ marginLeft: navBar ? "2%" : "30%" }}
+        >
+          <Nav.Link style={{ color: "white", fontSize: "1.1em" }} href="/">
+            Home
+          </Nav.Link>
+          <Nav.Link style={{ color: "white", fontSize: "1.1em" }} href="#about">
+            About Us
+          </Nav.Link>
+          <Nav.Link
+            className="signUp"
+            style={{
+              color: "#0A95B6",
+              fontSize: "1.1em",
+              marginLeft: navBar ? "65%" : "40%",
+              paddingTop: "4px",
+            }}
+            href="/sign-up"
+          >
+            Sign Up
+          </Nav.Link>
+          <Nav.Link
+            style={{ color: "white", fontSize: "1.1em" }}
+            href="/sign-in"
+          >
+            Login
+          </Nav.Link>
+        </Navbar.Collapse>
+      </Navbar>
 
       <div className="landing">
         <div className="landing-header">
@@ -74,7 +93,7 @@ function changeHeader() {
           <button>Get Started </button>
         </div>
       </div>
-      <div style={{ position: "relative", marginTop:'50em' }}>
+      <div style={{ position: "relative", marginTop: "50em" }}>
         <Row style={{ margin: "10em 8em 6em" }}>
           <Col className="feature-1">
             <h1>CHOOSE YOUR COMMUNITY</h1>
@@ -223,11 +242,14 @@ function changeHeader() {
               nisi ut aliquip ex ea commodo consequat.
             </p>
             <button type="submit" className="button">
-              <i class="fab fa-apple" style={{ fontSize: "2.3em" }}></i>{" "}
+              <i className="fab fa-apple" style={{ fontSize: "2.3em" }}></i>{" "}
               <p>Download</p>
             </button>
             <button type="submit" className="button">
-              <i class="fab fa-google-play" style={{ fontSize: "2.3em" }}></i>{" "}
+              <i
+                className="fab fa-google-play"
+                style={{ fontSize: "2.3em" }}
+              ></i>{" "}
               <p>Download</p>
             </button>
           </Col>
