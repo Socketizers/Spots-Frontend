@@ -1,66 +1,53 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Story from "./Story";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
+import { Row, Col } from "react-bootstrap";
 import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 function FriendList() {
   const userFriends = useSelector((state) => state.friendsList.users);
-  const status = useSelector((state) => state.friendsList.status);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
-      FriendList {status}
-      <List
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        style={{ marginTop: "3em" }}
-      >
-        {userFriends.map((friend, i) => {
+    <>
+      <div className="list">
+         { !userFriends.length ? 'Add Friends' : userFriends.map((friend, i) => {
           return (
-            <ListItem
-              alignItems="flex-start"
-              key={i}
-              style={{ borderBottom: "1px solid #dadada" }}
-            >
-              <ListItemAvatar>
-                <Avatar alt={friend.username} src={friend.image} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={friend.username}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      {friend.onlineStatus ? "Online" : "Offline"}
-                    </Typography>
-                    {friend.story && (
-                      <>
-                        <Button onClick={handleOpen}>View Story</Button>
-                         <Story open={open} handleClose={handleClose} story={friend.story} />
-                      </>
-                    )}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
+            <Row key={i} style={{ marginBottom: ".5em" }}>
+              <Col md={2} style={{ position: "relative" }}>
+                <Avatar
+                  alt={friend.username}
+                  src={friend.image}
+                  style={{
+                    border: friend.story ? "6px solid #8EFCBA" : "6px solid  #b9b8b8",
+                    width: "2.5em",
+                    height: "2.5em",
+                  }}
+                />
+                {/* <div className="online"></div> */}
+                {friend.story && (
+                  <>
+                    <button className="story-btn" onClick={handleOpen}></button>
+                    <Story
+                      open={open}
+                      handleClose={handleClose}
+                      story={friend.story}
+                      name={friend.username}
+                    />
+                  </>
+                )}
+              </Col>
+              <Col md={3}  style={{ marginLeft: "1.5em", position: "relative" }}>
+                <h6 style={{ marginTop: ".8em" }}>{friend.username}</h6>
+              </Col>
+            </Row>
           );
         })}
-      </List>
-    </div>
+      </div>
+    </>
   );
 }
 

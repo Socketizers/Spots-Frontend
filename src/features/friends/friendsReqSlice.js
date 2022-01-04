@@ -5,6 +5,7 @@ export const initialState = {
   users: [""],
   requests:[""],
   message:"",
+  seen:false,
   status: "rejected", // pending || idle || rejected
   error: null,
 };
@@ -20,7 +21,12 @@ export const getFriendsRequest = createAsyncThunk("friends/new-request", async (
 const friendsRequestsSlice = createSlice({
   name: "friends",
   initialState,
-  reducers: {},
+  reducers: {
+    reqSeen: (state) => {
+      state.seen = true;
+},
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getFriendsRequest.pending, (state) => {
@@ -31,6 +37,7 @@ const friendsRequestsSlice = createSlice({
         state.users = action.payload;
         state.message = action.payload;
         state.error = null;
+        state.seen=false;
       })
       .addCase(getFriendsRequest.rejected, (state, action) => {
         state.error = action.error;
@@ -40,4 +47,5 @@ const friendsRequestsSlice = createSlice({
   },
 });
 
+export const {reqSeen} = friendsRequestsSlice.actions;
 export default friendsRequestsSlice.reducer;
