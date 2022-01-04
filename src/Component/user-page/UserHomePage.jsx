@@ -6,17 +6,33 @@ import { getFriendsRequest, reqSeen } from "../../features/friends/friendsReqSli
 import { Dropdown, Container, Button, Row, Col } from "react-bootstrap";
 import logo1 from "../../assets/images/SPOTSLOGO00.png";
 import "./UserPage.scss";
-
+import cookie from "react-cookies";
+import { getAllServers } from "../../features/server/serverSlice";
+import "./ServersArea.css";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FriendList from "./friends/FriendList";
 import MyStory from "./profile/MyStory";
 import Requests from "./friends/Requests";
+import RenderServers from "./add-create-server/add/RenderServers";
+import ServerDec from "./add-create-server/add/ServerDec";
+import CreateServer from "./add-create-server/create/CreateServer";
+
 
 function UserHomePage() {
-  const [open, setOpen] = useState(false);
+  const servers = useSelector((state) => state.server.servers);
   const user = useSelector((state) => state.auth.user);
+  const [open, setOpen] = useState(false);
   const requests = useSelector((state) => state.friendsRequest.users);
   const seenReq = useSelector((state) => state.friendsRequest.seen);
   
+
+  const [showServerDescriptionModal, setShowServerDescriptionModal] =
+    useState(false);
+  const [showCreateServerModal, setShowCreateServerModal] = useState(false);
+  const [selectedServer, setSelectedServer] = useState({});
+
+
   const dispatcher = useDispatch();
 
   const handleOpen = () => setOpen(true);
@@ -25,6 +41,7 @@ function UserHomePage() {
   useEffect(() => {
     dispatcher(getFriendsList());
     dispatcher(getFriendsRequest());
+    if (cookie.load("token")) dispatcher(getAllServers());
   }, []);
 
   return (
@@ -101,19 +118,87 @@ function UserHomePage() {
       </header>
 
       <Row style={{marginTop:'2vh'}}>
-        <Col md={10}></Col>
+        
+        <Col xs={10} className="serversCol">
+        <RenderServers
+          category={"General"}
+          servers={servers.filter((server) => server.category === "General")}
+        />
+        <RenderServers
+          category={"Financial"}
+          servers={servers.filter((server) => server.category === "Financial")}
+        />
+        <RenderServers
+          category={"Career"}
+          servers={servers.filter((server) => server.category === "Career")}
+        />
+        <RenderServers
+          category={"Sport"}
+          servers={servers.filter((server) => server.category === "Career")}
+        />
+        <RenderServers
+          category={"Entertainment"}
+          servers={servers.filter((server) => server.category === "Career")}
+        />
+      </Col>
+
         <Col md={2} className="friend-list">
       <FriendList />
       </Col>
       </Row>
-      
-      <h2>User Home Page</h2>
+     
+
+      <div id="footerRow">
+        <div id="ownedServer">
+          <AddCircleIcon
+            id="createServerIcon"
+            onClick={() => setShowCreateServerModal(true)}
+          />
+          {servers
+            .filter((server) => server.user_id === user.id)
+            .map((server, index) => (
+              <span
+                key={index}
+                className="serverSpan"
+                onClick={() => {
+                  setSelectedServer(server);
+                  setShowServerDescriptionModal(true);
+                }}
+              >
+                <img src={server.image} className="footerServerListImg" />
+                <SettingsIcon className="settingsIcon" />
+              </span>
+            ))}
+        </div>
+        <div id="notOwnedServers">
+          {servers
+            .filter((server) => server.user_id !== user.id)
+            .map((server, index) => (
+              <span
+                key={index}
+                className="serverSpan"
+                onClick={() => {
+                  setSelectedServer(server);
+                  setShowServerDescriptionModal(true);
+                }}
+              >
+                <img src={server.image} className="footerServerListImg" />
+              </span>
+            ))}
+        </div>
+        <CreateServer
+          setShowModal={setShowCreateServerModal}
+          showModal={showCreateServerModal}
+        />
+        <ServerDec
+          setShowModal={setShowServerDescriptionModal}
+          showModal={showServerDescriptionModal}
+          selectedServer={selectedServer}
+        />
+      </div>
       
         <MyStory open={open} handleClose={handleClose} />
-      
-    </>
-
-    
+        </>
   );
 }
 

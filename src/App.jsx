@@ -10,16 +10,19 @@ import UserHomePage from "./Component/user-page/UserHomePage";
 import ServerList from "./Component/user-page/ServerList";
 import Chat from "./Component/user-page/server/Chat";
 import { logIn } from "./features/auth/authSlice";
+import { getAllServers } from "./features/server/serverSlice";
 import cookie from "react-cookies";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const status = useSelector((state) => state.auth.status);
   const dispatcher = useDispatch();
 
   useEffect(() => {
-    if (cookie.load("token")) dispatcher(logIn());
+    if (cookie.load("token")) {
+      dispatcher(logIn());
+      dispatcher(getAllServers());
+    }
   }, []);
 
   return (
@@ -34,8 +37,16 @@ function App() {
           path="/sign-in"
           element={
             <>
-            <Header /> 
+              <Header />
               <SignIn />
+            </>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
+            <>
+              <Header />
               <SignUp />
             </>
           }
