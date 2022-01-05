@@ -10,14 +10,14 @@ import { Dropdown, Button, Row, Col } from "react-bootstrap";
 import logo1 from "../../assets/images/SPOTSLOGO00.png";
 import "./UserPage.scss";
 import cookie from "react-cookies";
-import { getAllServers } from "../../features/server/serverSlice";
+
 import "./ServersArea.css";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FriendList from "./friends/FriendList";
 import MyStory from "./profile/MyStory";
 import Requests from "./friends/Requests";
-import RenderServers from "./add-create-server/add/RenderServers";
+
 import ServerDec from "./add-create-server/add/ServerDec";
 import CreateServer from "./add-create-server/create/CreateServer";
 import "../../../node_modules/slick-carousel/slick/slick.css";
@@ -25,7 +25,7 @@ import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 import PrivateChat from "./private-room/PrivateChat";
 import api from "../../app/api";
 
-function UserHomePage() {
+function UserPrivateChat() {
   const servers = useSelector((state) => state.server.servers);
   const user = useSelector((state) => state.auth.user);
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ function UserHomePage() {
 
   async function updateCurrentChat(receiver) {
     try {
-      console.log(receiver);
+      //   console.log(receiver);
       setCurrentReceiver(receiver);
       const chat = await api.get(`/private-room/users/${receiver.id}`);
       setCurrentChat(chat.data ? chat.data.message_history : {});
@@ -75,7 +75,7 @@ function UserHomePage() {
         <Button className="story-btn" onClick={handleOpen}>
           <i class="fas fa-plus"></i>
         </Button>
-        <Button className="story-btn" href="/private-chat">
+        <Button className="story-btn">
           <i class="fas fa-inbox"></i>
         </Button>
 
@@ -151,34 +151,17 @@ function UserHomePage() {
         </div>
       </header>
 
-      <Row style={{ margin: "1vh 0" }}>
-        <Col xs={10} className="serversCol">
-          <RenderServers
-            category={"General"}
-            servers={servers.filter((server) => server.category === "General")}
-          />
-          <RenderServers
-            category={"Financial"}
-            servers={servers.filter(
-              (server) => server.category === "Financial"
-            )}
-          />
-          <RenderServers
-            category={"Career"}
-            servers={servers.filter((server) => server.category === "Career")}
-          />
-          <RenderServers
-            category={"Sport"}
-            servers={servers.filter((server) => server.category === "Career")}
-          />
-          <RenderServers
-            category={"Entertainment"}
-            servers={servers.filter((server) => server.category === "Career")}
+      <Row style={{ width: "100%", height: "76vh", margin: "1vh 0" }}>
+        <Col xs={10}>
+          <PrivateChat
+            updateCurrentChat={updateCurrentChat}
+            currentReceiver={currentReceiver}
+            currentChat={currentChat}
           />
         </Col>
 
-        <Col md={2} className="friend-list">
-          <FriendList />
+        <Col xs={2} className="friend-list">
+          <FriendList updateCurrentChat={updateCurrentChat} />
         </Col>
       </Row>
 
@@ -236,4 +219,4 @@ function UserHomePage() {
   );
 }
 
-export default UserHomePage;
+export default UserPrivateChat;

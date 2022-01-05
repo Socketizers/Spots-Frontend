@@ -13,6 +13,8 @@ import { logIn } from "./features/auth/authSlice";
 import { getAllServers } from "./features/server/serverSlice";
 import cookie from "react-cookies";
 import "bootstrap/dist/css/bootstrap.min.css";
+import PrivateChat from "./Component/user-page/private-room/PrivateChat";
+import UserPrivateChat from "./Component/user-page/UserPrivateChat";
 
 function App() {
   const status = useSelector((state) => state.auth.status);
@@ -31,7 +33,15 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={status === "idle" ? <><UserHomePage /></> : <Home />}
+          element={
+            status === "idle" ? (
+              <>
+                <UserHomePage />
+              </>
+            ) : (
+              <Home />
+            )
+          }
         />
         <Route
           path="/sign-in"
@@ -54,6 +64,7 @@ function App() {
         <Route path="/servers" element={<ServerList />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/private-chat" element={<UserPrivateChat />} />
       </Routes>
     </BrowserRouter>
   );

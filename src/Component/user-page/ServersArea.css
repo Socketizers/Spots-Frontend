@@ -3,9 +3,8 @@
 }
 
 .serversCol {
-  height: 78vh;
-  margin: 1vh 0;
-  padding: 50px;
+  height: 76vh;
+  /* padding: 50px; */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -45,6 +44,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  border-radius: 15px;
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -114,7 +114,7 @@
 /********** Footer *******************/
 
 #footerRow {
-  background-color: #0a94b6;
+  background-color: #38798a;
   height: 9.5vh;
   display: flex;
   justify-content: center;
@@ -123,7 +123,9 @@
 
 #ownedServer {
   width: 50%;
-  overflow-x: scroll;
+  height: min-content;
+  overflow: scroll;
+  padding: 0 1%;
 }
 
 #ownedServer::-webkit-scrollbar {
@@ -132,7 +134,8 @@
 
 #notOwnedServers {
   width: 50%;
-  overflow-x: scroll;
+  overflow: scroll;
+  padding: 0 1%;
 }
 
 #notOwnedServers::-webkit-scrollbar {
@@ -140,7 +143,7 @@
 }
 
 #createServerIcon {
-  width: 50px;
+  width: 50px !important;
   height: 50px;
   color: white;
   cursor: pointer;
@@ -149,6 +152,7 @@
 .serverSpan {
   position: relative;
   margin-left: 10px;
+  width: fit-content !important;
   cursor: pointer;
 }
 
@@ -163,4 +167,54 @@
   position: absolute;
   top: -15px;
   left: 0;
+}
+
+/*******************Modal Styling***************************/
+
+.modalHeader {
+  background-color: #0a94b65e !important;
+  border: none !important;
+}
+
+.modalBody {
+  background-color: #0a94b667 !important;
+  border-radius: 15px !important;
+  color: white;
+}
+
+.modalBody img {
+  border-radius: 15px;
+}
+
+.modalBody Button {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:hover {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:enabled {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modal-content {
+  background: none !important;
+  border: none !important;
+  width: fit-content;
 }

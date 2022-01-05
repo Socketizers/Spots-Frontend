@@ -4,13 +4,14 @@ import { Form, Modal, Button } from "react-bootstrap";
 import api from "../../../../app/api";
 import { useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
+import "./CreateServer.scss";
 
 function CreateServer(props) {
   const dispatcher = useDispatch();
 
   async function createServer(e) {
     e.preventDefault();
-    console.log("create server");
+    // console.log("create server");
     const file = document.getElementById("files").files[0];
     const body = new FormData();
     body.append("name", e.target.name.value);
@@ -22,15 +23,7 @@ function CreateServer(props) {
   }
 
   return (
-    <Modal
-      show={props.showModal}
-      onHide={() => props.setShowModal(false)}
-      className="serverModal"
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>Create Server</Modal.Title>
-      </Modal.Header>
-
+    <Modal show={props.showModal} onHide={() => props.setShowModal(false)}>
       <Modal.Body
         style={{
           display: "flex",
@@ -39,16 +32,26 @@ function CreateServer(props) {
           alignItems: "center",
           gap: "20px",
         }}
+        className="createServerModalBody"
       >
         <Form onSubmit={createServer}>
+          <h2> Create Server</h2>
           <FormGroup>
             <Form.Label>Server Name</Form.Label>
-            <Form.Control type="text" id="name" />
+            <Form.Control
+              type="text"
+              id="name"
+              placeholder="Enter your server Name"
+            />
           </FormGroup>
 
           <FormGroup>
             <Form.Label>Description</Form.Label>
-            <Form.Control type="text" id="description" />
+            <Form.Control
+              type="text"
+              id="description"
+              placeholder="Brief description about the server"
+            />
           </FormGroup>
 
           <FormGroup>

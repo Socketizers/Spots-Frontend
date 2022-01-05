@@ -4,6 +4,13 @@ import "../../../../../node_modules/slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import ServerDec from "./ServerDec";
 
+/**
+ * IMPORTANT NOTE 📓 :
+ *
+ *  THIS Component Styling IN ServersArea.css
+ *
+ */
+
 function RenderServers(props) {
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
@@ -13,11 +20,11 @@ function RenderServers(props) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 4,
+    slidesToScroll: 4,
   };
   return (
-    <div>
+    <div style={{ padding: "0 5%" }}>
       <h2>{props.category}</h2>
       <div className="sliderDiv">
         <Slider {...settings} className="slider">
