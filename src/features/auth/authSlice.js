@@ -39,11 +39,14 @@ export const initialState = {
   error: null,
 };
 
+let counter = 0;
+
 export const signIn = createAsyncThunk(
   "auth/sign-in",
   async ({ username, password }) => {
     try {
       const response = await signInApi(username, password);
+      counter++;
       return response.data;
     } catch (e) {
       Swal.fire({
@@ -107,10 +110,14 @@ const authSlice = createSlice({
         state.status = "pending";
       })
       .addCase(signIn.fulfilled, (state, action) => {
+        cookie.save("token", action.payload.token);
+        console.log(action);
         state.status = "idle";
         state.user = action.payload.user;
         state.error = null;
-        cookie.save("token", action.payload.token);
+        if (counter === 1) {
+          window.location.assign("/");
+        }
       })
       .addCase(signIn.rejected, (state, action) => {
         state.error = action.error;

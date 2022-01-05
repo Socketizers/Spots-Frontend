@@ -1,14 +1,24 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import api from "../../../../app/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllServers } from "../../../../features/server/serverSlice";
+
+/**
+ * IMPORTANT NOTE 📓 :
+ *
+ *  THIS Modal Styling IN ServersArea.css
+ *
+ */
 
 function ServerDec(props) {
   const userInfo = useSelector((state) => state.auth.user);
+  const dispatcher = useDispatch();
 
   async function joinServer() {
     // console.log("join server");
     await api.put(`/connect/server/${props.selectedServer.id}`);
+    dispatcher(getAllServers);
   }
 
   return (
@@ -17,10 +27,6 @@ function ServerDec(props) {
       onHide={() => props.setShowModal(false)}
       className="serverModal"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>{props.selectedServer.name}</Modal.Title>
-      </Modal.Header>
-
       <Modal.Body
         style={{
           display: "flex",
@@ -29,12 +35,23 @@ function ServerDec(props) {
           alignItems: "center",
           gap: "20px",
         }}
+        className="modalBody"
       >
+        <h1>{props.selectedServer.name}</h1>
         <img src={props.selectedServer.image} width={"80%"} height={"40%"} />
         <p>{props.selectedServer.description}</p>
-        <Button variant="primary" onClick={joinServer}>
+        {props.selectedServer.users?.includes(userInfo.id) ? (
+          <Button variant="primary" onClick={joinServer}>
+            Go to Server
+          </Button>
+        ) : (
+          <Button variant="primary" onClick={joinServer}>
+            Join
+          </Button>
+        )}
+        {/* <Button variant="primary" onClick={joinServer}>
           Join
-        </Button>
+        </Button> */}
         {props.selectedServer.user_id === userInfo.id && (
           <Button variant="primary">Server Settings</Button>
         )}

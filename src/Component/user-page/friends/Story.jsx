@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Carousel, Modal } from "react-bootstrap";
 
-
 function Story(props) {
   const [index, setIndex] = useState(0);
 
@@ -13,7 +12,6 @@ function Story(props) {
 
   return (
     <Modal show={props.open} onHide={props.handleClose} size="lg">
-     
       <Modal.Body>
         <Carousel activeIndex={index} onSelect={handleSelect}>
           {storyArr.map((story) => {
@@ -31,7 +29,11 @@ function Story(props) {
             } else {
               return (
                 <Carousel.Item>
-                  <video src={story} style={{ width: "47.7em", height: "35em" }} autoPlay={true}>
+                  <video
+                    src={story}
+                    style={{ width: "47.7em", height: "35em" }}
+                    autoPlay={true}
+                  >
                     Your browser does not support HTML video.
                   </video>
                 </Carousel.Item>
@@ -41,7 +43,6 @@ function Story(props) {
         </Carousel>
       </Modal.Body>
     </Modal>
-  
   );
 }
 

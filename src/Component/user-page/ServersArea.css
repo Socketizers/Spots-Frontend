@@ -53,6 +53,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  border-radius: 15px;
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -164,7 +165,7 @@
 }
 
 #createServerIcon {
-  width: 50px;
+  width: 50px !important;
   height: 50px;
   color: white;
   cursor: pointer;
@@ -173,6 +174,7 @@
 .serverSpan {
   position: relative;
   margin-left: 10px;
+  width: fit-content !important;
   cursor: pointer;
 }
 
@@ -217,3 +219,52 @@ left: -26px;
 left: -26px;
 }
 
+/*******************Modal Styling***************************/
+
+/* .modalHeader {
+  background-color: #0a94b65e !important;
+  border: none !important;
+}
+
+.modalBody {
+  background-color: #0a94b667 !important;
+  border-radius: 15px !important;
+  color: white;
+}
+
+.modalBody img {
+  border-radius: 15px;
+}
+
+.modalBody Button {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:hover {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:enabled {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modal-content {
+  background: none !important;
+  border: none !important;
+  width: fit-content;
+} */

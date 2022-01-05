@@ -7,6 +7,13 @@ import LeftArrow from "../../../../assets/left-arrow.svg";
 import RightArrow from "../../../../assets/right-arrow.svg";
 import dots from "../../../../assets/SPOTS-spots.png";
 
+/**
+ * IMPORTANT NOTE 📓 :
+ *
+ *  THIS Component Styling IN ServersArea.css
+ *
+ */
+
 function RenderServers(props) {
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
