@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../app/api";
+import logo from "../assets/SPOTSLOGO-PPS.png"
 
 export const initialState = {
   servers: [],
@@ -11,8 +12,8 @@ export const getAllServers = createAsyncThunk(
   "server/getAllServers",
   async () => {
     const response = await api.get("/server");
-    response.data.map(server => {
-      if(!server.image)
+    response.data.forEach(server => {
+      if(!server.image) {server.image = logo}
     })
     return response.data;
   }
