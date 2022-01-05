@@ -33,23 +33,13 @@ function Media({ rooms, ioConnection }) {
       }
     }
   }
-  function connectToNewUser(userId, stream, peer) {
-    console.log("connectToNewUser");
-    console.log("call", stream);
-
+  function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
     setCalls((prev) => [...prev, call]);
-    call.peerConnection.addEventListener("track", async (event) => {
-      console.log(event);
-      setPeers(peer.connections);
-    });
     call.on("stream", (remoteStream) => {
-      console.log("incoming", remoteStream);
-      window.stream = remoteStream;
       setPeers(peer.connections);
     });
     call.on("close", () => {
-      console.log("close");
       if (peers[userId]) {
         peers[userId][0]?.close();
         delete peers[userId];
@@ -57,29 +47,19 @@ function Media({ rooms, ioConnection }) {
       }
     });
   }
-
   const video = React.useRef();
+  const joinVideoAndNewUser = (stream, peer, savePeers, peers) => {
+    ioConnection?.on("new_user_joined", (userInfo, userId) => {
+      connectToNewUser(userId, stream, peer);
+    });
+    ioConnection.emit("join_video", userInfo.username, params.id, peer.id);
+  };
+
   const answerPeers = (myStream) => {
-    console.log(stream);
     peer.on("call", (call) => {
-      if (call.peerConnection) {
-        setCalls((prev) => [...prev, call]);
-        call.peerConnection.addEventListener("track", async (event) => {
-          console.log(event.streams);
-          setPeers(peer.connections);
-        });
-      }
-      console.log("ans", myStream);
       call.answer(myStream);
       setPeers(peer.connections);
     });
-  };
-
-  const joinVideoAndNewUser = (stream, peer, savePeers, peers) => {
-    ioConnection?.on("new_user_joined", (userInfo, userId) => {
-      connectToNewUser(userId, stream, peer, savePeers, peers);
-    });
-    ioConnection.emit("join_video", userInfo.username, params.id, peer.id);
   };
 
   useEffect(() => {
@@ -276,26 +256,6 @@ function Media({ rooms, ioConnection }) {
       >
         get peers
       </Button>
-      {Object.entries(peers).map(([key, arr]) => {
-        arr[arr.length - 1]?.peerConnection?.addEventListener("track", (e) => {
-          setNewTracker(true);
-        });
-        return (
-          <video
-            key={key}
-            autoPlay
-            controls={true}
-            width={500}
-            ref={(video) => {
-              console.log("new render");
-              if (video) {
-                if (arr[0]?.remoteStream) video.srcObject = arr[0].remoteStream;
-                // console.log(arr[0]?.remoteStream?.getTracks());
-              }
-            }}
-          />
-        );
-      })}
     </div>
   );
 }
