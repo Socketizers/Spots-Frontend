@@ -1,20 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import Chat from "./Chat";
-import Media1 from "./Media1";
 import Podcast from "./Podcast";
 import api from "../../../app/api";
 import io from "socket.io-client";
 import RenderRoom from "../friends/RenderRoom";
-import { useNavigate, useParams } from "react-router-dom";
-import { If, Then, When } from "react-if";
+import { useNavigate } from "react-router-dom";
+
 import Peer from "peerjs";
 
 function RoomsList() {
+  const [comp, setComp] = useState(<></>);
   const [rooms, setRooms] = useState([]);
   const ioConnection = useRef(null);
   const peer = useRef(null);
-  const params = useParams();
   const navigation = useNavigate();
+  const setComponent = (comp) => {
+    setComp(comp);
+  };
   useEffect(() => {
     // const connection = io.connect("http://localhost:8000");
     const connection = io.connect("socketizers.herokuapp.com");
@@ -49,9 +51,13 @@ function RoomsList() {
           ?.map((room, index) => {
             return (
               <RenderRoom
+                setComponent={setComponent}
                 key={index}
                 onClick={() => {
                   navigation(`/rooms/${room.name}${room.id}`);
+                  setComponent(
+                    <Chat ioConnection={ioConnection.current} room={room} />
+                  );
                 }}
                 room={room}
               />
@@ -64,6 +70,7 @@ function RoomsList() {
             return (
               <RenderRoom
                 key={index}
+                setComponent={setComponent}
                 ioConnection={ioConnection.current}
                 onClick={() => {
                   navigation(`/rooms/${room.name}${room.id}`);
@@ -79,50 +86,25 @@ function RoomsList() {
           ?.map((room, index) => {
             return (
               <RenderRoom
+                setComponent={setComponent}
                 key={index}
                 onClick={() => {
                   navigation(`/rooms/${room.name}${room.id}`);
+                  setComponent(
+                    <Podcast
+                      peer={peer.current}
+                      room={room}
+                      ioConnection={ioConnection.current}
+                      style={{ height: "100%" }}
+                    />
+                  );
                 }}
                 room={room}
               />
             );
           })}
       </div>
-      {/* {rooms.map((room, i) => (
-        <Row key={i} style={{ marginBottom: ".5em" }}>
-          {room.type === "text" && (
-            <Chat rooms={room} ioConnection={ioConnection} />
-          )}
-          {room.type === "podcast" && (
-            <Podcast rooms={room} ioConnection={ioConnection} />
-          )}
-          {room.type === "voice" && (
-            <Media1 rooms={room} ioConnection={ioConnection} />
-          )}
-        </Row>
-      ))} */}
-      <div className="roomsArray">
-        {rooms?.map((room) => (
-          <div key={room.id}>
-            <When condition={room.type === "text"}>
-              <Chat ioConnection={ioConnection.current} room={room} />
-            </When>
-            <When condition={room.type === "voice"}>
-              <Media1 room={room} ioConnection={ioConnection.current} />
-            </When>
-            <If condition={room.type === "podcast"} style={{ height: "100%" }}>
-              <Then>
-                <Podcast
-                  peer={peer.current}
-                  room={room}
-                  ioConnection={ioConnection.current}
-                  style={{ height: "100%" }}
-                />
-              </Then>
-            </If>
-          </div>
-        ))}
-      </div>
+      <div className="roomsArray">{comp}</div>
     </div>
   );
 }

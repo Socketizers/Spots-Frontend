@@ -31,6 +31,7 @@ function Podcast({ room, peer, ioConnection }) {
     return async () => {
       await api.put("/disconnect/room/" + room.id);
       peer.disconnect();
+      console.log("cleanup");
     };
   }, [ioConnection, peer, room.capacity, room.id, userInfo.fullName]);
 
@@ -145,7 +146,7 @@ function Podcast({ room, peer, ioConnection }) {
 
   const makeCouch = () => {
     const couches = [];
-    let usersOnTheCouch = usersConnectedToThisRoom.length;
+    let usersOnTheCouch = usersConnectedToThisRoom?.length;
     for (let i = 0; i < room.capacity; i++) {
       // if()
       couches.push(
@@ -195,59 +196,41 @@ function Podcast({ room, peer, ioConnection }) {
           <div className="presenter">
             {Object.entries(peers).map(([key, arr]) => {
               if (!disconnectedUsers.includes(key)) {
-                if (arr[0]?.remoteStream?.getTracks()?.length > 0) {
-                  if (arr[0]?.remoteStream?.getTracks()?.length >= 2) {
-                    const shareScreen = arr[0]?.remoteStream.clone();
-                    shareScreen?.getVideoTracks()?.forEach((track) => {
-                      console.log(track.label.split(":"));
-                      if (track.label !== track.label.split(":")[0])
-                        shareScreen.removeTracks(track);
-                    });
-                    return (
-                      <>
-                        <video
-                          key={key}
-                          autoPlay
-                          width={500}
-                          ref={(video) => {
-                            console.log("new render");
-                            if (video) {
-                              if (arr[0]?.remoteStream)
-                                video.srcObject = arr[0].remoteStream;
-                              // console.log(arr[0]?.remoteStream?.getTracks());
-                            }
-                          }}
-                        />
-                        <video
-                          key={key}
-                          autoPlay
-                          width={500}
-                          ref={(video) => {
-                            console.log("new render");
-                            if (video) {
-                              if (shareScreen) video.srcObject = shareScreen;
-                            }
-                          }}
-                        />
-                      </>
-                    );
-                  }
+                if (arr[0]?.remoteStream?.getTracks()?.length > 1) {
+                  console.log(arr[0]?.remoteStream?.getTracks());
+                  const shareScreen = arr[0]?.remoteStream.clone();
+                  console.log(shareScreen);
+                  shareScreen?.getTracks()?.forEach((track) => {
+                    console.log(track.label);
+                    if (track.kind === "audio") track.stop(track);
+                  });
+                  shareScreen.getVideoTracks()[0].stop();
                   return (
-                    <video
-                      key={key}
-                      autoPlay
-                      width={500}
-                      ref={(video) => {
-                        console.log("new render");
-                        if (video) {
-                          if (arr[0]?.remoteStream)
-                            video.srcObject = arr[0].remoteStream;
-                          // console.log(arr[0]?.remoteStream?.getTracks());
-                        }
-                      }}
-                    />
+                    <div key={key}>
+                      <video
+                        autoPlay
+                        width={500}
+                        ref={(video) => {
+                          console.log("new render");
+                          if (video) {
+                            if (arr[0]?.remoteStream)
+                              video.srcObject = arr[0].remoteStream;
+                            // console.log(arr[0]?.remoteStream?.getTracks());
+                          }
+                        }}
+                      />
+                      <video
+                        autoPlay
+                        width={500}
+                        ref={(video) => {
+                          if (video) {
+                            if (shareScreen) video.srcObject = shareScreen;
+                          }
+                        }}
+                      />
+                    </div>
                   );
-                } else return null;
+                }
               } else return null;
             })}
           </div>

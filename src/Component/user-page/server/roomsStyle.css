@@ -43,6 +43,6 @@
 :hover.couches {
   color: #9bd4e1;
 }
-video {
+.presenter video {
   border-radius: 50%;
 }
