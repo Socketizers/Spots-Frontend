@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import { useState } from "react";
 import ServerDec from "../add-create-server/add/ServerDec";
-
+import {useNavigate} from 'react-router-dom'
 import CreateServer from "../add-create-server/create/CreateServer";
 import { useSelector } from "react-redux";
 import LeftArrow from "../../../assets/left-arrow.svg";
@@ -29,7 +29,8 @@ const Footer = () => {
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
   const [showCreateServerModal, setShowCreateServerModal] = useState(false);
-
+  const navigate = useNavigate(); 
+  const user = useSelector((state) => state.auth.user);
   return (
     <div id="footerRow">
       <div id="notOwnedServers">
@@ -41,8 +42,9 @@ const Footer = () => {
                 key={index}
                 className="serverSpan"
                 onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
+     
+                  navigate(`/server/${server.id}`)
+
                 }}
               >
                 <img src={server.image} className="footerServerListImg" />
@@ -64,8 +66,10 @@ const Footer = () => {
                 key={index}
                 className="serverSpan"
                 onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
+                  
+                  
+                  navigate(`/server/${server.id}`)
+
                 }}
               >
                 <img src={server.image} className="footerServerListImg" />
@@ -78,7 +82,7 @@ const Footer = () => {
         </Slider>
       </div>
 
-      <CreateServer
+      {/* <CreateServer
         setShowModal={setShowCreateServerModal}
         showModal={showCreateServerModal}
       />
@@ -86,7 +90,7 @@ const Footer = () => {
         setShowModal={setShowServerDescriptionModal}
         showModal={showServerDescriptionModal}
         selectedServer={selectedServer}
-      />
+      /> */}
     </div>
   );
 };

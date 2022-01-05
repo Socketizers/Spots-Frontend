@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Component/Header";
 import AboutUs from "./Component/Home/AboutUs";
@@ -68,8 +68,12 @@ function App() {
         />
         <Route path="/servers" element={<ServerList />} />
         <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/rooms" element={<RoomsList />}>
-          <Route path=":id" />
+        <Route path="/server" element={<Outlet />}>
+          <Route path=":serverId" element={<RoomsList />}>
+            <Route path="rooms" element={<RoomsList />}>
+              <Route path=":id" element={<RoomsList />} />
+            </Route>
+          </Route>
         </Route>
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile"element= {<ProfilePage />} />

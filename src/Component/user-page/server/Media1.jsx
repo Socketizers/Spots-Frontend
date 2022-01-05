@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import Peer from "simple-peer-light";
 import "./roomsStyle.css";
+import api from "../../../app/api";
+
 const Video = (props) => {
   const ref = useRef();
   useEffect(() => {
@@ -18,28 +20,72 @@ const Video = (props) => {
         console.log("track event stream =>>", stream);
       });
   }, [props.peer]);
-  return <video playsInline autoPlay ref={ref} style={videoConstraints} />;
+  return (
+    <video
+      playsInline
+      autoPlay
+      ref={ref}
+      style={videoConstraints}
+      className="box"
+    />
+  );
 };
 
 const videoConstraints = {
-  height: 400,
-  width: 400,
+  height: 200,
+  width: 300,
+  margin: "20px",
 };
 
 function Media({ room, ioConnection }) {
-  const userInfo = useSelector((state) => state.auth.user);
-
   const [sharedScreen, setSharedScreen] = useState(false);
   const [tracker, setTracker] = useState({});
-
+  const [isMuted, setIsMuted] = useState(false);
   const params = useParams();
 
   const [peers, setPeers] = useState([]);
   const socketRef = useRef(ioConnection);
   const myStream = useRef();
-  const userVideo = useRef();
+
   const peersRef = useRef([]);
 
+  const userInfo = useSelector((state) => state.auth.user);
+  const [isUserConnected, setIsUserConnected] = useState(false);
+  const [usersConnectedToThisRoom, setUsersConnectedToThisRoom] = useState([]);
+
+  const connectToThisRoom = async () => {
+    if (isUserConnected) return;
+    const { data: getUsersConnectedToThisRoom } = await api.get(
+      `/connected/room/${room.id}`
+    );
+    if (
+      getUsersConnectedToThisRoom.message ===
+      "There are no users connected to this server"
+    ) {
+      await api.put(`/connect/room/${room.id}`);
+      const {
+        data: { users: usersConnectedToThisRoom },
+      } = await api.put(`/connect/room/${room.id}`);
+      setUsersConnectedToThisRoom(usersConnectedToThisRoom);
+      setIsUserConnected(true);
+    } else {
+      if (
+        !getUsersConnectedToThisRoom.some(
+          ({ fullName }) => fullName === userInfo.fullName
+        )
+      ) {
+        const {
+          data: { users: usersConnectedToThisRoom },
+        } = await api.put(`/connect/room/${room.id}`);
+        setUsersConnectedToThisRoom(usersConnectedToThisRoom);
+        setIsUserConnected(true);
+      } else {
+        setUsersConnectedToThisRoom(getUsersConnectedToThisRoom);
+        setIsUserConnected(true);
+        return;
+      }
+    }
+  };
   useEffect(() => {
     socketRef.current = ioConnection;
     let couther = 0;
@@ -62,6 +108,7 @@ function Media({ room, ioConnection }) {
               }); // push to peersRef
               peers.push(peer); // for
             });
+            connectToThisRoom();
             setPeers(peers);
           });
 
@@ -81,11 +128,11 @@ function Media({ room, ioConnection }) {
           });
         });
     }
-
-    return () => {
+    return async () => {
       console.log("unmount");
       peers.forEach((peer) => peer.destroy());
       myStream.current?.getTracks()?.forEach((track) => track.stop());
+      await api.put("/disconnect/room/" + room.id);
     };
   }, [params]);
   function onClosePeer(peerID) {
@@ -134,10 +181,9 @@ function Media({ room, ioConnection }) {
     <div>
       <If condition={room.name + room.id === params.id}>
         <Then>
-          {peers.map((peer, index) => {
-            return <Video key={index} peer={peer} />;
-          })}
+          
           <button
+            className="media-btn"
             onClick={() => {
               if (!sharedScreen) {
                 navigator.mediaDevices
@@ -154,7 +200,6 @@ function Media({ room, ioConnection }) {
                       myStream.current.getVideoTracks().forEach((track) => {
                         track.stop();
                       });
-
                       myStream.current.addTrack(stream.getVideoTracks()[0]);
                       setTracker(stream.getVideoTracks()[0]);
                     });
@@ -181,9 +226,32 @@ function Media({ room, ioConnection }) {
               }
             }}
           >
-            {sharedScreen ? "Share Camera" : "Share Screen"}
+            {sharedScreen ? (
+              <i className="fas fa-video"></i>
+            ) : (
+              <i className="fas fa-desktop"></i>
+            )}
           </button>
           {/* <video muted ref={userVideo} autoPlay playsInline /> */}
+          <button
+            onClick={() => {
+              myStream.current.getAudioTracks()[0].enabled =
+                !myStream.current.getAudioTracks()[0].enabled;
+              setIsMuted((muted) => !muted);
+            }}
+            className="media-btn"
+          >
+            {isMuted ? (
+              <i className="fas fa-microphone-alt"></i>
+            ) : (
+              <i className="fas fa-microphone-alt-slash"></i>
+            )}
+          </button>
+          <div className="wrapper">
+            {peers.map((peer, index) => {
+              return <Video key={index} peer={peer} />;
+            })}
+          </div>
         </Then>
       </If>
     </div>

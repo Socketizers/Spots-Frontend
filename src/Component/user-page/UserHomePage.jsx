@@ -28,6 +28,8 @@ import PrivateChat from "./private-room/PrivateChat";
 import api from "../../app/api";
 import io from "socket.io-client";
 import Avatar from "@mui/material/Avatar";
+import Footer from "./profile/Footer";
+
 
 function UserHomePage() {
   const servers = useSelector((state) => state.server.servers);
@@ -207,60 +209,7 @@ function UserHomePage() {
         </Col>
       </Row>
 
-      <div id="footerRow">
-        <div id="ownedServer">
-          <AddCircleIcon
-            id="createServerIcon"
-            onClick={() => setShowCreateServerModal(true)}
-          />
-          {servers
-            .filter((server) => server.user_id === user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img
-                  src={server.image ? server.image : logo}
-                  className="footerServerListImg"
-                />
-                <SettingsIcon className="settingsIcon" />
-              </span>
-            ))}
-        </div>
-        <div id="notOwnedServers">
-          {servers
-            .filter((server) => server.user_id !== user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img
-                  src={server.image ? server.image : logo}
-                  className="footerServerListImg"
-                />
-              </span>
-            ))}
-        </div>
-        <CreateServer
-          setShowModal={setShowCreateServerModal}
-          showModal={showCreateServerModal}
-        />
-        <ServerDec
-          setShowModal={setShowServerDescriptionModal}
-          showModal={showServerDescriptionModal}
-          selectedServer={selectedServer}
-        />
-      </div>
+      <Footer />
       <MyStory open={open} handleClose={handleClose} />
     </div>
   );

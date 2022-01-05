@@ -4,6 +4,7 @@ import serverReducer from "../features/server/serverSlice";
 import friendsReducer from "../features/friends/friendsSlice";
 import friendsRequestsReducer from "../features/friends/friendsReqSlice";
 import userServersReducer from "../features/server/userServers.Slice";
+import receiverReducer from "../features/private-chat/privateChat";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     userServers:userServersReducer,
     friendsList: friendsReducer,
     friendsRequest: friendsRequestsReducer,
+    receiver: receiverReducer
   },
 });

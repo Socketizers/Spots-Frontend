@@ -26,7 +26,8 @@ import PrivateChat from "./private-room/PrivateChat";
 import api from "../../app/api";
 import Avatar from "@mui/material/Avatar";
 import bgImg from "../../assets/chatBG.png";
-
+import Footer from "./profile/Footer";
+import io from "socket.io-client";
 
 
 function UserPrivateChat() {
@@ -40,6 +41,8 @@ function UserPrivateChat() {
     useState(false);
   const [showCreateServerModal, setShowCreateServerModal] = useState(false);
   const [selectedServer, setSelectedServer] = useState({});
+
+  const [ioConnection, setIoConnection] = useState(null);
 
   const dispatcher = useDispatch();
 
@@ -65,12 +68,19 @@ function UserPrivateChat() {
   /************************************************************ */
 
   useEffect(() => {
+    const connection = io.connect("socketizers.herokuapp.com");
+    setIoConnection(connection);
+
     if (cookie.load("token")) {
       dispatcher(getFriendsList());
       dispatcher(getFriendsRequest());
       // dispatcher(getAllServers());
     }
   }, []);
+
+  ioConnection?.on("new-friendRequest", () => {
+    dispatcher(getFriendsRequest());
+  });
 
   return (
     <div className="body">
@@ -179,54 +189,7 @@ function UserPrivateChat() {
         </Col>
       </Row>
 
-      <div id="footerRow">
-        <div id="ownedServer">
-          <AddCircleIcon
-            id="createServerIcon"
-            onClick={() => setShowCreateServerModal(true)}
-          />
-          {servers
-            .filter((server) => server.user_id === user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img src={server.image} className="footerServerListImg" />
-                <SettingsIcon className="settingsIcon" />
-              </span>
-            ))}
-        </div>
-        <div id="notOwnedServers">
-          {servers
-            .filter((server) => server.user_id !== user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img src={server.image} className="footerServerListImg" />
-              </span>
-            ))}
-        </div>
-        <CreateServer
-          setShowModal={setShowCreateServerModal}
-          showModal={showCreateServerModal}
-        />
-        <ServerDec
-          setShowModal={setShowServerDescriptionModal}
-          showModal={showServerDescriptionModal}
-          selectedServer={selectedServer}
-        />
-      </div>
+      <Footer />
 
       <MyStory open={open} handleClose={handleClose} />
     </div>

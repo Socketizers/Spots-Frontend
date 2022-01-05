@@ -12,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 function PrivateChat(props) {
   const [directMessages, setDirectMessages] = useState([]);
   const userInfo = useSelector((state) => state.auth.user);
+  const receiver = useSelector((state) => state.receiver.receiver);
   const [currentChat, setCurrentChat] = useState({});
   const [currentReceiver, setCurrentReceiver] = useState(null);
   const [ioConnection, setIoConnection] = useState(null);
@@ -56,22 +57,28 @@ function PrivateChat(props) {
       }
 
       setTimeout(() => {
-        props.updateCurrentChat(messagesListArr[0]);
+       if(!receiver) props.updateCurrentChat(messagesListArr[0]);
         setDirectMessages(messagesListArr);
       }, 500);
     })();
     connection.emit("join-private-room", userInfo.id);
   }, [userInfo]);
 
-  async function updateCurrentChat(receiver) {
-    try {
-      setCurrentReceiver(receiver);
-      const chat = await api.get(`/private-room/users/${receiver.id}`);
-      setCurrentChat(chat.data.message_history);
-    } catch (e) {
-      console.log(e);
+  // async function updateCurrentChat(receiver) {
+  //   try {
+  //     setCurrentReceiver(receiver);
+  //     const chat = await api.get(`/private-room/users/${receiver.id}`);
+  //     setCurrentChat(chat.data.message_history);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
+  useEffect(() => {
+    if(receiver) {
+      props.updateCurrentChat(receiver)
     }
-  }
+  }, [receiver])
 
   return (
     <Row>

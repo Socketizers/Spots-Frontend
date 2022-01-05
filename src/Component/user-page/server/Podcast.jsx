@@ -13,7 +13,7 @@ function Podcast({ room, peer, ioConnection }) {
   const streamRef = useRef();
   const [peers, setPeers] = useState({});
   const [disconnectedUsers, setDisConnectedUsers] = useState([]);
-
+  const [isMuted, setIsMuted] = useState(false);
   useEffect(() => {
     (async () => {
       const { data: getUsersConnectedToThisRoom } = await api.get(
@@ -169,7 +169,7 @@ function Podcast({ room, peer, ioConnection }) {
             }}
             className="fas fa-couch couches"
             style={{
-              padding: "30px",
+              padding: "10px",
               fontSize: "50px",
               cursor: "pointer",
               color: usersOnTheCouch > 0 ? "#1FB689" : "#C4C4C4",
@@ -197,14 +197,6 @@ function Podcast({ room, peer, ioConnection }) {
             {Object.entries(peers).map(([key, arr]) => {
               if (!disconnectedUsers.includes(key)) {
                 if (arr[0]?.remoteStream?.getTracks()?.length > 1) {
-                  console.log(arr[0]?.remoteStream?.getTracks());
-                  const shareScreen = arr[0]?.remoteStream.clone();
-                  console.log(shareScreen);
-                  shareScreen?.getTracks()?.forEach((track) => {
-                    console.log(track.label);
-                    if (track.kind === "audio") track.stop(track);
-                  });
-                  shareScreen.getVideoTracks()[0].stop();
                   return (
                     <div key={key}>
                       <video
@@ -216,15 +208,6 @@ function Podcast({ room, peer, ioConnection }) {
                             if (arr[0]?.remoteStream)
                               video.srcObject = arr[0].remoteStream;
                             // console.log(arr[0]?.remoteStream?.getTracks());
-                          }
-                        }}
-                      />
-                      <video
-                        autoPlay
-                        width={500}
-                        ref={(video) => {
-                          if (video) {
-                            if (shareScreen) video.srcObject = shareScreen;
                           }
                         }}
                       />
@@ -256,6 +239,10 @@ function Podcast({ room, peer, ioConnection }) {
             </div>
           )}
         </div>
+        {userInfo.id ===room.presenter? <button onClick={()=>{
+            streamRef.current.getAudioTracks()[0].enabled = !streamRef.current.getAudioTracks()[0].enabled
+            setIsMuted((muted)=>!muted)
+          }} className="media-btn">{isMuted? <i class="fas fa-microphone-alt"></i>:<i class="fas fa-microphone-alt-slash"></i>}</button>: null}
       </Then>
     </If>
   );

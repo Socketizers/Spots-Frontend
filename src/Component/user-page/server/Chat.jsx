@@ -5,12 +5,17 @@ import { useParams } from "react-router-dom";
 import api from "../../../app/api";
 import "./roomsStyle.css";
 import "./chat.scss";
+import { Picker } from "emoji-mart";
+import EmojiEmotionsSharpIcon from "@mui/icons-material/EmojiEmotionsSharp";
+import SendSharpIcon from "@mui/icons-material/SendSharp";
+import {OverlayTrigger, Form,Popover} from "react-bootstrap"
 
 function Chat({ room, ioConnection }) {
   const userInfo = useSelector((state) => state.auth.user);
   const params = useParams();
   const messagesEnd = React.useRef();
   const [messages, setMessages] = useState([]);
+  const [text, setText] = useState("");
   const scrollToBottom = () => {
     messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -32,7 +37,7 @@ function Chat({ room, ioConnection }) {
     room.length,
     room.name,
     userInfo.username,
-  ]);
+  ]); 
   useEffect(() => scrollToBottom());
   ioConnection?.on("new_message", (msg, username) => {
     if (messages?.message === "Start a conversation!")
@@ -40,9 +45,29 @@ function Chat({ room, ioConnection }) {
     else setMessages([...messages, { message: msg, username }]);
   });
 
+  function handleTextChange(e) {
+    setText(e.target.value);
+  }
+
+  function addEmoji(e) {
+    let emoji = e.native;
+    setText(text + emoji);
+  }
+
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>
+        <Picker onSelect={addEmoji} style={{ width: "100%", height: "100%" }} />
+      </Popover.Body>
+    </Popover>
+  );
+
   return (
     <If condition={room.name + room.id === params.id}>
       <Then>
+        <div id="serverChatDiv">
+
         <div className="chat">
           <div className="container clearfix">
             <div className="chat-history">
@@ -67,7 +92,37 @@ function Chat({ room, ioConnection }) {
           </div>
         </div>
         <div className="write">
-          <form
+
+        <Form id="sendMessageForm" onSubmit={(e) => e.preventDefault()}>
+        <Form.Control
+          type="text"
+          placeholder="send a message"
+          id="newMessage"
+          value={text}
+          onChange={handleTextChange}
+        />
+
+        <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+          <EmojiEmotionsSharpIcon
+            style={{ color: "#38798a", cursor: "pointer" }}
+          />
+        </OverlayTrigger>
+        <SendSharpIcon onClick={async () => {
+              ioConnection.emit(
+                "new_message",
+                text,
+                userInfo.username,
+                params
+              );
+              const messages = await api.put(`/message/room/${room.id}`, {
+                message: text,
+              });
+              let m = messages.data.message_history;
+              setMessages((prev) => [...prev, m[m.length - 1]]);
+              setText("")
+            }} id="sendMessageBtn" />
+      </Form>
+          {/* <form
             onSubmit={async (e) => {
               e.preventDefault();
               ioConnection.emit(
@@ -88,10 +143,12 @@ function Chat({ room, ioConnection }) {
             <button className="button-chat">
               <i className="far fa-paper-plane"></i>
             </button>
-          </form>
+          </form> */}
+        </div>
         </div>
       </Then>
     </If>
+    
   );
 }
 

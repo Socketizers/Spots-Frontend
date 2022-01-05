@@ -1,22 +1,40 @@
 .roomsCont {
-  background-color: #9bd4e1;
+  background-color: #92a7ab61;
   max-width: 16.66666667%;
 
-  min-height: 100vh;
-  min-height: 78vh;
+  /* min-height: 100vh; */
+  min-height: 76vh;
   border-radius: 10px;
+  overflow-y: scroll;
+
+  border-radius: 0 15px 15px 0;
 }
+
+.roomsCont::-webkit-scrollbar {
+  display: none;
+}
+
 .roomsCont > * {
   /* margin: 1rem; */
   padding: 0.8rem;
-  margin-left: 2rem;
+  margin-left: 1.5rem;
 }
+
+.roomsCont h4 {
+  font-size: 1.3em;
+  border-bottom: 2px solid #a7a7a7;
+  padding-bottom: 7px;
+  width: fit-content;
+  margin-left: 1.2rem;
+}
+
 .roomList {
   display: flex;
+  height: 76vh;
 }
-.roomList > * {
-  margin: 0.5rem;
 
+.roomList > * {
+  /* margin: 0.5rem; */
   width: 100%;
 }
 
@@ -28,21 +46,26 @@
   flex-wrap: wrap;
 }
 .presenter {
-  /* padding: 10px 20px 30px; */
-  height: 275px;
-  width: 275px;
-  border-radius: 50%;
   background-color: #9bd4e1;
+  width: 450px;
+  height: 275px;
 }
 .activeRoom {
   color: #f19989;
 }
 .selectRoom {
   cursor: pointer;
+  padding: 0.5em;
 }
 :hover.couches {
   color: #9bd4e1;
 }
 .presenter video {
-  border-radius: 50%;
+  /* width:475px; */
+  width: 450px;
+  height: 275px;
+}
+
+.roomsArray {
+  width: 100%;
 }

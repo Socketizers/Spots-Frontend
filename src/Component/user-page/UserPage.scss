@@ -1,4 +1,4 @@
-.body{
+.body {
   background-color: #f0f0f094;
 }
 
@@ -134,13 +134,11 @@ header {
       padding-right: 0;
     }
   }
- 
-  
 }
 
 .friend-list {
   background-color: #8acddcd9;
-  height: 74vh;
+  height: 76vh;
   border-radius: 15px 0 0 15px;
 
   .list {
@@ -150,6 +148,11 @@ header {
     overflow-y: scroll;
     // scrollbar-color: rebeccapurple green;
     // scrollbar-width: 1hv;
+
+    h2 {
+      font-size: 1.3em;
+      
+    }
   }
   .online {
     width: 15px;
@@ -285,7 +288,7 @@ input[type="file"]::-webkit-file-upload-button {
     top: 0.5em;
   }
 
-  .add-room{
+  .add-room {
     position: relative;
     left: 0;
     right: 0;
@@ -293,17 +296,18 @@ input[type="file"]::-webkit-file-upload-button {
     top: 0.25em;
     font-size: 2.5em;
   }
-  button{
+  button {
     background: none;
     border: none;
     position: relative;
     top: 6em;
   }
-  .slick-track{
+  .slick-track {
     margin-left: 0;
     margin-right: 0;
   }
-  .slick-next, .slick-prev{
+  .slick-next,
+  .slick-prev {
     display: block;
     // background-color: #c9dee378;
     width: 30px;
@@ -312,8 +316,8 @@ input[type="file"]::-webkit-file-upload-button {
     padding: 1em;
     right: -45px;
   }
-  .slick-prev{
-  left: -36px;
+  .slick-prev {
+    left: -36px;
   }
 }
 
@@ -341,7 +345,7 @@ input[type="file"]::-webkit-file-upload-button {
     width: 13vh;
     height: 13vh;
     border-radius: 100%;
-    margin:0 auto;
+    margin: 0 auto;
   }
   .spots {
     position: absolute;
@@ -360,7 +364,7 @@ input[type="file"]::-webkit-file-upload-button {
     margin: 1vh 2vh;
     display: inline-block;
   }
-  .slick-track{
+  .slick-track {
     margin-left: 0;
     margin-right: 0;
   }
@@ -440,7 +444,7 @@ input[type="file"]::-webkit-file-upload-button {
     bottom: 0.5em;
   }
 
-  .add-room{
+  .add-room {
     position: relative;
     left: 0;
     right: 0;
@@ -448,17 +452,16 @@ input[type="file"]::-webkit-file-upload-button {
     top: 0.25em;
     font-size: 2.5em;
   }
-  button{
+  button {
     background: none;
     border: none;
   }
 }
 
-.server-users{
+.server-users {
   background-color: #ffffff61;
   border-radius: 5px;
   position: relative;
- 
 
   h2 {
     color: #072a40;
@@ -487,10 +490,9 @@ input[type="file"]::-webkit-file-upload-button {
     margin: 1vh 2vh;
     display: inline-block;
   }
-
 }
 
-.add-server-footer{
+.add-server-footer {
   font-size: 2.5em;
   top: 0.2em;
   position: relative;
@@ -498,24 +500,20 @@ input[type="file"]::-webkit-file-upload-button {
   background: -webkit-linear-gradient(#eee, #868282);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
 }
 
-.footer-setting{
+.footer-setting {
   font-size: 1.3em;
-    position: absolute;
-    z-index: 2;
-    left: 1.9em;
-    color: #d1d1d1;
-    bottom: 1em;
+  position: absolute;
+  z-index: 2;
+  left: 1.9em;
+  color: #d1d1d1;
+  bottom: 1em;
 }
 
-#ownedServer{
-  .slick-track{
+#ownedServer {
+  .slick-track {
     margin-left: 0;
     margin-right: 0;
   }
-
 }
-
-

@@ -1,0 +1,30 @@
+* {
+  border-box: box-sizing;
+}
+
+.sendRequest {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.sendRequest:hover {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.sendRequest:enabled {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}

@@ -5,14 +5,23 @@ $gray: #92959e;
 $dark: #1a1a1a;
 $light: #e6e6e6;
 
+*{
+  box-sizing: border-box;
+  // overflow-y: hidden;
+}
+
+#serverChatDiv {
+  height: 75vh;
+}
+
 .chat {
-  width: 60rem;
-  float: left;
+  // width: 100%;
+  // float: left;
   background: #f2f5f8;
   border-radius: 5px;
   color: #434651;
-  width: 76%;
-  height: 93%;
+
+  height: 90%;
 
   color: #434651;
   li {
@@ -22,7 +31,7 @@ $light: #e6e6e6;
     padding: 30px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
-    height: 575px;
+    height: 63vh;
 
     .message-data {
       margin-bottom: 15px;
@@ -102,16 +111,16 @@ $light: #e6e6e6;
 .write {
   form {
     border-radius: 5px;
+    height: 10%;
   }
   input {
-    padding: 23px;
-    height: 62px;
-    width: 74%;
+    padding: 13px;
+    height: 58px;
+    width: 95%;
     font-size: 16px;
-    // color: var($dark);
-    border: 0;
+    border-radius: 5;
     outline: none;
-    background-color: #b6b6b67c;
+    background-color: #7c4c4cc7;
   }
 }
 .button-chat {
@@ -123,4 +132,65 @@ $light: #e6e6e6;
     font-size: 20px;
     color: $green;
   }
+}
+
+#sendMessageForm {
+  background-color: rgba(128, 128, 128, 0.425);
+  height: 10%;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  #newMessage {
+    background: none !important;
+    color: black;
+    width: 90%;
+    display: inline;
+    border: none;
+    font-size: medium;
+  }
+
+  #newMessage:enabled {
+    box-shadow: none;
+    border: none;
+  }
+
+  #sendMessageBtn {
+    color: #38798a;
+    font-size: x-large;
+    cursor: pointer;
+  }
+}
+
+.media-btn {
+  border: none;
+  font-size: 1.7em;
+  background-color: #e3e6e5;
+  padding: 0.2em;
+  border-radius: 5px;
+  margin: 0 5px;
+  box-shadow: 1px 1px 3px #aaaaaa i {
+    color: #474747;
+  }
+}
+
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+// .box:nth-child(even) {
+//   background-color: #ccc;
+//   color: #000;
+// }
+
+.wrapper {
+  overflow-y: scroll;
 }
