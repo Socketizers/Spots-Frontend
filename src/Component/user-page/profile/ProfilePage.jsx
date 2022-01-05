@@ -51,7 +51,7 @@ function ProfilePage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     prevArrow: <SlickArrowLeft />,
