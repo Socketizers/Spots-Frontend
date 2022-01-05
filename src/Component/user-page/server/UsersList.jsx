@@ -53,7 +53,7 @@ function UsersList(props) {
                         Send Message
                       </Button>
                       <br />
-                      {!userInfo?.friends?.includes(user?.id) &&
+                      {!userInfo.friends.includes(user.id) &&
                         user.id !== userInfo.id && (
                           <Button
                           style={{
@@ -66,7 +66,7 @@ function UsersList(props) {
                           }}
                             className="sendRequest"
                             onClick={async () => {
-                              try {
+                              
                                 await api.post("/friends", {
                                   user2_id: user.id,
                                 });
@@ -83,13 +83,7 @@ function UsersList(props) {
                                   showConfirmButton: false,
                                   timer: 1500,
                                 });
-                              } catch (e) {
-                                Swal.fire({
-                                  title: "Try again please",
-                                  icon: "error",
-                                  confirmButtonText: "Close",
-                                });
-                              }
+                              
                             }}
                           >
                             Add Friend

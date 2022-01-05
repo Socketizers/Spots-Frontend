@@ -34,6 +34,9 @@ const userServersSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getUserServers.fulfilled, (state, action) => {
+        action.payload.map(server => {
+          if(server.image){server.image = `https://socketizers.herokuapp.com/${server.image}`}
+        })
         state.status = "idle";
         state.servers = action.payload;
         state.error = null;
