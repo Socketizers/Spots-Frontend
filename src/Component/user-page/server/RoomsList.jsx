@@ -77,16 +77,14 @@ function RoomsList() {
       const { data: getUsersConnectedToServer } = await api.get(
         `/connected/server/${p.serverId}`
       );
-      const { data: serverInfo } = await api.get(
-        `/server/${p.serverId}`
-      );
-      setServer(serverInfo)
+      const { data: serverInfo } = await api.get(`/server/${p.serverId}`);
+      setServer(serverInfo);
       setUserConnectedToServer(getUsersConnectedToServer);
     })();
   }, [p.serverId]);
   return (
     <>
-      <div className="body" style={{width :"99vw"}}>
+      <div className="body" style={{ width: "99vw" }}>
         <header>
           <div onClick={() => navigation("/")} className="logo">
             <img src={logo1} className="logo" width="200" />
@@ -162,9 +160,12 @@ function RoomsList() {
                         <button className="d-btn">My Profile</button>
                         <i className="fas fa-user-cog"></i>
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => {
-                        navigation("/")
-                        dispatcher(logOut())}}>
+                      <Dropdown.Item
+                        onClick={() => {
+                          navigation("/");
+                          dispatcher(logOut());
+                        }}
+                      >
                         <button className="d-btn">Logout</button>
                         <i className="fas fa-sign-out-alt"></i>
                       </Dropdown.Item>
@@ -179,11 +180,12 @@ function RoomsList() {
         <img src={bgImg} className="bg-image" />
 
         <Row>
-          <Col xs={10} style={{ height: "76vh", marginBottom:'2vh' }}>
+          <Col xs={10} style={{ height: "76vh", marginBottom: "2vh" }}>
             <div className="roomList">
-           
               <div className="roomsCont">
-              <h3 style={{margin:"0 10px", color:"#27333a"}}>{server?.name}</h3>
+                <h3 style={{ margin: "0 10px", color: "#27333a" }}>
+                  {server?.name}
+                </h3>
                 <h4>Chat</h4>
                 {rooms
                   ?.filter((room) => room.type === "text")
