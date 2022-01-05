@@ -53,7 +53,7 @@ function UsersList(props) {
                         Send Message
                       </Button>
                       <br />
-                      {!userInfo.friends.includes(user.id) &&
+                      {!userInfo?.friends?.includes(user?.id) &&
                         user.id !== userInfo.id && (
                           <Button
                           style={{
