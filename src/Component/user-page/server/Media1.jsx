@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { If, Then } from "react-if";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import Peer from "simple-peer-light";
-
+import RenderRoom from "../friends/RenderRoom";
+import "./roomsStyle.css";
 const Video = (props) => {
   const ref = useRef();
   console.log(props?.peer);
@@ -25,7 +27,7 @@ const videoConstraints = {
   width: window.innerWidth / 2,
 };
 
-function Media({ rooms, ioConnection }) {
+function Media({ room, ioConnection }) {
   const userInfo = useSelector((state) => state.auth.user);
 
   const params = useParams();
@@ -43,7 +45,7 @@ function Media({ rooms, ioConnection }) {
 
   useEffect(() => {
     socketRef.current = ioConnection;
-    if (roomID)
+    if (false)
       navigator.mediaDevices
         .getDisplayMedia({ video: true, audio: true })
         .then((stream) => {
@@ -125,48 +127,34 @@ function Media({ rooms, ioConnection }) {
 
   return (
     <div>
-      return (
-      <>
-        Media
-        {rooms?.map((room, index) => {
-          return (
-            <div key={index}>
-              <div
-                onClick={() => {
-                  navigate("/rooms/" + room.name + room.id);
-                }}
-              >
-                {room.name}
-              </div>
-            </div>
-          );
-        })}
-      </>
-      <video muted ref={userVideo} autoPlay playsInline />
-      {roomID &&
-        peers.map((peer, index) => {
-          return <Video key={index} peer={peer} />;
-        })}
-      <button
-        onClick={() => {
-          navigator.mediaDevices
-            .getUserMedia({ audio: true })
-            .then((stream) => {
-              peers.forEach((peer) => {
-                console.log(peer);
-                myStream.current.addTrack(stream.getAudioTracks()[0]);
-                console.log(myStream.current);
-                // peer.removeStream(myStream.current);
-                peer.addTrack(
-                  myStream.current.getAudioTracks()[0],
-                  myStream.current
-                );
-              });
-            });
-        }}
-      >
-        change audio
-      </button>
+      <If condition={room.name + room.id === params.id}>
+        <Then>
+          {peers.map((peer, index) => {
+            return <Video key={index} peer={peer} />;
+          })}
+          <button
+            onClick={() => {
+              navigator.mediaDevices
+                .getUserMedia({ audio: true })
+                .then((stream) => {
+                  peers.forEach((peer) => {
+                    console.log(peer);
+                    myStream.current.addTrack(stream.getAudioTracks()[0]);
+                    console.log(myStream.current);
+                    // peer.removeStream(myStream.current);
+                    peer.addTrack(
+                      myStream.current.getAudioTracks()[0],
+                      myStream.current
+                    );
+                  });
+                });
+            }}
+          >
+            change audio
+          </button>
+          <video muted ref={userVideo} autoPlay playsInline />
+        </Then>
+      </If>
     </div>
   );
 }

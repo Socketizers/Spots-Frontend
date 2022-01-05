@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../features/auth/authSlice";
 import { getFriendsList } from "../../features/friends/friendsSlice";
-import { getFriendsRequest, reqSeen } from "../../features/friends/friendsReqSlice";
+import {
+  getFriendsRequest,
+  reqSeen,
+} from "../../features/friends/friendsReqSlice";
 import { Dropdown, Container, Button, Row, Col } from "react-bootstrap";
 import logo1 from "../../assets/images/SPOTSLOGO00.png";
 import "./UserPage.scss";
@@ -18,20 +21,17 @@ import RenderServers from "./add-create-server/add/RenderServers";
 import ServerDec from "./add-create-server/add/ServerDec";
 import CreateServer from "./add-create-server/create/CreateServer";
 
-
 function UserHomePage() {
   const servers = useSelector((state) => state.server.servers);
+  const { status } = useSelector((state) => state.friendsList);
   const user = useSelector((state) => state.auth.user);
   const [open, setOpen] = useState(false);
   const requests = useSelector((state) => state.friendsRequest.users);
   const seenReq = useSelector((state) => state.friendsRequest.seen);
-  
-
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
   const [showCreateServerModal, setShowCreateServerModal] = useState(false);
   const [selectedServer, setSelectedServer] = useState({});
-
 
   const dispatcher = useDispatch();
 
@@ -39,43 +39,55 @@ function UserHomePage() {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    if(cookie.load('token')){
+    console.log(cookie.load("token"));
     dispatcher(getFriendsList());
     dispatcher(getFriendsRequest());
     dispatcher(getAllServers());
-    }
-
-  }, [cookie.load('token')]);
-
+  }, [dispatcher]);
+  if (status === "rejected") {
+    dispatcher(getFriendsList());
+    dispatcher(getFriendsRequest());
+    dispatcher(getAllServers());
+  }
   return (
     <>
       <header>
         <img src={logo1} className="logo" width="200" />
-        <Button className="story-btn" onClick={handleOpen}><i class="fas fa-plus"></i></Button>
-        <Button className="story-btn" onClick={handleOpen}><i class="fas fa-inbox"></i></Button>
+        <Button className="story-btn" onClick={handleOpen}>
+          <i className="fas fa-plus"></i>
+        </Button>
+        <Button className="story-btn" onClick={handleOpen}>
+          <i className="fas fa-inbox"></i>
+        </Button>
 
-        <Dropdown   onClick={()=>dispatcher(reqSeen())}>
+        <Dropdown onClick={() => dispatcher(reqSeen())}>
           <Dropdown.Toggle
             variant="Secondary"
             id="dropdown-basic"
             className="notification-btn"
-          
           >
-            <i class="fas fa-bell"></i>
-            <div style={{visibility: !seenReq&&requests.length? 'visible':'hidden' }}> </div>
+            <i className="fas fa-bell"></i>
+            <div
+              style={{
+                visibility: !seenReq && requests.length ? "visible" : "hidden",
+              }}
+            >
+              {" "}
+            </div>
           </Dropdown.Toggle>
 
           <Dropdown.Menu style={{ width: "20em" }}>
-
-            {requests.length ? 
-            requests.map((req,i)=> {
-            return (<Dropdown.Item as='div' key={i}>
-             <Requests req={req} />
-            </Dropdown.Item>)}) :
-              <Dropdown.Item as='div'>
-             No New Requests!
-            </Dropdown.Item>}
-            
+            {requests.length ? (
+              requests.map((req, i) => {
+                return (
+                  <Dropdown.Item as="div" key={i}>
+                    <Requests req={req} />
+                  </Dropdown.Item>
+                );
+              })
+            ) : (
+              <Dropdown.Item as="div">No New Requests!</Dropdown.Item>
+            )}
           </Dropdown.Menu>
         </Dropdown>
 
@@ -91,7 +103,7 @@ function UserHomePage() {
             <Col>
               <Dropdown>
                 <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-                  <i class="fas fa-chevron-down"></i>
+                  <i className="fas fa-chevron-down"></i>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -102,7 +114,7 @@ function UserHomePage() {
                     >
                       My Profile
                     </button>
-                    <i class="fas fa-user-cog"></i>
+                    <i className="fas fa-user-cog"></i>
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <button
@@ -111,7 +123,7 @@ function UserHomePage() {
                     >
                       Logout
                     </button>
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i className="fas fa-sign-out-alt"></i>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -120,36 +132,36 @@ function UserHomePage() {
         </div>
       </header>
 
-      <Row style={{marginTop:'2vh'}}>
-        
+      <Row style={{ marginTop: "2vh" }}>
         <Col xs={10} className="serversCol">
-        <RenderServers
-          category={"General"}
-          servers={servers.filter((server) => server.category === "General")}
-        />
-        <RenderServers
-          category={"Financial"}
-          servers={servers.filter((server) => server.category === "Financial")}
-        />
-        <RenderServers
-          category={"Career"}
-          servers={servers.filter((server) => server.category === "Career")}
-        />
-        <RenderServers
-          category={"Sport"}
-          servers={servers.filter((server) => server.category === "Career")}
-        />
-        <RenderServers
-          category={"Entertainment"}
-          servers={servers.filter((server) => server.category === "Career")}
-        />
-      </Col>
+          <RenderServers
+            category={"General"}
+            servers={servers.filter((server) => server.category === "General")}
+          />
+          <RenderServers
+            category={"Financial"}
+            servers={servers.filter(
+              (server) => server.category === "Financial"
+            )}
+          />
+          <RenderServers
+            category={"Career"}
+            servers={servers.filter((server) => server.category === "Career")}
+          />
+          <RenderServers
+            category={"Sport"}
+            servers={servers.filter((server) => server.category === "Career")}
+          />
+          <RenderServers
+            category={"Entertainment"}
+            servers={servers.filter((server) => server.category === "Career")}
+          />
+        </Col>
 
         <Col md={2} className="friend-list">
-      <FriendList />
-      </Col>
+          <FriendList />
+        </Col>
       </Row>
-     
 
       <div id="footerRow">
         <div id="ownedServer">
@@ -199,9 +211,9 @@ function UserHomePage() {
           selectedServer={selectedServer}
         />
       </div>
-      
-        <MyStory open={open} handleClose={handleClose} />
-        </>
+
+      <MyStory open={open} handleClose={handleClose} />
+    </>
   );
 }
 

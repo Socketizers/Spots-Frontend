@@ -42,6 +42,7 @@ function App() {
             )
           }
         />
+
         <Route
           path="/sign-in"
           element={
@@ -63,8 +64,9 @@ function App() {
         <Route path="/servers" element={<ServerList />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/rooms" element={<RoomsList />}>
-          <Route path=":id" element={<></>} />
+          <Route path=":id" />
         </Route>
+
         <Route path="/private-chat" element={<PrivateChat />} />
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { signIn } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Image } from "react-bootstrap";
@@ -9,26 +9,21 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/SPOTSLOGO-PP.png";
 import { getAllServers } from "../../features/server/serverSlice";
-
+import cookie from "react-cookies";
 function SignIn() {
-  const { status } = useSelector((state) => state.auth);
+  const { status, token } = useSelector((state) => state.auth);
   const dispatcher = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatcher(
       signIn({
         username: e.target.username.value,
         password: e.target.password.value,
       })
     );
-
-
-        dispatcher(getAllServers());
-        navigate("/");
-
+    navigate("/");
   };
 
   return (

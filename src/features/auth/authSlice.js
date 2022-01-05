@@ -4,7 +4,7 @@ import base64 from "base-64";
 import cookie from "react-cookies";
 import api from "../../app/api";
 import Swal from "sweetalert2";
-
+import { Location } from "react-router-dom";
 // Sign-In API
 const signInApi = async (username, password) => {
   return await axios.post(
@@ -101,6 +101,7 @@ const authSlice = createSlice({
       cookie.remove("token");
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {
@@ -111,6 +112,7 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.error = null;
         cookie.save("token", action.payload.token);
+        // window.location.assign("/");
       })
       .addCase(signIn.rejected, (state, action) => {
         state.error = action.error;

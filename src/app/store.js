@@ -9,6 +9,6 @@ export const store = configureStore({
     auth: authReducer,
     server: serverReducer,
     friendsList: friendsReducer,
-    friendsRequest:friendsRequestsReducer
+    friendsRequest: friendsRequestsReducer,
   },
 });
