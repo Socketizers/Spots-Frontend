@@ -162,7 +162,9 @@ function RoomsList() {
                         <button className="d-btn">My Profile</button>
                         <i className="fas fa-user-cog"></i>
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => dispatcher(logOut())}>
+                      <Dropdown.Item onClick={() => {
+                        navigation("/")
+                        dispatcher(logOut())}}>
                         <button className="d-btn">Logout</button>
                         <i className="fas fa-sign-out-alt"></i>
                       </Dropdown.Item>

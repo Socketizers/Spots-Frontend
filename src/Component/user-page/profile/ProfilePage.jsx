@@ -194,7 +194,9 @@ function ProfilePage() {
                       <button className="d-btn">My Profile</button>
                       <i className="fas fa-user-cog"></i>
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => dispatcher(logOut())}>
+                    <Dropdown.Item onClick={() => {
+                      navigate("/")
+                      dispatcher(logOut())}}>
                       <button className="d-btn">Logout</button>
                       <i className="fas fa-sign-out-alt"></i>
                     </Dropdown.Item>
@@ -260,7 +262,7 @@ function ProfilePage() {
                       <div className="friend div" key={i}>
                         <Avatar
                           alt={friend.username}
-                          src={friend.image}
+                          src={`https://socketizers.herokuapp.com/${friend.image}`}
                           sx={{ bgcolor: "#24464e" }}
                           className="img"
                           style={{ fontSize: "2.25rem" }}

@@ -26,7 +26,7 @@ function FriendList(props) {
                   <Col md={2} style={{ position: "relative" }}>
                     <Avatar
                       alt={friend.username}
-                      src={friend.image}
+                      src={`https://socketizers.herokuapp.com/${friend.image}`}
                       sx={{ bgcolor: "#24464e" }}
                       style={{
                         border: friend.story

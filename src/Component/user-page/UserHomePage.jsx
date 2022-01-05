@@ -29,6 +29,7 @@ import api from "../../app/api";
 import io from "socket.io-client";
 import Avatar from "@mui/material/Avatar";
 import Footer from "./profile/Footer";
+import {useNavigate} from "react-router-dom"
 
 
 function UserHomePage() {
@@ -46,6 +47,7 @@ function UserHomePage() {
   const [ioConnection, setIoConnection] = useState(null);
 
   const dispatcher = useDispatch();
+  const navigate = useNavigate()
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -165,7 +167,9 @@ function UserHomePage() {
                       <button className="d-btn">My Profile</button>
                       <i className="fas fa-user-cog"></i>
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => dispatcher(logOut())}>
+                    <Dropdown.Item onClick={() => {
+                      navigate("/")
+                      dispatcher(logOut())}}>
                       <button className="d-btn">Logout</button>
                       <i className="fas fa-sign-out-alt"></i>
                     </Dropdown.Item>

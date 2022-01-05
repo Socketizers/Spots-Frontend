@@ -28,6 +28,7 @@ import Avatar from "@mui/material/Avatar";
 import bgImg from "../../assets/chatBG.png";
 import Footer from "./profile/Footer";
 import io from "socket.io-client";
+import {useNavigate} from "react-router-dom"
 
 
 function UserPrivateChat() {
@@ -45,6 +46,7 @@ function UserPrivateChat() {
   const [ioConnection, setIoConnection] = useState(null);
 
   const dispatcher = useDispatch();
+  const navigate = useNavigate()
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -158,12 +160,10 @@ function UserPrivateChat() {
                       <button className="d-btn">My Profile</button>
                       <i className="fas fa-user-cog"></i>
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => dispatcher(logOut())}>
-                      <button
-                        className="d-btn"
-                      >
-                        Logout
-                      </button>
+                    <Dropdown.Item onClick={() => {
+                      navigate("/")
+                      dispatcher(logOut())}}>
+                      <button className="d-btn">Logout</button>
                       <i className="fas fa-sign-out-alt"></i>
                     </Dropdown.Item>
                   </Dropdown.Menu>
