@@ -8,6 +8,7 @@ import {
 } from "../../features/friends/friendsReqSlice";
 import { Dropdown, Button, Row, Col } from "react-bootstrap";
 import logo1 from "../../assets/images/SPOTSLOGO00.png";
+import logo from "../../assets/SPOTSLOGO-PPS.png";
 import "./UserPage.scss";
 import cookie from "react-cookies";
 import { getAllServers } from "../../features/server/serverSlice";
@@ -223,7 +224,10 @@ function UserHomePage() {
                   setShowServerDescriptionModal(true);
                 }}
               >
-                <img src={server.image} className="footerServerListImg" />
+                <img
+                  src={server.image ? server.image : logo}
+                  className="footerServerListImg"
+                />
                 <SettingsIcon className="settingsIcon" />
               </span>
             ))}
@@ -240,7 +244,10 @@ function UserHomePage() {
                   setShowServerDescriptionModal(true);
                 }}
               >
-                <img src={server.image} className="footerServerListImg" />
+                <img
+                  src={server.image ? server.image : logo}
+                  className="footerServerListImg"
+                />
               </span>
             ))}
         </div>

@@ -3,7 +3,7 @@ import api from "../../app/api";
 
 export const initialState = {
   users: [""],
-  requests:[""],
+  requests:[],
   message:"",
   seen:false,
   status: "rejected", // pending || idle || rejected

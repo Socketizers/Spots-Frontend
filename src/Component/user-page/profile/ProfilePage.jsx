@@ -8,6 +8,7 @@ import {
 } from "../../../features/friends/friendsReqSlice";
 import { Dropdown, Container, Button, Row, Col, Form } from "react-bootstrap";
 import logo1 from "../../../assets/images/SPOTSLOGO00.png";
+import logo from "../../../assets/SPOTSLOGO-PPS.png";
 import "./ProfilePage.scss";
 import cookie from "react-cookies";
 import { getAllServers } from "../../../features/server/serverSlice";
@@ -223,7 +224,7 @@ function ProfilePage() {
                       >
                         <h4>{server.name}</h4>
                         <i class="far fa-edit"></i>
-                        <img src={server.image} className="img" />
+                        <img src={server.image ? server.image : logo} className="img" />
                       </div>
                       <ServerInfo
                         open={openInfo}
@@ -308,6 +309,7 @@ function ProfilePage() {
           </div>
         </Col>
       </Row>
+
       <div id="footerRow">
         <div id="notOwnedServers">
           <Slider {...footerSettings} style={{ width: "100%" }}>
@@ -331,6 +333,7 @@ function ProfilePage() {
             </div>
           </Slider>
         </div>
+
         <div id="ownedServer">
           <Slider {...footerSettings} style={{ width: "100%" }}>
             {servers
@@ -364,8 +367,10 @@ function ProfilePage() {
           selectedServer={selectedServer}
         />
       </div>
+
       <MyStory open={open} handleClose={handleClose} />
     </div>
+
   );
 }
 

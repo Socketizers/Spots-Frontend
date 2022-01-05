@@ -55,7 +55,7 @@ function RenderServers(props) {
               }}
               key={index}
             >
-              <img src={server.image} className="sliderImg"/>
+              <img src={server.image ? server.image : logo} className="sliderImg"/>
               <div className="sliderOverlay">
                 <div className="sliderText">{server.name}</div>
               </div>
