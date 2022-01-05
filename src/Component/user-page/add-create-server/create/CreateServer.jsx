@@ -4,12 +4,9 @@ import { Form, Modal, Button } from "react-bootstrap";
 import api from "../../../../app/api";
 import { useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
-<<<<<<< HEAD
 import logo from "../../../../assets/SPOTSLOGO-PP.png";
 
-=======
 import "./CreateServer.scss";
->>>>>>> private-chat
 
 function CreateServer(props) {
   const dispatcher = useDispatch();
