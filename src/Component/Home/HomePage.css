@@ -125,6 +125,14 @@
     left: 3em;
 }
 
+.dots-main{
+  width: 20em;
+  position: absolute;
+  top: -5em;
+  left: 3em;
+  z-index: -1;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */

@@ -9,8 +9,10 @@ import SignUp from "./Component/Home/SignUp";
 import UserHomePage from "./Component/user-page/UserHomePage";
 import ServerList from "./Component/user-page/ServerList";
 import Chat from "./Component/user-page/server/Chat";
+import ProfilePage from "./Component/user-page/profile/ProfilePage";
 import { logIn } from "./features/auth/authSlice";
 import { getAllServers } from "./features/server/serverSlice";
+import { getUserServers } from "./features/server/userServers.Slice";
 import cookie from "react-cookies";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -22,6 +24,8 @@ function App() {
     if (cookie.load("token")) {
       dispatcher(logIn());
       dispatcher(getAllServers());
+      dispatcher(getUserServers());
+
     }
   }, []);
 
@@ -54,6 +58,7 @@ function App() {
         <Route path="/servers" element={<ServerList />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/profile"element= {<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );

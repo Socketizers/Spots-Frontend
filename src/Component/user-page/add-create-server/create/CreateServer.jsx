@@ -4,6 +4,8 @@ import { Form, Modal, Button } from "react-bootstrap";
 import api from "../../../../app/api";
 import { useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
+import logo from "../../../../assets/SPOTSLOGO-PP.png";
+
 
 function CreateServer(props) {
   const dispatcher = useDispatch();
@@ -26,11 +28,8 @@ function CreateServer(props) {
       show={props.showModal}
       onHide={() => props.setShowModal(false)}
       className="serverModal"
+      size="lg"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>Create Server</Modal.Title>
-      </Modal.Header>
-
       <Modal.Body
         style={{
           display: "flex",
@@ -40,7 +39,9 @@ function CreateServer(props) {
           gap: "20px",
         }}
       >
-        <Form onSubmit={createServer}>
+        <h2>Create Server</h2>
+        <img src={logo} width="100"/>
+        <Form onSubmit={createServer} style={{width:'27em',textAlign:'center'}}>
           <FormGroup>
             <Form.Label>Server Name</Form.Label>
             <Form.Control type="text" id="name" />
@@ -67,7 +68,7 @@ function CreateServer(props) {
             <Form.Control type="file" id="files" />
           </FormGroup>
 
-          <Button type="submit">Create Server</Button>
+          <Button type="submit" style={{margin:'1em 0', backgroundColor:'#0A95B6'}}>Create Server</Button>
         </Form>
       </Modal.Body>
     </Modal>

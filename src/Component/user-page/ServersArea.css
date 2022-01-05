@@ -3,14 +3,15 @@
 }
 
 .serversCol {
-  height: 78vh;
-  margin: 1vh 0;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
+  height: 74vh;
+    margin-left: 3.5em;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    box-sizing: inherit;
+    scroll-behavior: smooth;
 }
 
 /*********** Slider Styling + Image hover ************************ */
@@ -28,15 +29,17 @@
 
 .sliderImg {
   width: 100% !important;
-  height: 7em;
+  height: 8em;
   border-radius: 15px;
   display: block;
   object-fit: cover;
+  box-shadow: 2px 2px 5px #91919159;
 }
 
 .sliderImgContainer {
   position: relative;
-  width: 12em !important;
+  width: 10em !important;
+  height: 8em;
 }
 
 .sliderOverlay {
@@ -49,7 +52,9 @@
   width: 100%;
   opacity: 0;
   transition: 0.5s ease;
-  background-color: #0a94b6b6;
+  background-color: #115769c7;;
+  border-radius: 15px;
+
 }
 
 .sliderImgContainer:hover .sliderOverlay {
@@ -114,7 +119,7 @@
 /********** Footer *******************/
 
 #footerRow {
-  background-color: #0a94b6;
+  background-color: #38798A;
   height: 9.5vh;
   display: flex;
   justify-content: center;
@@ -153,10 +158,10 @@
 }
 
 .footerServerListImg {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: inline-block;
+  width: 53px;
+  height: 53px;
+  border-radius: 10px;
+  display: inline-block
 }
 
 .settingsIcon {

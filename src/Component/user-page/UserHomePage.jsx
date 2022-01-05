@@ -17,6 +17,10 @@ import Requests from "./friends/Requests";
 import RenderServers from "./add-create-server/add/RenderServers";
 import ServerDec from "./add-create-server/add/ServerDec";
 import CreateServer from "./add-create-server/create/CreateServer";
+import bgImg from "../../assets/chatBG.png";
+
+
+
 
 
 function UserHomePage() {
@@ -26,12 +30,10 @@ function UserHomePage() {
   const requests = useSelector((state) => state.friendsRequest.users);
   const seenReq = useSelector((state) => state.friendsRequest.seen);
   
-
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
   const [showCreateServerModal, setShowCreateServerModal] = useState(false);
   const [selectedServer, setSelectedServer] = useState({});
-
 
   const dispatcher = useDispatch();
 
@@ -44,13 +46,12 @@ function UserHomePage() {
     dispatcher(getFriendsRequest());
     dispatcher(getAllServers());
     }
-
   }, [cookie.load('token')]);
 
   return (
-    <>
+    <div className="body">
       <header>
-        <img src={logo1} className="logo" width="200" />
+        <a href="/"><img src={logo1} className="logo" width="200" /></a>
         <Button className="story-btn" onClick={handleOpen}><i class="fas fa-plus"></i></Button>
         <Button className="story-btn" onClick={handleOpen}><i class="fas fa-inbox"></i></Button>
 
@@ -95,10 +96,9 @@ function UserHomePage() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">
+                  <Dropdown.Item href="/profile">
                     <button
                       className="d-btn"
-                      onClick={() => dispatcher(logOut())}
                     >
                       My Profile
                     </button>
@@ -119,10 +119,11 @@ function UserHomePage() {
           </Row>
         </div>
       </header>
+      <img src={bgImg} className="bg-image" />
 
-      <Row style={{marginTop:'2vh'}}>
+      <Row style={{margin: "2vh 0", height: "74vh", width:'100%'}}>
         
-        <Col xs={10} className="serversCol">
+        <Col xs={9} className="serversCol" style={{width:'77%'}}>
         <RenderServers
           category={"General"}
           servers={servers.filter((server) => server.category === "General")}
@@ -199,9 +200,8 @@ function UserHomePage() {
           selectedServer={selectedServer}
         />
       </div>
-      
         <MyStory open={open} handleClose={handleClose} />
-        </>
+        </div>
   );
 }
 

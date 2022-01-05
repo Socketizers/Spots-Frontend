@@ -40,7 +40,7 @@ function FriendList() {
                   </>
                 )}
               </Col>
-              <Col md={3}  style={{ marginLeft: "1.5em", position: "relative" }}>
+              <Col md={8}  style={{ marginLeft: "1.5em", position: "relative" }}>
                 <h6 style={{ marginTop: ".8em" }}>{friend.username}</h6>
               </Col>
             </Row>
