@@ -111,6 +111,7 @@ const authSlice = createSlice({
         state.status = "pending";
       })
       .addCase(signIn.fulfilled, (state, action) => {
+        if(action.payload.user.image){action.payload.user.image = `https://socketizers.herokuapp.com/action.payload.user.image`}
         cookie.save("token", action.payload.token);
         console.log(action);
         state.status = "idle";
