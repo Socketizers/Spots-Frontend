@@ -77,7 +77,7 @@ function UserHomePage() {
     if (cookie.load("token")) {
       dispatcher(getFriendsList());
       dispatcher(getFriendsRequest());
-      // dispatcher(getAllServers());
+      dispatcher(getAllServers());
     }
   }, [cookie.load("token")]);
 
