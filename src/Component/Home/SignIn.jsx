@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 // import { logOut } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/SPOTSLOGO-PP.png";
-import { getAllServers } from "../../features/server/serverSlice";
-import cookie from "react-cookies";
+// import { getAllServers } from "../../features/server/serverSlice";
+
 function SignIn() {
   const { status, token } = useSelector((state) => state.auth);
   const dispatcher = useDispatch();
@@ -23,7 +23,7 @@ function SignIn() {
         password: e.target.password.value,
       })
     );
-    navigate("/");
+    // navigate("/");
   };
 
   return (

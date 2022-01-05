@@ -3,14 +3,15 @@
 }
 
 .serversCol {
-  height: 78vh;
-  margin: 1vh 0;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
+  height: 74vh;
+    margin-left: 3.5em;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    box-sizing: inherit;
+    scroll-behavior: smooth;
 }
 
 /*********** Slider Styling + Image hover ************************ */
@@ -22,21 +23,28 @@
   justify-content: center;
 }
 
+.sliderDiv .slick-track{
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .slider {
   width: 100%;
 }
 
 .sliderImg {
   width: 100% !important;
-  height: 7em;
+  height: 8em;
   border-radius: 15px;
   display: block;
   object-fit: cover;
+  box-shadow: 2px 2px 5px #91919159;
 }
 
 .sliderImgContainer {
   position: relative;
-  width: 12em !important;
+  width: 10em !important;
+  height: 8em;
 }
 
 .sliderOverlay {
@@ -45,11 +53,14 @@
   bottom: 0;
   left: 0;
   right: 0;
+  border-radius: 15px;
   height: 100%;
   width: 100%;
   opacity: 0;
   transition: 0.5s ease;
-  background-color: #0a94b6b6;
+  background-color: #115769c7;;
+  border-radius: 15px;
+
 }
 
 .sliderImgContainer:hover .sliderOverlay {
@@ -114,24 +125,38 @@
 /********** Footer *******************/
 
 #footerRow {
-  background-color: #0a94b6;
+  background-color: #38798A;
   height: 9.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#ownedServer {
-  width: 50%;
-  overflow-x: scroll;
+#ownedServer, #notOwnedServers {
+  width: 40%;
+  /* overflow-x: scroll; */
+  padding: 0 2em;
+  background-color: #88949730;
+  border-radius: 7px;
+  height: 60px;
 }
+
+
+#ownedServer .slick-track, #notOwnedServers .slick-track{
+  height: 63px;
+    margin-left: 0;
+    margin-right: 0;
+
+}
+
 
 #ownedServer::-webkit-scrollbar {
   display: none;
 }
 
 #notOwnedServers {
-  width: 50%;
+  width: 55%;
+  margin-right: 1em;
   overflow-x: scroll;
 }
 
@@ -140,7 +165,7 @@
 }
 
 #createServerIcon {
-  width: 50px;
+  width: 50px !important;
   height: 50px;
   color: white;
   cursor: pointer;
@@ -149,14 +174,16 @@
 .serverSpan {
   position: relative;
   margin-left: 10px;
+  width: fit-content !important;
   cursor: pointer;
 }
 
 .footerServerListImg {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  display: inline-block;
+  border-radius: 10px;
+  /* display: inline-block; */
+  margin-top: 0.5em;
 }
 
 .settingsIcon {
@@ -164,3 +191,80 @@
   top: -15px;
   left: 0;
 }
+
+
+#ownedServer .slick-next, #ownedServer.slick-prev{
+  display: block;
+  /* // background-color: #c9dee378; */
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 1em;
+  right: -22px;
+}
+#ownedServer .slick-prev{
+left: -26px;
+}
+
+#notOwnedServers .slick-next, #notOwnedServers.slick-prev{
+  display: block;
+  /* // background-color: #c9dee378; */
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 1em;
+  right: -22px;
+}
+#notOwnedServers .slick-prev{
+left: -26px;
+}
+
+/*******************Modal Styling***************************/
+
+/* .modalHeader {
+  background-color: #0a94b65e !important;
+  border: none !important;
+}
+
+.modalBody {
+  background-color: #0a94b667 !important;
+  border-radius: 15px !important;
+  color: white;
+}
+
+.modalBody img {
+  border-radius: 15px;
+}
+
+.modalBody Button {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:hover {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modalBody Button:enabled {
+  background-color: white !important;
+  color: #0a94b6;
+  border: 1px solid #0a94b6;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: large;
+}
+
+.modal-content {
+  background: none !important;
+  border: none !important;
+  width: fit-content;
+} */

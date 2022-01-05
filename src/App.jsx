@@ -8,12 +8,15 @@ import SignIn from "./Component/Home/SignIn";
 import SignUp from "./Component/Home/SignUp";
 import UserHomePage from "./Component/user-page/UserHomePage";
 import ServerList from "./Component/user-page/ServerList";
+import Chat from "./Component/user-page/server/Chat";
+import ProfilePage from "./Component/user-page/profile/ProfilePage";
 import { logIn } from "./features/auth/authSlice";
 import { getAllServers } from "./features/server/serverSlice";
+import { getUserServers } from "./features/server/userServers.Slice";
 import cookie from "react-cookies";
 import RoomsList from "./Component/user-page/server/RoomsList";
-import PrivateChat from "./Component/user-page/private-room/PrivateChat";
 import "bootstrap/dist/css/bootstrap.min.css";
+import UserPrivateChat from "./Component/user-page/UserPrivateChat";
 
 function App() {
   const status = useSelector((state) => state.auth.status);
@@ -23,6 +26,8 @@ function App() {
     if (cookie.load("token")) {
       dispatcher(logIn());
       dispatcher(getAllServers());
+      dispatcher(getUserServers());
+
     }
   }, [dispatcher]);
 
@@ -66,8 +71,9 @@ function App() {
         <Route path="/rooms" element={<RoomsList />}>
           <Route path=":id" />
         </Route>
-
-        <Route path="/private-chat" element={<PrivateChat />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/profile"element= {<ProfilePage />} />
+        <Route path="/private-chat" element={<UserPrivateChat />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,7 +4,6 @@ import { storage } from "../../../app/firebase";
 import api from "../../../app/api";
 import { Modal } from "react-bootstrap";
 
-
 function MyStory(props) {
   const [file, setFile] = useState("");
   const [videoFile, setVideo] = useState("");
@@ -14,7 +13,6 @@ function MyStory(props) {
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
   const [fileUpload, setFileUpload] = useState(false);
-
 
   const videoConstraints = {
     facingMode: "user",
@@ -71,10 +69,10 @@ function MyStory(props) {
     e.preventDefault();
 
     let reader = new FileReader();
-    reader.onloadend=()=>{
+    reader.onloadend = () => {
       setImgSrc(reader.result);
-    }
-    reader.readAsDataURL(e.target.files[0])
+    };
+    reader.readAsDataURL(e.target.files[0]);
     setFile(e.target.files[0]);
     setFileUpload(true);
   };
@@ -82,7 +80,7 @@ function MyStory(props) {
   const handleUpload = () => {
     const name = +new Date() + "-video";
     const uploadTask = storage.ref(`images/${name}`).put(videoFile, {
-      type: "video/webm"
+      type: "video/webm",
     });
     console.log("uploaded successfully");
     uploadTask.on(
@@ -108,7 +106,8 @@ function MyStory(props) {
     const name = +new Date() + "-" + file.name;
     const uploadTask = storage.ref(`images/${name}`).put(file);
     console.log("uploaded successfully");
-    setImgSrc(null); setFileUpload(false)
+    setImgSrc(null);
+    setFileUpload(false);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -133,7 +132,8 @@ function MyStory(props) {
     const uploadTask = storage
       .ref(`images/${name}`)
       .putString(file, "data_url");
-      setImgSrc(null); setFileUpload(false)
+    setImgSrc(null);
+    setFileUpload(false);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -155,15 +155,29 @@ function MyStory(props) {
   };
 
   return (
-    <Modal show={props.open} onHide={props.handleClose} size='lg' >
-        <Modal.Header closeButton>
-          <Modal.Title>Add Story</Modal.Title>
-        </Modal.Header>
-        <Modal.Body> {!!imgSrc ? (
+    <Modal show={props.open} onHide={props.handleClose} size="lg">
+      <Modal.Header closeButton style={{ backgroundColor: "white" }}>
+        <Modal.Title>Add Story</Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{ backgroundColor: "white" }}>
+        {" "}
+        {!!imgSrc ? (
           <>
-            <img src={imgSrc}  style={{width:'47.7em'}}/>
-            <button className="story-btn" onClick={() => {setImgSrc(null); setFileUpload(false)}}><i class="fas fa-reply"></i></button>
-           {!fileUpload &&<button className="story-btn" onClick={handleUploadScreen}><i class="fas fa-upload"></i></button>}
+            <img src={imgSrc} style={{ width: "47.7em" }} />
+            <button
+              className="story-btn"
+              onClick={() => {
+                setImgSrc(null);
+                setFileUpload(false);
+              }}
+            >
+              <i class="fas fa-reply"></i>
+            </button>
+            {!fileUpload && (
+              <button className="story-btn" onClick={handleUploadScreen}>
+                <i class="fas fa-upload"></i>
+              </button>
+            )}
           </>
         ) : (
           <>
@@ -172,31 +186,53 @@ function MyStory(props) {
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
-              style={{width:'47.7em'}}
+              style={{ width: "47.7em" }}
             />
             {capturing ? (
-              <button className="story-btn" onClick={handleStopCaptureClick}><i class="fas fa-stop"></i></button>
+              <button className="story-btn" onClick={handleStopCaptureClick}>
+                <i class="fas fa-stop"></i>
+              </button>
             ) : (
               <>
-                <button className="story-btn" onClick={capture} ><i class="fas fa-camera"></i></button>
-                <button className="story-btn" onClick={handleStartCaptureClick}><i class="fas fa-video"></i></button>
+                <button className="story-btn" onClick={capture}>
+                  <i class="fas fa-camera"></i>
+                </button>
+                <button className="story-btn" onClick={handleStartCaptureClick}>
+                  <i class="fas fa-video"></i>
+                </button>
               </>
             )}
             {recordedChunks.length > 0 && (
-              <> 
-              <button className="story-btn" onClick={handleDownload}><i class="fas fa-upload"></i></button>
-              <button className="story-btn" onClick={() => {setImgSrc(null); setFileUpload(false); setFile(''); setRecordedChunks([])}}><i class="fas fa-reply"></i></button>
+              <>
+                <button className="story-btn" onClick={handleDownload}>
+                  <i class="fas fa-upload"></i>
+                </button>
+                <button
+                  className="story-btn"
+                  onClick={() => {
+                    setImgSrc(null);
+                    setFileUpload(false);
+                    setFile("");
+                    setRecordedChunks([]);
+                  }}
+                >
+                  <i class="fas fa-reply"></i>
+                </button>
               </>
             )}
           </>
-
         )}
-        
-        {!fileUpload ? !recordedChunks.length > 0&&!capturing&&!imgSrc&&<input type="file" onChange={handleChange} />: <button className="story-btn" onClick={handleUploadFile}><i class="fas fa-upload"></i></button>}
-        </Modal.Body>
-        
-      </Modal>
- 
+        {!fileUpload ? (
+          !recordedChunks.length > 0 &&
+          !capturing &&
+          !imgSrc && <input type="file" onChange={handleChange} />
+        ) : (
+          <button className="story-btn" onClick={handleUploadFile}>
+            <i class="fas fa-upload"></i>
+          </button>
+        )}
+      </Modal.Body>
+    </Modal>
   );
 }
 

@@ -16,6 +16,8 @@ import f4 from "../../assets/images/02.png";
 import f5 from "../../assets/images/AboutSpots.png";
 import f6 from "../../assets/images/aboutl.png";
 import f7 from "../../assets/images/land.png";
+import dots from "../../assets/SPOTS-spots.png";
+
 
 import Masonry from "react-masonry-css";
 
@@ -97,6 +99,7 @@ export const HomePage = (props) => {
         <Row style={{ margin: "10em 8em 6em" }}>
           <Col className="feature-1">
             <h1>CHOOSE YOUR COMMUNITY</h1>
+            <img src={dots} className="dots-main" />
             <p>
               SPOTS brings together diverse experiences from around the
               world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

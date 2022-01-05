@@ -1,25 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { Col, Row } from "react-bootstrap";
 import api from "../../../app/api";
+import { useSelector } from "react-redux";
 import MsgList from "./MsgList";
 import io from "socket.io-client";
-import { useSelector } from "react-redux";
+import cookie from "react-cookies";
+import "./PrivateChat.scss";
 
-function PrivateChat() {
+function PrivateChat(props) {
+  const [directMessages, setDirectMessages] = useState([]);
   const userInfo = useSelector((state) => state.auth.user);
   const [currentChat, setCurrentChat] = useState({});
-  const [users, setUsers] = useState([]);
   const [currentReceiver, setCurrentReceiver] = useState(null);
   const [ioConnection, setIoConnection] = useState(null);
+
+  let messagesListArr = [];
 
   useEffect(() => {
     const connection = io.connect("socketizers.herokuapp.com");
     setIoConnection(connection);
+
     (async () => {
-      const response = await api.get("/users");
-      setUsers(response.data);
+      if (userInfo.id) {
+        const messagesList = await api.get(`/user/private-room/${userInfo.id}`);
+        await messagesList.data[0].map(async (chat) => {
+          if (chat.user1_id === userInfo.id) {
+            let response = await api.get(`/users/one-user/${chat.user2_id}`);
+            let user = response.data;
+
+            messagesListArr.push({
+              id: user.id,
+              fullName: user.fullName,
+              username: user.username,
+              image: user.image,
+              lastMessage: Object.values(chat.message_history)[
+                Object.values(chat.message_history).length - 1
+              ].message,
+            });
+          } else {
+            let response = await api.get(`/users/one-user/${chat.user1_id}`);
+            let user = response.data;
+            messagesListArr.push({
+              id: user.id,
+              fullName: user.fullName,
+              username: user.username,
+              image: user.image,
+              lastMessage: Object.values(chat.message_history)[
+                Object.values(chat.message_history).length - 1
+              ].message,
+            });
+          }
+        });
+      }
+
+      setTimeout(() => {
+        props.updateCurrentChat(messagesListArr[0]);
+        setDirectMessages(messagesListArr);
+      }, 500);
     })();
     connection.emit("join-private-room", userInfo.id);
-  }, [userInfo.id]);
+  }, [userInfo]);
 
   async function updateCurrentChat(receiver) {
     try {
@@ -31,38 +71,38 @@ function PrivateChat() {
     }
   }
 
-  function getUser(userId) {
-    return users.map((user) => {
-      if (user.id === userId) return user;
-    })[0];
-  }
-
   return (
-    <div>
-      <ul>
-        {users.map((user, index) => {
-          return (
-            <li
-              key={index}
-              onClick={() => {
-                setCurrentChat({});
-                updateCurrentChat(user);
-              }}
-            >
-              {user.username}
-            </li>
-          );
-        })}
-      </ul>
-      <MsgList
-        updateCurrentChat={updateCurrentChat}
-        currentReceiver={currentReceiver}
-        currentChat={currentChat}
-        ioConnection={ioConnection}
-        userInfo={userInfo}
-        getUser={getUser}
-      />
-    </div>
+    <Row>
+      <Col xs={3} id="directMessagesCol">
+        <h2>Direct Messages</h2>
+
+        <div id="directChatContainer">
+          {directMessages?.length > 0 &&
+            directMessages.map((userChat, index) => {
+              return (
+                <div
+                  className="directChatDiv"
+                  key={index}
+                  onClick={() => props.updateCurrentChat(userChat)}
+                >
+                  <img src={userChat.image} width={"50px"} height={"50px"} />
+                  <h4>{userChat.fullName}</h4>
+                  <p>{userChat.lastMessage}</p>
+                </div>
+              );
+            })}
+        </div>
+      </Col>
+      <Col xs={9}>
+        <MsgList
+          updateCurrentChat={props.updateCurrentChat}
+          currentReceiver={props.currentReceiver}
+          currentChat={props.currentChat}
+          ioConnection={ioConnection}
+          userInfo={userInfo}
+        />
+      </Col>
+    </Row>
   );
 }
 

@@ -4,7 +4,7 @@ import Story from "./Story";
 import { Row, Col } from "react-bootstrap";
 import Avatar from "@mui/material/Avatar";
 
-function FriendList() {
+function FriendList(props) {
   const userFriends = useSelector((state) => state.friendsList.users);
   const [open, setOpen] = useState(false);
 
@@ -18,11 +18,16 @@ function FriendList() {
           ? "Add Friends"
           : userFriends.map((friend, i) => {
               return (
-                <Row key={i} style={{ marginBottom: ".5em" }}>
+                <Row
+                  key={i}
+                  style={{ marginBottom: ".5em", cursor: "pointer" }}
+                  onClick={() => props.updateCurrentChat(friend)}
+                >
                   <Col md={2} style={{ position: "relative" }}>
                     <Avatar
                       alt={friend.username}
                       src={friend.image}
+                      sx={{ bgcolor: "#24464e" }}
                       style={{
                         border: friend.story
                           ? "6px solid #8EFCBA"
@@ -48,7 +53,7 @@ function FriendList() {
                     )}
                   </Col>
                   <Col
-                    md={3}
+                    md={8}
                     style={{ marginLeft: "1.5em", position: "relative" }}
                   >
                     <h6 style={{ marginTop: ".8em" }}>{friend.username}</h6>
