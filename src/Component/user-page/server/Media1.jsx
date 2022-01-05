@@ -3,57 +3,57 @@ import { If, Then } from "react-if";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import Peer from "simple-peer-light";
-import RenderRoom from "../friends/RenderRoom";
 import "./roomsStyle.css";
 const Video = (props) => {
   const ref = useRef();
-  console.log(props?.peer);
   useEffect(() => {
     props.peer.on("stream", (stream) => {
       ref.current.srcObject = stream;
     });
     if (props?.peer?.on)
       props?.peer.on("track", (track, stream) => {
+        console.log("track event track=>>", track);
+        // stream.addTrack(track, stream);
         ref.current.srcObject = stream;
-        console.log(stream);
+        console.log("track event stream =>>", stream);
       });
   }, [props.peer]);
-
-  return <video playsInline autoPlay ref={ref} />;
+  return <video playsInline autoPlay ref={ref} style={videoConstraints} />;
 };
 
 const videoConstraints = {
-  height: window.innerHeight / 2,
-  width: window.innerWidth / 2,
+  height: 400,
+  width: 400,
 };
 
 function Media({ room, ioConnection }) {
   const userInfo = useSelector((state) => state.auth.user);
 
+  const [sharedScreen, setSharedScreen] = useState(false);
+  const [tracker, setTracker] = useState({});
+
   const params = useParams();
-  const navigate = useNavigate();
 
   const [peers, setPeers] = useState([]);
   const socketRef = useRef(ioConnection);
   const myStream = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const [roomID, setRoomID] = useState(null);
-  useEffect(() => {
-    setRoomID(params.id);
-  }, [params.id]);
 
   useEffect(() => {
     socketRef.current = ioConnection;
-    if (false)
+    let couther = 0;
+    if (params.id === room.name + room.id && couther >= 0) {
       navigator.mediaDevices
-        .getDisplayMedia({ video: true, audio: true })
+        .getUserMedia({ video: true, audio: true })
         .then((stream) => {
-          userVideo.current.srcObject = stream;
-          socketRef.current.emit("join room", roomID);
+          // userVideo.current.srcObject = stream;
+          socketRef.current.emit("join room", params);
           socketRef.current.on("all users", (users) => {
             const peers = [];
             myStream.current = stream;
+            setTracker(stream.getVideoTracks()[0]);
+
             users.forEach((userID) => {
               const peer = createPeer(userID, socketRef.current.id, stream);
               peersRef.current.push({
@@ -80,24 +80,27 @@ function Media({ room, ioConnection }) {
             item.peer.signal(payload.signal);
           });
         });
-    // return () => {
-    //   console.log("unmount");
-    //   peers.forEach((peer) => peer.destroy());
-    // };
-  }, [ioConnection, roomID]);
+    }
 
+    return () => {
+      console.log("unmount");
+      peers.forEach((peer) => peer.destroy());
+      myStream.current?.getTracks()?.forEach((track) => track.stop());
+    };
+  }, [params]);
   function onClosePeer(peerID) {
     const filteredPeers = peers.filter((peer) => peer.id !== peerID);
     peersRef.current = filteredPeers;
     setPeers(filteredPeers);
   }
+
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
       initiator: true,
       trickle: false,
       stream,
     });
-    // peer.on("close", () => onClosePeer(peer.id));
+    peer.on("close", () => console.log());
     peer.on("signal", (signal) => {
       socketRef.current.emit("sending signal", {
         userToSignal,
@@ -105,7 +108,9 @@ function Media({ room, ioConnection }) {
         signal,
       });
     });
-
+    peer.on("error", (err) => {
+      console.log(err);
+    });
     return peer;
   }
 
@@ -134,25 +139,51 @@ function Media({ room, ioConnection }) {
           })}
           <button
             onClick={() => {
-              navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then((stream) => {
-                  peers.forEach((peer) => {
-                    console.log(peer);
-                    myStream.current.addTrack(stream.getAudioTracks()[0]);
-                    console.log(myStream.current);
-                    // peer.removeStream(myStream.current);
-                    peer.addTrack(
-                      myStream.current.getAudioTracks()[0],
-                      myStream.current
-                    );
+              if (!sharedScreen) {
+                navigator.mediaDevices
+                  .getDisplayMedia({ video: true })
+                  .then((stream) => {
+                    peers.forEach((peer) => {
+                      // peer.removeStream(myStream.current);
+                      setSharedScreen(true);
+                      peer.replaceTrack(
+                        tracker,
+                        stream.getVideoTracks()[0],
+                        myStream.current
+                      );
+                      myStream.current.getVideoTracks().forEach((track) => {
+                        track.stop();
+                      });
+
+                      myStream.current.addTrack(stream.getVideoTracks()[0]);
+                      setTracker(stream.getVideoTracks()[0]);
+                    });
                   });
-                });
+              } else {
+                navigator.mediaDevices
+                  .getUserMedia({ video: true })
+                  .then((stream) => {
+                    console.log(myStream.current.getVideoTracks());
+
+                    peers.forEach((peer) => {
+                      setSharedScreen(false);
+                      peer.replaceTrack(
+                        tracker,
+                        stream.getVideoTracks()[0],
+                        myStream.current
+                      );
+
+                      myStream.current.getVideoTracks().forEach((track) => {
+                        track.stop();
+                      });
+                    });
+                  });
+              }
             }}
           >
-            change audio
+            {sharedScreen ? "Share Camera" : "Share Screen"}
           </button>
-          <video muted ref={userVideo} autoPlay playsInline />
+          {/* <video muted ref={userVideo} autoPlay playsInline /> */}
         </Then>
       </If>
     </div>

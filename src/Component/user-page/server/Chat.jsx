@@ -15,6 +15,7 @@ function Chat({ room, ioConnection }) {
     messagesEnd.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
+    console.log("object");
     (async () => {
       setMessages([]);
       if (room.name + room.id === params.id) {

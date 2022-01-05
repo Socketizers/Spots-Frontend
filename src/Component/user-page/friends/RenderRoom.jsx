@@ -1,11 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Media from "../server/Media1";
 const iconsStyle = {
   fontSize: "1.5rem",
   width: "1.5rem",
 };
-export default function RenderRoom({ onClick, room, ioConnection }) {
+export default function RenderRoom({
+  onClick,
+  room,
+  ioConnection,
+  setComponent,
+}) {
   const userInfo = useSelector((state) => state.auth.user);
   const { id } = useParams();
   if (room.type === "voice") {
@@ -14,7 +20,11 @@ export default function RenderRoom({ onClick, room, ioConnection }) {
         className={`selectRoom ${
           id === room.name + room.id ? "activeRoom" : ""
         }`}
-        onClick={onClick}
+        onClick={() => {
+          console.log(setComponent);
+          onClick();
+          setComponent(<Media room={room} ioConnection={ioConnection} />);
+        }}
         lg={2}
       >
         <i
@@ -22,7 +32,7 @@ export default function RenderRoom({ onClick, room, ioConnection }) {
             id === room.name + room.id ? "activeRoom" : ""
           }`}
           style={iconsStyle}
-        ></i>{" "}
+        ></i>
         {room.name}
       </div>
     );
