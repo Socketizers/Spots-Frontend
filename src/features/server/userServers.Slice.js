@@ -7,29 +7,29 @@ export const initialState = {
   error: null,
 };
 
-export const getAllServers = createAsyncThunk(
-  "server/getAllServers",
+export const getUserServers = createAsyncThunk(
+  "server/getUserServers",
   async () => {
-    const response = await api.get("/server");
+    const response = await api.get("/user/servers");
     return response.data;
   }
 );
 
-const serverSlice = createSlice({
+const userServersSlice = createSlice({
   name: "server",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllServers.pending, (state) => {
+      .addCase(getUserServers.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(getAllServers.fulfilled, (state, action) => {
+      .addCase(getUserServers.fulfilled, (state, action) => {
         state.status = "idle";
         state.servers = action.payload;
         state.error = null;
       })
-      .addCase(getAllServers.rejected, (state, action) => {
+      .addCase(getUserServers.rejected, (state, action) => {
         state.error = action.error;
         state.servers = initialState.servers;
         state.status = "rejected";
@@ -37,4 +37,4 @@ const serverSlice = createSlice({
   },
 });
 
-export default serverSlice.reducer;
+export default userServersSlice.reducer;

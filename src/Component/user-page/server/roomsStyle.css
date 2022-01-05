@@ -1,0 +1,48 @@
+.roomsCont {
+  background-color: #9bd4e1;
+  max-width: 16.66666667%;
+
+  min-height: 100vh;
+  min-height: 78vh;
+  border-radius: 10px;
+}
+.roomsCont > * {
+  /* margin: 1rem; */
+  padding: 0.8rem;
+  margin-left: 2rem;
+}
+.roomList {
+  display: flex;
+}
+.roomList > * {
+  margin: 0.5rem;
+
+  width: 100%;
+}
+
+.podcastCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.presenter {
+  /* padding: 10px 20px 30px; */
+  height: 275px;
+  width: 275px;
+  border-radius: 50%;
+  background-color: #9bd4e1;
+}
+.activeRoom {
+  color: #f19989;
+}
+.selectRoom {
+  cursor: pointer;
+}
+:hover.couches {
+  color: #9bd4e1;
+}
+video {
+  border-radius: 50%;
+}

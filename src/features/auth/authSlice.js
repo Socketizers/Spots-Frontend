@@ -4,7 +4,7 @@ import base64 from "base-64";
 import cookie from "react-cookies";
 import api from "../../app/api";
 import Swal from "sweetalert2";
-
+import { Location } from "react-router-dom";
 // Sign-In API
 const signInApi = async (username, password) => {
   return await axios.post(
@@ -39,11 +39,14 @@ export const initialState = {
   error: null,
 };
 
+let counter = 0;
+
 export const signIn = createAsyncThunk(
   "auth/sign-in",
   async ({ username, password }) => {
     try {
       const response = await signInApi(username, password);
+      counter++;
       return response.data;
     } catch (e) {
       Swal.fire({
@@ -101,16 +104,21 @@ const authSlice = createSlice({
       cookie.remove("token");
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {
         state.status = "pending";
       })
       .addCase(signIn.fulfilled, (state, action) => {
+        cookie.save("token", action.payload.token);
+        console.log(action);
         state.status = "idle";
         state.user = action.payload.user;
         state.error = null;
-        cookie.save("token", action.payload.token);
+        if (counter === 1) {
+          window.location.assign("/");
+        }
       })
       .addCase(signIn.rejected, (state, action) => {
         state.error = action.error;
