@@ -6,6 +6,7 @@ import CreateServer from "../add-create-server/create/CreateServer";
 import { useSelector } from "react-redux";
 import LeftArrow from "../../../assets/left-arrow.svg";
 import RightArrow from "../../../assets/right-arrow.svg";
+import logo2 from "../../../assets/SPOTSLOGO-PPS2.png"
 const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
   <img src={LeftArrow} alt="prevArrow" {...props} />
 );
@@ -25,6 +26,7 @@ const footerSettings = {
 
 const Footer = () => {
   const servers = useSelector((state) => state.userServers.servers);
+  const allServers = useSelector(state => state.server.servers)
   const [selectedServer, setSelectedServer] = useState({});
   const [showServerDescriptionModal, setShowServerDescriptionModal] =
     useState(false);
@@ -35,25 +37,21 @@ const Footer = () => {
     <div id="footerRow">
       <div id="notOwnedServers">
         <Slider {...footerSettings} style={{ width: "100%" }}>
-          {servers
-            .filter((server) => server.user_id !== user.id)
+          {allServers
+            .filter((server) => server.users?.includes(user.id) )
             .map((server, index) => (
               <span
                 key={index}
                 className="serverSpan"
-                onClick={() => {
-     
+                onClick={() => {  
                   navigate(`/server/${server.id}`)
-
                 }}
               >
-                <img src={server.image} className="footerServerListImg" />
+                <img src={server.image ? server.image : logo2} className="footerServerListImg" />
                 {/* <SettingsIcon className="settingsIcon" /> */}
               </span>
             ))}
-          <div onClick={() => setShowCreateServerModal(true)}>
-            <i class="fas fa-plus-circle add-server-footer"> </i>
-          </div>
+          
         </Slider>
       </div>
 
@@ -72,7 +70,7 @@ const Footer = () => {
 
                 }}
               >
-                <img src={server.image} className="footerServerListImg" />
+                <img src={server.image ? server.image : logo2} className="footerServerListImg" />
                 {/* <SettingsIcon className="settingsIcon" /> */}
               </span>
             ))}
@@ -82,7 +80,7 @@ const Footer = () => {
         </Slider>
       </div>
 
-      {/* <CreateServer
+      <CreateServer
         setShowModal={setShowCreateServerModal}
         showModal={showCreateServerModal}
       />
@@ -90,7 +88,7 @@ const Footer = () => {
         setShowModal={setShowServerDescriptionModal}
         showModal={showServerDescriptionModal}
         selectedServer={selectedServer}
-      /> */}
+      />
     </div>
   );
 };

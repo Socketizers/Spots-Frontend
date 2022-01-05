@@ -30,12 +30,8 @@ import "../../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Avatar from "@mui/material/Avatar";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-
-
-
-
 
 function ProfilePage() {
   const servers = useSelector((state) => state.userServers.servers);
@@ -43,7 +39,7 @@ function ProfilePage() {
   const [serverRooms, setServerRooms] = useState([]);
   const [serverUsers, setServerUsers] = useState([]);
   const [serverState, setServerState] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
     <img src={LeftArrow} alt="prevArrow" {...props} />
   );
@@ -171,14 +167,15 @@ function ProfilePage() {
           <div className="profile-card">
             <Row style={{ marginRight: "0" }}>
               <Col>
-              <Avatar
+                <Avatar
                   alt={user.username}
                   src={user.image}
                   sx={{ bgcolor: "#24464e" }}
-                  style={{width: '3.5em',
-                    height: '3.3em',
-                    borderRadius: '26px 0 0 26px',
-                    display: user.image ?'inherit':'flex'
+                  style={{
+                    width: "3.5em",
+                    height: "3.3em",
+                    borderRadius: "26px 0 0 26px",
+                    display: user.image ? "inherit" : "flex",
                   }}
                 />
               </Col>
@@ -198,11 +195,7 @@ function ProfilePage() {
                       <i className="fas fa-user-cog"></i>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={() => dispatcher(logOut())}>
-                      <button
-                        className="d-btn"
-                      >
-                        Logout
-                      </button>
+                      <button className="d-btn">Logout</button>
                       <i className="fas fa-sign-out-alt"></i>
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -219,40 +212,47 @@ function ProfilePage() {
             <div className="profile-servers" style={{ padding: "0 3em" }}>
               <h2>My Groups</h2>
               <img src={org} className="spots img" />
-              <Slider {...settings} style={{ width: "100%" }}>
-                {servers?.map((server, i) => {
-                  return (
-                    <>
-                      <div
-                        key={i}
-                        className="server"
-                        onClick={() => openServerInfo(server.id, server)}
-                      >
-                        <h4>{server.name}</h4>
-                        <i class="far fa-edit"></i>
-                        <img src={server.image ? server.image : logo} className="img" />
-                      </div>
-                      <ServerInfo
-                        open={openInfo}
-                        handleClose={closeServerInfo}
-                        server={serverState}
-                        rooms={serverRooms}
-                        users={serverUsers}
-                      />
-                    </>
-                  );
-                })}
 
+              {servers?.length > 0 ? (
+                <Slider {...settings} style={{ width: "100%" }}>
+                  {servers?.map((server, i) => {
+                    return (
+                      <>
+                        <div
+                          key={i}
+                          className="server"
+                          onClick={() => openServerInfo(server.id, server)}
+                        >
+                          <h4>{server.name}</h4>
+                          <i class="far fa-edit"></i>
+                          <img
+                            src={server.image ? server.image : logo}
+                            className="img"
+                          />
+                        </div>
+                        <ServerInfo
+                          open={openInfo}
+                          handleClose={closeServerInfo}
+                          server={serverState}
+                          rooms={serverRooms}
+                          users={serverUsers}
+                        />
+                      </>
+                    );
+                  })}
+                </Slider>
+              ) : (
                 <button onClick={() => setShowCreateServerModal(true)}>
                   <i class="fas fa-plus-circle add-room"></i>
                 </button>
-              </Slider>
+              )}
             </div>
           </Row>
           <Row style={{ margin: "2vh 5vh", height: "36vh" }}>
             <div className="profile-friends" style={{ padding: "0 3em" }}>
               <h2>My Friends</h2>
               <img src={org} className="spots" />
+
               <Slider {...friendsSettings} style={{ width: "100%" }}>
                 {userFriends?.map((friend, i) => {
                   return (
@@ -261,10 +261,9 @@ function ProfilePage() {
                         <Avatar
                           alt={friend.username}
                           src={friend.image}
-                          sx={{ bgcolor:'#24464e'}}
+                          sx={{ bgcolor: "#24464e" }}
                           className="img"
-                          style={{fontSize:'2.25rem'}}
-                  
+                          style={{ fontSize: "2.25rem" }}
                         />
                         <h4>{friend.username}</h4>
                       </div>
@@ -316,11 +315,18 @@ function ProfilePage() {
         </Col>
       </Row>
 
-    <Footer/>
-    
+      <Footer />
+      <CreateServer
+        setShowModal={setShowCreateServerModal}
+        showModal={showCreateServerModal}
+      />
+      <ServerDec
+        setShowModal={setShowServerDescriptionModal}
+        showModal={showServerDescriptionModal}
+        selectedServer={selectedServer}
+      />
       <MyStory open={open} handleClose={handleClose} />
     </div>
-
   );
 }
 

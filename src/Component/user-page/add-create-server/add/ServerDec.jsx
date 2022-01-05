@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import api from "../../../../app/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
-
+import { useNavigate } from "react-router-dom"
 /**
  * IMPORTANT NOTE 📓 :
  *
@@ -14,13 +14,14 @@ import { getAllServers } from "../../../../features/server/serverSlice";
 function ServerDec(props) {
   const userInfo = useSelector((state) => state.auth.user);
   const dispatcher = useDispatch();
+  // const navigator = useNavigate()
 
   async function joinServer() {
     // console.log("join server");
     await api.put(`/connect/server/${props.selectedServer.id}`);
     dispatcher(getAllServers());
-  }
-
+  } 
+  const navigate = useNavigate(); 
   return (
     <Modal
       show={props.showModal}
@@ -44,7 +45,7 @@ function ServerDec(props) {
           <Button
             className="server-dec-btn"
             style={{ backgroundColor: "#0A95B6", border: "none" }}
-            onClick={joinServer}
+            onClick={() => navigator("/server/"+props.selectedServer.id)}
           >
             Go to Server
           </Button>

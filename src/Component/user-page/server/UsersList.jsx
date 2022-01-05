@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateReceiver } from "../../../features/private-chat/privateChat";
 import api from "../../../app/api";
 import Swal from "sweetalert2";
-import "./UsersList.scss"
+import "./UsersList.scss";
 
 function UsersList(props) {
   const [open, setOpen] = useState(false);
@@ -18,8 +18,6 @@ function UsersList(props) {
   const dispatcher = useDispatch();
 
   const navigator = useNavigate();
-
-
 
   return (
     <>
@@ -35,33 +33,17 @@ function UsersList(props) {
                 overlay={
                   <Popover id={`popover-positioned-left`}>
                     <Popover.Body>
-                      {!userInfo.friends.includes(user.id) &&
-                        user.id !== userInfo.id && <Button className="sendRequest" onClick={async () => {
-                          try{
-                            await api.post("/friends", {
-                              user2_id : user.id
-                            })
-
-                            props.ioConnection.emit("new-friendRequest", user.id);
-
-                            Swal.fire({
-                              position: "center",
-                              icon: "success",
-                              title: "Request Sent Successfully",
-                              showConfirmButton: false,
-                              timer: 1500,
-                            });
-                          }catch(e){
-                            Swal.fire({
-                              title: "Try again please",
-                              icon: "error",
-                              confirmButtonText: "Close",
-                            });
-                          }
-                          
-                        }}>Add Friend</Button>}
-                      <br />
+                      
+                      
                       <Button
+                        style={{
+                          background: "white !important",
+                          color: "#0a94b6",
+                          border: "1px solid #0a94b6",
+                          borderRadius: "10px",
+                          width: "fir-content",
+                          fontSize: "large"
+                        }}
                         onClick={() => {
                           dispatcher(updateReceiver(user));
                           navigator("/private-chat");
@@ -70,6 +52,49 @@ function UsersList(props) {
                       >
                         Send Message
                       </Button>
+                      <br />
+                      {!userInfo.friends.includes(user.id) &&
+                        user.id !== userInfo.id && (
+                          <Button
+                          style={{
+                            background: "white !important",
+                            color: "#0a94b6",
+                            border: "1px solid #0a94b6",
+                            borderRadius: "10px",
+                            width: "fir-content",
+                            fontSize: "large"
+                          }}
+                            className="sendRequest"
+                            onClick={async () => {
+                              try {
+                                await api.post("/friends", {
+                                  user2_id: user.id,
+                                });
+
+                                props.ioConnection.emit(
+                                  "new-friendRequest",
+                                  user.id
+                                );
+
+                                Swal.fire({
+                                  position: "center",
+                                  icon: "success",
+                                  title: "Request Sent Successfully",
+                                  showConfirmButton: false,
+                                  timer: 1500,
+                                });
+                              } catch (e) {
+                                Swal.fire({
+                                  title: "Try again please",
+                                  icon: "error",
+                                  confirmButtonText: "Close",
+                                });
+                              }
+                            }}
+                          >
+                            Add Friend
+                          </Button>
+                        )}
                     </Popover.Body>
                   </Popover>
                 }

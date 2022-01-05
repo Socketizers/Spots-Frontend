@@ -3,11 +3,20 @@ import api from "../../app/api";
 
 export const initialState = {
   servers: [],
+  subscribedServers: [],
   status: "", // pending || idle || rejected
   error: null,
 };
 
 export const getUserServers = createAsyncThunk(
+  "server/getUserServers",
+  async () => {
+    const response = await api.get("/user/servers");
+    return response.data;
+  }
+);
+
+export const getSubscribedServers = createAsyncThunk(
   "server/getUserServers",
   async () => {
     const response = await api.get("/user/servers");
