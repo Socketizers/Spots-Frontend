@@ -62,7 +62,7 @@ function CreateRooms(props) {
             <Form.Label>Type</Form.Label>
             <Form.Select id="type">
               <option value="text">Text Chat</option>
-              <option value="media">Media</option>
+              <option value="voice">Media</option>
               <option value="podcast">Podcast</option>
             </Form.Select>
           </FormGroup>
