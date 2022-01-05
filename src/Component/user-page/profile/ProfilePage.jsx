@@ -28,6 +28,7 @@ import RightArrow from "../../../assets/right-arrow.svg";
 import "../../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Avatar from "@mui/material/Avatar";
 
 function ProfilePage() {
   const servers = useSelector((state) => state.userServers.servers);
@@ -47,7 +48,7 @@ function ProfilePage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
     prevArrow: <SlickArrowLeft />,
@@ -57,7 +58,7 @@ function ProfilePage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 7,
+    slidesToShow: 8,
     slidesToScroll: 1,
     initialSlide: 0,
     prevArrow: <SlickArrowLeft />,
@@ -67,7 +68,7 @@ function ProfilePage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 9,
     slidesToScroll: 1,
     initialSlide: 0,
     prevArrow: <SlickArrowLeft />,
@@ -243,7 +244,14 @@ function ProfilePage() {
                   return (
                     <>
                       <div className="friend div" key={i}>
-                        <img src={friend.image} className="img" />
+                        <Avatar
+                          alt={friend.username}
+                          src={friend.image}
+                          sx={{ bgcolor:'#24464e'}}
+                          className="img"
+                          style={{fontSize:'2.25rem'}}
+                  
+                        />
                         <h4>{friend.username}</h4>
                       </div>
                     </>
@@ -294,19 +302,30 @@ function ProfilePage() {
         </Col>
       </Row>
       <div id="footerRow">
-        <div id="ownedServer">
-          {/* <AddCircleIcon
-            id="createServerIcon"
-            onClick={() => setShowCreateServerModal(true)}
-          /> */}
-          
+        <div id="notOwnedServers">
           <Slider {...footerSettings} style={{ width: "100%" }}>
-          <button
-            onClick={() => setShowCreateServerModal(true)}
-           
-          >
-            <i class="fas fa-plus-circle add-server-footer"> </i>
-          </button>
+            {servers
+              .filter((server) => server.user_id !== user.id)
+              .map((server, index) => (
+                <span
+                  key={index}
+                  className="serverSpan"
+                  onClick={() => {
+                    setSelectedServer(server);
+                    setShowServerDescriptionModal(true);
+                  }}
+                >
+                  <img src={server.image} className="footerServerListImg" />
+                  {/* <SettingsIcon className="settingsIcon" /> */}
+                </span>
+              ))}
+            <div onClick={() => setShowCreateServerModal(true)}>
+              <i class="fas fa-plus-circle add-server-footer"> </i>
+            </div>
+          </Slider>
+        </div>
+        <div id="ownedServer">
+          <Slider {...footerSettings} style={{ width: "100%" }}>
             {servers
               .filter((server) => server.user_id === user.id)
               .map((server, index) => (
@@ -319,42 +338,15 @@ function ProfilePage() {
                   }}
                 >
                   <img src={server.image} className="footerServerListImg" />
-                  <SettingsIcon className="settingsIcon" />
+                  {/* <SettingsIcon className="settingsIcon" /> */}
                 </span>
               ))}
+            <div onClick={() => setShowCreateServerModal(true)}>
+              <i class="fas fa-plus-circle add-server-footer"> </i>
+            </div>
           </Slider>
-          {/* {servers
-            .filter((server) => server.user_id === user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img src={server.image} className="footerServerListImg" />
-                <SettingsIcon className="settingsIcon" />
-              </span>
-            ))} */}
         </div>
-        <div id="notOwnedServers">
-          {servers
-            .filter((server) => server.user_id !== user.id)
-            .map((server, index) => (
-              <span
-                key={index}
-                className="serverSpan"
-                onClick={() => {
-                  setSelectedServer(server);
-                  setShowServerDescriptionModal(true);
-                }}
-              >
-                <img src={server.image} className="footerServerListImg" />
-              </span>
-            ))}
-        </div>
+
         <CreateServer
           setShowModal={setShowCreateServerModal}
           showModal={showCreateServerModal}

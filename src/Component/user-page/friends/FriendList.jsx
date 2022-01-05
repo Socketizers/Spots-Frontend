@@ -21,6 +21,7 @@ function FriendList() {
                 <Avatar
                   alt={friend.username}
                   src={friend.image}
+                  sx={{ bgcolor:'#24464e'}}
                   style={{
                     border: friend.story ? "6px solid #8EFCBA" : "6px solid  #b9b8b8",
                     width: "2.5em",

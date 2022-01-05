@@ -13,9 +13,7 @@ function Story(props) {
 
   return (
     <Modal show={props.open} onHide={props.handleClose} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>{props.name}'s Story</Modal.Title>
-      </Modal.Header>
+     
       <Modal.Body>
         <Carousel activeIndex={index} onSelect={handleSelect}>
           {storyArr.map((story) => {
