@@ -133,6 +133,15 @@
   z-index: -1;
 }
 
+.express-img{
+  width: 30em;
+  height: 10em;
+  position: absolute;
+  top: 2em;
+  left: -4em;
+  z-index: -5;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */

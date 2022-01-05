@@ -41,11 +41,11 @@ function ServerDec(props) {
         <img src={props.selectedServer.image} width={"80%"} height={"40%"} />
         <p>{props.selectedServer.description}</p>
         {props.selectedServer.users?.includes(userInfo.id) ? (
-          <Button variant="primary" onClick={joinServer}>
+          <Button className="server-dec-btn" style={{backgroundColor:'#0A95B6', border:'none'}} onClick={joinServer}>
             Go to Server
           </Button>
         ) : (
-          <Button variant="primary" onClick={joinServer}>
+          <Button className="server-dec-btn" style={{backgroundColor:'#0A95B6', border:'none' , marginBottom:'1em'}} onClick={joinServer} >
             Join
           </Button>
         )}
@@ -53,7 +53,7 @@ function ServerDec(props) {
           Join
         </Button> */}
         {props.selectedServer.user_id === userInfo.id && (
-          <Button variant="primary">Server Settings</Button>
+          <Button className="server-dec-btn" style={{backgroundColor:'#0A95B6', border:'none', marginBottom:'1em'}}>Server Settings</Button>
         )}
       </Modal.Body>
     </Modal>

@@ -22,7 +22,7 @@ import CreateServer from "../add-create-server/create/CreateServer";
 import bgImg from "../../../assets/chatBG.png";
 import ServerInfo from "./ServerInfo";
 import api from "../../../app/api";
-import org from "../../../assets/images/orange.jpg";
+import org from "../../../assets/neon-orange.png";
 import LeftArrow from "../../../assets/left-arrow.svg";
 import RightArrow from "../../../assets/right-arrow.svg";
 import "../../../../node_modules/slick-carousel/slick/slick.css";
@@ -120,82 +120,89 @@ function ProfilePage() {
         <a href="/">
           <img src={logo1} className="logo" width="200" />
         </a>
-        <Button className="story-btn" onClick={handleOpen}>
-          <i class="fas fa-plus"></i>
-        </Button>
-        <Button className="story-btn" onClick={handleOpen}>
-          <i class="fas fa-inbox"></i>
-        </Button>
 
-        <Dropdown onClick={() => dispatcher(reqSeen())}>
-          <Dropdown.Toggle
-            variant="Secondary"
-            id="dropdown-basic"
-            className="notification-btn"
-          >
-            <i class="fas fa-bell"></i>
-            <div
-              style={{
-                visibility: !seenReq && requests.length ? "visible" : "hidden",
-              }}
+        <div>
+          <Button className="story-btn" onClick={handleOpen}>
+            <i className="fas fa-plus"></i>
+          </Button>
+          <Button className="private-btn" href="/private-chat">
+            <i className="fas fa-inbox"></i>
+          </Button>
+
+          <Dropdown onClick={() => dispatcher(reqSeen())}>
+            <Dropdown.Toggle
+              variant="Secondary"
+              id="dropdown-basic"
+              className="notification-btn"
             >
-              {" "}
-            </div>
-          </Dropdown.Toggle>
+              <i className="fas fa-bell"></i>
+              <div
+                style={{
+                  visibility:
+                    !seenReq && requests.length ? "visible" : "hidden",
+                }}
+              >
+                {" "}
+              </div>
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu style={{ width: "20em" }}>
-            {requests.length ? (
-              requests.map((req, i) => {
-                return (
-                  <Dropdown.Item as="div" key={i}>
-                    <Requests req={req} />
-                  </Dropdown.Item>
-                );
-              })
-            ) : (
-              <Dropdown.Item as="div">No New Requests!</Dropdown.Item>
-            )}
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu style={{ width: "20em" }}>
+              {requests.length ? (
+                requests.map((req, i) => {
+                  return (
+                    <Dropdown.Item as="div" key={i}>
+                      <Requests req={req} />
+                    </Dropdown.Item>
+                  );
+                })
+              ) : (
+                <Dropdown.Item as="div">No New Requests!</Dropdown.Item>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
 
-        <div className="profile-card">
-          <Row>
-            <Col>
-              <img src={user.image} width="200" />
-            </Col>
-            <Col>
-              <h3>{user.username}</h3>
-              <h4>ID: {user.id}</h4>
-            </Col>
-            <Col>
-              <Dropdown>
-                <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-                  <i class="fas fa-chevron-down"></i>
-                </Dropdown.Toggle>
+          <div className="profile-card">
+            <Row style={{ marginRight: "0" }}>
+              <Col>
+              <Avatar
+                  alt={user.username}
+                  src={user.image}
+                  sx={{ bgcolor: "#24464e" }}
+                  style={{width: '3.5em',
+                    height: '3.3em',
+                    borderRadius: '26px 0 0 26px',
+                    display: user.image ?'inherit':'flex'
+                  }}
+                />
+              </Col>
+              <Col>
+                <h3>{user.username}</h3>
+                <h4>ID: {user.id}</h4>
+              </Col>
+              <Col>
+                <Dropdown>
+                  <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+                    <i className="fas fa-chevron-down"></i>
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">
-                    <button
-                      className="d-btn"
-                      onClick={() => dispatcher(logOut())}
-                    >
-                      My Profile
-                    </button>
-                    <i class="fas fa-user-cog"></i>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <button
-                      className="d-btn"
-                      onClick={() => dispatcher(logOut())}
-                    >
-                      Logout
-                    </button>
-                    <i class="fas fa-sign-out-alt"></i>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-          </Row>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="/profile">
+                      <button className="d-btn">My Profile</button>
+                      <i className="fas fa-user-cog"></i>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => dispatcher(logOut())}>
+                      <button
+                        className="d-btn"
+                      >
+                        Logout
+                      </button>
+                      <i className="fas fa-sign-out-alt"></i>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            </Row>
+          </div>
         </div>
       </header>
       <img src={bgImg} className="bg-image" />

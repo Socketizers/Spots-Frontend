@@ -4,8 +4,8 @@
 
 .serversCol {
   height: 74vh;
-    margin-left: 3.5em;
-    margin-right: 1em;
+  padding-left: 3.5em !important;
+  padding-right: 1em !important;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -22,6 +22,7 @@
   align-items: center;
   justify-content: center;
 }
+
 
 .sliderDiv .slick-track{
   margin-left: 0;
@@ -190,6 +191,13 @@
   position: absolute;
   top: -15px;
   left: 0;
+}
+
+.server-dec-btn{
+  background-color: #0A95B6;
+    border-color: #0A95B6;
+    width: 11em;
+    font-size: 1.2em;
 }
 
 

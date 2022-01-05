@@ -5,6 +5,10 @@ import { Form, OverlayTrigger, Popover } from "react-bootstrap";
 import EmojiEmotionsSharpIcon from "@mui/icons-material/EmojiEmotionsSharp";
 import SendSharpIcon from "@mui/icons-material/SendSharp";
 import api from "../../../app/api";
+import Avatar from "@mui/material/Avatar";
+import { Col, Row } from "react-bootstrap";
+
+
 
 function MsgList(props) {
   const [text, setText] = useState("");
@@ -58,11 +62,27 @@ function MsgList(props) {
   return (
     <div id="chatAreaDiv">
       <div id="currentChatHeader">
-        <img src={props.currentReceiver?.image} />
-        <h3>
+        <Row>
+          <Col md={2}>
+            <Avatar
+              alt={props.currentReceiver?.username}
+              src={props.currentReceiver?.image}
+              sx={{ bgcolor: "#24464e" }}
+              style={{ width: "35px", height: "35px" }}
+            />
+          </Col>
+          <Col>
+            <h3>
+              {props.currentReceiver?.username}{" "}
+              <span style={{ fontSize: "small" }}>Online</span>{" "}
+            </h3>
+          </Col>
+        </Row>
+        {/* <img src={props.currentReceiver?.image} /> */}
+        {/* <h3>
           {props.currentReceiver?.username}{" "}
           <span style={{ fontSize: "small" }}>Online</span>{" "}
-        </h3>
+        </h3> */}
       </div>
       <div id="messagesDev">
         {Object.entries(props.currentChat).map(([key, value]) => {

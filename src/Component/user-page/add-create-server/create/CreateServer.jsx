@@ -5,6 +5,7 @@ import api from "../../../../app/api";
 import { useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
 import logo from "../../../../assets/SPOTSLOGO-PP.png";
+import Swal from "sweetalert2";
 
 import "./CreateServer.scss";
 
@@ -14,14 +15,31 @@ function CreateServer(props) {
   async function createServer(e) {
     e.preventDefault();
     // console.log("create server");
-    const file = document.getElementById("files").files[0];
-    const body = new FormData();
-    body.append("name", e.target.name.value);
-    body.append("description", e.target.description.value);
-    body.append("category", e.target.category.value);
-    if (file) body.append("image", file);
-    await api.post("/user/server", body);
-    dispatcher(getAllServers());
+    try{
+      const file = document.getElementById("files").files[0];
+      const body = new FormData();
+      body.append("name", e.target.name.value);
+      body.append("description", e.target.description.value);
+      body.append("category", e.target.category.value);
+      if (file) body.append("image", file);
+      await api.post("/user/server", body);
+      dispatcher(getAllServers());
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Server Created Successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }catch (e) {
+      Swal.fire({
+        title: "Try again please",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
+    
   }
 
   return (
@@ -78,7 +96,7 @@ function CreateServer(props) {
             <Form.Control type="file" id="files" />
           </FormGroup>
 
-          <Button type="submit" style={{margin:'1em 0', backgroundColor:'#0A95B6'}}>Create Server</Button>
+          <Button type="submit" style={{margin:'2em 0', backgroundColor:'#0A95B6', border:'none'}}>Create Server</Button>
         </Form>
       </Modal.Body>
     </Modal>

@@ -17,9 +17,12 @@ import f5 from "../../assets/images/AboutSpots.png";
 import f6 from "../../assets/images/aboutl.png";
 import f7 from "../../assets/images/land.png";
 import dots from "../../assets/SPOTS-spots.png";
+import dots2 from "../../assets/neon-orange.png";
+
 
 
 import Masonry from "react-masonry-css";
+import Footer from "../Footer";
 
 export const HomePage = (props) => {
   const user = useSelector((state) => state.user);
@@ -101,11 +104,12 @@ export const HomePage = (props) => {
             <h1>CHOOSE YOUR COMMUNITY</h1>
             <img src={dots} className="dots-main" />
             <p>
-              SPOTS brings together diverse experiences from around the
-              world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            Spots offers you the chance to explore and connect to different communities and get
+             the chance to find a place where you feel welcomed understood and fit, you can also 
+             experience diversity from all around the world the sky is your limit with spots,
+              you can also give back to spots, where you can start creating your own communities 
+              and help other people feel fit and understood.
+
             </p>
             <button>Explore for more</button>
           </Col>
@@ -180,24 +184,22 @@ export const HomePage = (props) => {
               <br /> your Server!
             </h1>
             <p>
-              SPOTS brings together diverse experiences from around the
-              world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            Once you feel like your ready to start sharing with the world, and give back to spots communities, 
+            you can create your own community within a certain category you can create rooms, and set capacity 
+            and type of communication, text, voice, video share, within that room, where people can join and enjoy the experience.
             </p>
           </Col>
         </Row>
 
         <Row style={{ margin: "0 8em 7em" }}>
-          <Col className="feature-1">
+          <Col className="feature-1" style={{position:'relative'}}>
             <h1>Express Yourself!</h1>
+            <img src={dots2} className="express-img"/>
             <p>
-              SPOTS brings together diverse experiences from around the
-              world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            Spots wants you to express yourself on a daily basis, wants you to share your 
+            experiences with the world, you never know who you might inspire and help 
+            change their life, that why spots offer user stories feature, upload or 
+            capture your moments with pictures or videos for the day.
             </p>
           </Col>
           <Col style={{ paddingRight: "5em", width: "30%" }}>
@@ -237,12 +239,14 @@ export const HomePage = (props) => {
 
             <h1>About</h1>
             <p>
-              SPOTS brings together diverse experiences from around the
-              world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Spots is a customizable App the brings people together, by allowing them to 
+            find their spot in the world where they can connect with each other, 
+            share diverse experiences and express themselves daily, 
               <br /> <br />
-              Utenim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            Spots wants you to give back once you feel prepared to inspire, by giving you the control 
+            you need to create communities and rooms within them where you connect with 
+            people via text, audio or video, while you have control and setting option for 
+            the communities you own!
             </p>
             <button type="submit" className="button">
               <i className="fab fa-apple" style={{ fontSize: "2.3em" }}></i>{" "}
@@ -257,7 +261,7 @@ export const HomePage = (props) => {
             </button>
           </Col>
         </Row>
-
+<Footer/>
         <img
           style={{
             width: "100%",

@@ -6,6 +6,7 @@ import ServerDec from "./ServerDec";
 import LeftArrow from "../../../../assets/left-arrow.svg";
 import RightArrow from "../../../../assets/right-arrow.svg";
 import dots from "../../../../assets/SPOTS-spots.png";
+import logo from "../../../../assets/SPOTSLOGO-PPS.png"
 
 /**
  * IMPORTANT NOTE 📓 :
@@ -54,7 +55,7 @@ function RenderServers(props) {
               }}
               key={index}
             >
-              <img src={server.image} className="sliderImg" />
+              <img src={server.image ? server.image : logo} className="sliderImg"/>
               <div className="sliderOverlay">
                 <div className="sliderText">{server.name}</div>
               </div>

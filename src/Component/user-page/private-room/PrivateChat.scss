@@ -3,10 +3,17 @@
 }
 
 #directMessagesCol {
-  background-color: #8acddcd9;
+  background-color: #92a7ab61;
   height: 76vh;
   padding: 20px;
   border-radius: 0 15px 15px 0;
+
+  h2{
+    font-size: 1.3em;
+    border-bottom: 2px solid #a7a7a7;
+    padding-bottom: 11px;
+    width: fit-content;
+  }
 
   #directChatContainer {
     padding: 0 10px;
@@ -23,8 +30,8 @@
       h4 {
         display: inline;
         margin-left: 10px;
-        // font-size: medium;
-        font-weight: 200;
+        font-size: 1.1em;
+        font-weight: 500;
       }
 
       img {
@@ -32,14 +39,16 @@
       }
 
       p {
-        margin-left: 25%;
+        margin-left: 10%;
         overflow: hidden;
         opacity: 0.75;
+        color: #7b7777;
       }
     }
 
     .directChatDiv:hover {
       background-color: rgba(255, 255, 255, 0.185);
+      
     }
   }
 
@@ -52,6 +61,8 @@
 
 #chatAreaDiv {
   height: 76vh;
+  background-color: #dfe3e45c;
+  border-radius: 13px;
 
   #currentChatHeader {
     height: 10%;
@@ -61,17 +72,18 @@
     border-radius: 15px;
     align-items: center;
 
-    img {
-      display: inline;
-      height: 75%;
-      border-radius: 50%;
-    }
+    // img {
+    //   display: inline;
+    //   height: 75%;
+    //   border-radius: 50%;
+    // }
 
     h3 {
       display: inline;
-      margin-left: 20px;
+      margin-left: 0.5em;
       color: white;
-      font-weight: 100;
+      font-weight: 400;
+      font-size: 1.5em;
 
       span {
         color: rgb(0, 255, 0);

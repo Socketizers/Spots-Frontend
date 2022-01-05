@@ -1,47 +1,47 @@
-* {
-  box-sizing: border-box;
-}
+// * {
+//   box-sizing: border-box;
+// }
 
-.createServerModalBody {
-  background-color: #0a94b667 !important;
-  border-radius: 15px !important;
-  color: white;
+// .createServerModalBody {
+//   background-color: #0a94b667 !important;
+//   border-radius: 15px !important;
+//   color: white;
 
-  Form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+//   Form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 10px;
 
-    h2 {
-      text-align: center;
-    }
+//     h2 {
+//       text-align: center;
+//     }
 
-    Label {
-      font-size: large;
-    }
+//     Label {
+//       font-size: large;
+//     }
 
-    Button {
-      background-color: white;
-      color: #0a94b6;
-      width: fit-content;
-      margin: auto;
-      margin-top: 20px;
-    }
+//     Button {
+//       background-color: white;
+//       color: #0a94b6;
+//       width: fit-content;
+//       margin: auto;
+//       margin-top: 20px;
+//     }
 
-    Button:hover {
-      background-color: white;
-      color: #0a94b6;
-      width: fit-content;
-      margin: auto;
-      margin-top: 20px;
-    }
+//     Button:hover {
+//       background-color: white;
+//       color: #0a94b6;
+//       width: fit-content;
+//       margin: auto;
+//       margin-top: 20px;
+//     }
 
-    Button:enabled {
-      background-color: white;
-      color: #0a94b6;
-      width: fit-content;
-      margin: auto;
-      margin-top: 20px;
-    }
-  }
-}
+//     Button:enabled {
+//       background-color: white;
+//       color: #0a94b6;
+//       width: fit-content;
+//       margin: auto;
+//       margin-top: 20px;
+//     }
+//   }
+// }

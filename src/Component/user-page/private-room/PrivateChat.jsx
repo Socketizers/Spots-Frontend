@@ -6,6 +6,8 @@ import MsgList from "./MsgList";
 import io from "socket.io-client";
 import cookie from "react-cookies";
 import "./PrivateChat.scss";
+import Avatar from "@mui/material/Avatar";
+
 
 function PrivateChat(props) {
   const [directMessages, setDirectMessages] = useState([]);
@@ -73,7 +75,7 @@ function PrivateChat(props) {
 
   return (
     <Row>
-      <Col xs={3} id="directMessagesCol">
+      <Col xs={2} id="directMessagesCol">
         <h2>Direct Messages</h2>
 
         <div id="directChatContainer">
@@ -85,15 +87,28 @@ function PrivateChat(props) {
                   key={index}
                   onClick={() => props.updateCurrentChat(userChat)}
                 >
-                  <img src={userChat.image} width={"50px"} height={"50px"} />
+                  <Row>
+                    <Col md={2}>
+                   <Avatar
+                  alt={userChat.username}
+                  src={userChat.image}
+                  sx={{ bgcolor: "#24464e" }}
+                  style={{width: '35px',
+                   height:'35px'
+                  }}
+                />
+                </Col>
+                  <Col>
                   <h4>{userChat.fullName}</h4>
                   <p>{userChat.lastMessage}</p>
+                  </Col>
+                  </Row>
                 </div>
               );
             })}
         </div>
       </Col>
-      <Col xs={9}>
+      <Col xs={10}>
         <MsgList
           updateCurrentChat={props.updateCurrentChat}
           currentReceiver={props.currentReceiver}

@@ -1,7 +1,11 @@
 
+import React from "react";
+import "./Footer.css";
+import logo from '../assets/SPOTSLOGOWHITE.png';
+
 function Footer() {
   return <div>
-    <div className="container" >
+    <div className="container-footer" style={{padding:'0', marginTop:'8em'}} >
 	<div className="row" style={{textAlign:'center'}}>
 	</div>
 

@@ -11,6 +11,9 @@ export const getAllServers = createAsyncThunk(
   "server/getAllServers",
   async () => {
     const response = await api.get("/server");
+    response.data.map(server => {
+      if(!server.image)
+    })
     return response.data;
   }
 );
