@@ -200,11 +200,11 @@ function UserHomePage() {
           />
           <RenderServers
             category={"Sport"}
-            servers={servers.filter((server) => server.category === "Career")}
+            servers={servers.filter((server) => server.category === "Sport")}
           />
           <RenderServers
             category={"Entertainment"}
-            servers={servers.filter((server) => server.category === "Career")}
+            servers={servers.filter((server) => server.category === "Entertainment")}
           />
         </Col>
 
