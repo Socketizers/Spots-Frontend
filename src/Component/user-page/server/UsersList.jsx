@@ -71,7 +71,7 @@ function UsersList(props) {
                                   user2_id: user.id,
                                 });
 
-                                props.ioConnection.emit(
+                                props.ioConnection?.emit(
                                   "new-friendRequest",
                                   user.id
                                 );
