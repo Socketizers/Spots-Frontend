@@ -10,7 +10,7 @@ Spots is a chat app for people to connect together and share their stories, insp
 
 
 # Wireframes
- [Go To Wireframes](https://www.figma.com/file/iiBgB3sgMXyeqB31VvhKsv/Spots?node-id=0%3A1)
+## [Go To Wireframes](https://www.figma.com/file/iiBgB3sgMXyeqB31VvhKsv/Spots?node-id=0%3A1)
 # User Stories
 ## [Go To Trello Board](https://trello.com/b/lvKITfNw/spots)
 # Software Requirements
