@@ -26,7 +26,7 @@ import PrivateChat from "./private-room/PrivateChat";
 import api from "../../app/api";
 import Avatar from "@mui/material/Avatar";
 import bgImg from "../../assets/chatBG.png";
-import Footer from "./profile/Footer";
+import Footer from "./Footer";
 import io from "socket.io-client";
 import {useNavigate} from "react-router-dom"
 

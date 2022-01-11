@@ -1,7 +1,7 @@
 
 import React from "react";
 import "./Footer.css";
-import logo from '../assets/SPOTSLOGOWHITE.png';
+import logo from '../../assets/SPOTSLOGOWHITE.png';
 
 function Footer() {
   return <div>
@@ -46,10 +46,6 @@ function Footer() {
                 <h6 className="para">Find Your Spot In The World & Explore Others, Get Inpired !</h6>
                 <p>
                     <div className="input-group">
-                      {/* <input type="text" className="form-control" placeholder="Search for..."/>
-                      <span className="input-group-btn">
-                        <button className="btn btn-default" type="button"><span className="glyphicon glyphicon-envelope"></span></button>
-                      </span> */}
                     </div>
                  </p>
             </div>

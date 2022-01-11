@@ -21,7 +21,7 @@ import cookie from "react-cookies";
 import Peer from "peerjs";
 import bgImg from "../../../assets/chatBG.png";
 import UsersList from "./UsersList";
-import Footer from "./../profile/Footer";
+import Footer from "../Footer";
 
 function RoomsList() {
   const user = useSelector((state) => state.auth.user);
