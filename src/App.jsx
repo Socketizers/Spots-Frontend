@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route,Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "./Component/Header";
-import AboutUs from "./Component/Home/AboutUs";
-import Home from "./Component/Home/HomePage";
-import SignIn from "./Component/Home/SignIn";
-import SignUp from "./Component/Home/SignUp";
+import Home from "./Component/home/HomePage";
+import SignIn from "./Component/home/SignIn";
+import SignUp from "./Component/home/SignUp";
 import UserHomePage from "./Component/user-page/UserHomePage";
-import ServerList from "./Component/user-page/ServerList";
 import Chat from "./Component/user-page/server/Chat";
 import ProfilePage from "./Component/user-page/profile/ProfilePage";
 import { logIn } from "./features/auth/authSlice";
 import { getAllServers } from "./features/server/serverSlice";
 import { getUserServers } from "./features/server/userServers.Slice";
+import { getFriendsList } from "./features/friends/friendsSlice";
 import cookie from "react-cookies";
 import RoomsList from "./Component/user-page/server/RoomsList";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,47 +25,17 @@ function App() {
       dispatcher(logIn());
       dispatcher(getAllServers());
       dispatcher(getUserServers());
+      dispatcher(getFriendsList());
 
     }
   }, [dispatcher]);
 
   return (
     <BrowserRouter>
-      {/* <Header /> */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            status === "idle" ? (
-              <>
-                <UserHomePage />
-              </>
-            ) : (
-              <Home />
-            )
-          }
-        />
-
-        <Route
-          path="/sign-in"
-          element={
-            <>
-              <Header />
-              <SignIn />
-            </>
-          }
-        />
-        <Route
-          path="/sign-up"
-          element={
-            <>
-              <Header />
-              <SignUp />
-            </>
-          }
-        />
-        <Route path="/servers" element={<ServerList />} />
-        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/"  element={status === "idle" ? <UserHomePage /> : <Home />}/>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/server" element={<Outlet />}>
           <Route path=":serverId" element={<RoomsList />}>
             <Route path="rooms" element={<RoomsList />}>
@@ -76,7 +44,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/chat" element={<Chat />} />
-        <Route path="/profile"element= {<ProfilePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/private-chat" element={<UserPrivateChat />} />
       </Routes>
     </BrowserRouter>

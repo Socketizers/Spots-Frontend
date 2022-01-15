@@ -4,7 +4,6 @@ import api from "../../../app/api";
 import { useSelector } from "react-redux";
 import MsgList from "./MsgList";
 import io from "socket.io-client";
-import cookie from "react-cookies";
 import "./PrivateChat.scss";
 import Avatar from "@mui/material/Avatar";
 
@@ -13,8 +12,7 @@ function PrivateChat(props) {
   const [directMessages, setDirectMessages] = useState([]);
   const userInfo = useSelector((state) => state.auth.user);
   const receiver = useSelector((state) => state.receiver.receiver);
-  const [currentChat, setCurrentChat] = useState({});
-  const [currentReceiver, setCurrentReceiver] = useState(null);
+
   const [ioConnection, setIoConnection] = useState(null);
 
   let messagesListArr = [];
@@ -63,16 +61,6 @@ function PrivateChat(props) {
     })();
     connection.emit("join-private-room", userInfo.id);
   }, [userInfo]);
-
-  // async function updateCurrentChat(receiver) {
-  //   try {
-  //     setCurrentReceiver(receiver);
-  //     const chat = await api.get(`/private-room/users/${receiver.id}`);
-  //     setCurrentChat(chat.data.message_history);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
 
   useEffect(() => {
     if(receiver) {

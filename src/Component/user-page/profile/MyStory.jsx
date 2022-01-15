@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef , useCallback} from "react";
 import Webcam from "react-webcam";
 import { storage } from "../../../app/firebase";
 import api from "../../../app/api";
 import { Modal } from "react-bootstrap";
 
 function MyStory(props) {
+
   const [file, setFile] = useState("");
   const [videoFile, setVideo] = useState("");
-  const [imgSrc, setImgSrc] = React.useState(null);
-  const webcamRef = React.useRef(null);
-  const mediaRecorderRef = React.useRef(null);
-  const [capturing, setCapturing] = React.useState(false);
-  const [recordedChunks, setRecordedChunks] = React.useState([]);
+  const [imgSrc, setImgSrc] = useState(null);
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [capturing, setCapturing] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
   const [fileUpload, setFileUpload] = useState(false);
 
   const videoConstraints = {
     facingMode: "user",
   };
-  const handleStartCaptureClick = React.useCallback(() => {
+
+  // ************************ Record Video Handlers  *************************
+  // ************************ Start Record  ************************* 
+  const handleStartCaptureClick = useCallback(() => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
@@ -29,7 +33,7 @@ function MyStory(props) {
     mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
-  const handleDataAvailable = React.useCallback(
+  const handleDataAvailable = useCallback(
     ({ data }) => {
       if (data.size > 0) {
         setRecordedChunks((prev) => prev.concat(data));
@@ -38,12 +42,14 @@ function MyStory(props) {
     [setRecordedChunks]
   );
 
-  const handleStopCaptureClick = React.useCallback(() => {
+  // ************************ Stop Record  ************************* 
+  const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop();
     setCapturing(false);
   }, [mediaRecorderRef, webcamRef, setCapturing]);
 
-  const handleDownload = React.useCallback(() => {
+  // ************************ Create Video File  ************************* 
+  const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks);
       setVideo(blob);
@@ -59,12 +65,19 @@ function MyStory(props) {
     }
   }, [recordedChunks, setVideo]);
 
-  const capture = React.useCallback(() => {
+  // ********************************************************************* 
+
+
+
+  // ************************ Take Snapshot Handler  ************************* 
+  const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
     setFile(imageSrc);
   }, [webcamRef, setImgSrc, setFile]);
 
+
+  // ************************ Handle File Upload Form  ************************* 
   const handleChange = (e) => {
     e.preventDefault();
 
@@ -77,6 +90,8 @@ function MyStory(props) {
     setFileUpload(true);
   };
 
+
+  // ************************ Upload Recorded Video ************************* 
   const handleUpload = () => {
     const name = +new Date() + "-video";
     const uploadTask = storage.ref(`images/${name}`).put(videoFile, {
@@ -102,6 +117,8 @@ function MyStory(props) {
       }
     );
   };
+
+  // ************************ Upload File ************************* 
   const handleUploadFile = () => {
     const name = +new Date() + "-" + file.name;
     const uploadTask = storage.ref(`images/${name}`).put(file);
@@ -127,6 +144,8 @@ function MyStory(props) {
       }
     );
   };
+
+  // ************************ Upload Screen Shot ************************* 
   const handleUploadScreen = () => {
     const name = +new Date() + "-base64";
     const uploadTask = storage
@@ -163,7 +182,7 @@ function MyStory(props) {
         {" "}
         {!!imgSrc ? (
           <>
-            <img src={imgSrc} style={{ width: "47.7em" }} />
+            <img src={imgSrc} style={{ width: "47.7em" }} alt="" />
             <button
               className="story-btn"
               onClick={() => {

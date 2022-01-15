@@ -1,7 +1,9 @@
 import React from "react";
 import { Nav, Navbar, Col } from "react-bootstrap";
 import "./Header.css";
-import logo from "../assets/images/SPOTSLOGO00.png";
+import logo from "../../assets/images/SPOTSLOGO00.png";
+
+
 function Header() {
   return (
     <div>
@@ -30,8 +32,6 @@ function Header() {
           <Nav.Link href="/sign-in" className="link">
             Sign In
           </Nav.Link>
-          {/* <Nav.Link to="/servers">Servers list</Nav.Link> */}
-          {/* <Nav.Link to="/chat">Chat</Nav.Link> */}
         </Col>
       </Navbar>
     </div>

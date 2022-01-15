@@ -74,6 +74,11 @@
   margin-top: 2em;
 }
 
+.landing-header button a {
+  text-decoration: none;
+  color: #104567;
+}
+
 .featureImg {
   border-radius: 1em;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 3%);
@@ -140,6 +145,15 @@
   top: 2em;
   left: -4em;
   z-index: -5;
+}
+
+.bg-img{
+  width:100%;
+  margin-bottom: 20px;
+  height: 55em;
+  position: absolute;
+  top: 125em;
+  z-index: -2;
 }
 
 .my-masonry-grid {

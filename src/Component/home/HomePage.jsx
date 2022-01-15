@@ -1,7 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Footer from "./Footer";
+import { Nav, Navbar, Row, Col } from "react-bootstrap";
+import Masonry from "react-masonry-css";
 import "./HomePage.css";
-import { Nav, Navbar, Container, Button, Row, Col } from "react-bootstrap";
+
+// ************************ Assets Images *************************
 import logo from "../../assets/images/SPOTSLOGO00.png";
 import logo1 from "../../assets/SPOTSLOGO.png";
 import p1 from "../../assets/images/Sports.png";
@@ -20,20 +24,17 @@ import dots from "../../assets/SPOTS-spots.png";
 import dots2 from "../../assets/neon-orange.png";
 
 
-
-import Masonry from "react-masonry-css";
-import Footer from "../Footer";
-
-export const HomePage = (props) => {
-  const user = useSelector((state) => state.user);
+export const HomePage = () => {
   const [navBar, setNavBar] = React.useState(false);
 
+  // Masonry grid settings
   const breakpoints = {
     default: 3,
     1100: 4,
     700: 3,
   };
 
+  // Change the header style when scrolling
   function changeHeader() {
     if (window.scrollY >= 100) {
       setNavBar(true);
@@ -42,8 +43,10 @@ export const HomePage = (props) => {
     }
   }
   window.addEventListener("scroll", changeHeader);
+
   return (
     <>
+      {/* ************************ Header ************************* */}
       <Navbar className={navBar ? "NavBar  active" : "NavBar"} sticky="top">
         <Navbar.Brand
           className="mr-lg-5"
@@ -84,6 +87,7 @@ export const HomePage = (props) => {
         </Navbar.Collapse>
       </Navbar>
 
+      {/* ************************ Landing ************************* */}
       <div className="landing">
         <div className="landing-header">
           <img
@@ -95,21 +99,24 @@ export const HomePage = (props) => {
           />
           <h1>CONNECT AND SHARE.</h1>
           <h2>FIND YOUR SPOT IN THE WORLD!</h2>
-          <button>Get Started </button>
+          <button><Link to="/sign-in">Get Started </Link></button>
         </div>
       </div>
+
+      {/* ************************ Features ************************* */}
       <div style={{ position: "relative", marginTop: "50em" }}>
+        {/* ************************ Feature I ************************* */}
         <Row style={{ margin: "10em 8em 6em" }}>
           <Col className="feature-1">
             <h1>CHOOSE YOUR COMMUNITY</h1>
             <img src={dots} className="dots-main" />
             <p>
-            Spots offers you the chance to explore and connect to different communities and get
-             the chance to find a place where you feel welcomed understood and fit, you can also 
-             experience diversity from all around the world the sky is your limit with spots,
-              you can also give back to spots, where you can start creating your own communities 
-              and help other people feel fit and understood.
-
+              Spots offers you the chance to explore and connect to different
+              communities and get the chance to find a place where you feel
+              welcomed understood and fit, you can also experience diversity
+              from all around the world the sky is your limit with spots, you
+              can also give back to spots, where you can start creating your own
+              communities and help other people feel fit and understood.
             </p>
             <button>Explore for more</button>
           </Col>
@@ -168,6 +175,7 @@ export const HomePage = (props) => {
           </Col>
         </Row>
 
+        {/* ************************ Feature II ************************* */}
         <Row
           style={{
             margin: "0 0 7em",
@@ -184,22 +192,26 @@ export const HomePage = (props) => {
               <br /> your Server!
             </h1>
             <p>
-            Once you feel like your ready to start sharing with the world, and give back to spots communities, 
-            you can create your own community within a certain category you can create rooms, and set capacity 
-            and type of communication, text, voice, video share, within that room, where people can join and enjoy the experience.
+              Once you feel like your ready to start sharing with the world, and
+              give back to spots communities, you can create your own community
+              within a certain category you can create rooms, and set capacity
+              and type of communication, text, voice, video share, within that
+              room, where people can join and enjoy the experience.
             </p>
           </Col>
         </Row>
 
+        {/* ************************ Feature III ************************* */}
         <Row style={{ margin: "0 8em 7em" }}>
-          <Col className="feature-1" style={{position:'relative'}}>
+          <Col className="feature-1" style={{ position: "relative" }}>
             <h1>Express Yourself!</h1>
-            <img src={dots2} className="express-img"/>
+            <img src={dots2} className="express-img" />
             <p>
-            Spots wants you to express yourself on a daily basis, wants you to share your 
-            experiences with the world, you never know who you might inspire and help 
-            change their life, that why spots offer user stories feature, upload or 
-            capture your moments with pictures or videos for the day.
+              Spots wants you to express yourself on a daily basis, wants you to
+              share your experiences with the world, you never know who you
+              might inspire and help change their life, that why spots offer
+              user stories feature, upload or capture your moments with pictures
+              or videos for the day.
             </p>
           </Col>
           <Col style={{ paddingRight: "5em", width: "30%" }}>
@@ -207,19 +219,7 @@ export const HomePage = (props) => {
           </Col>
         </Row>
 
-        {/* <Row
-        style={{
-          margin: "0 0 7em",
-          backgroundColor: "#F9F9F98F",
-          padding: "0 8em",
-        }}
-      >
-        <img
-          style={{ width: "100%", marginBottom: "20px", height: "50em" }}
-          src={f4}
-        />
-      </Row> */}
-
+        {/* ************************ About ************************* */}
         <Row style={{ margin: "10em 8em 0" }} id="about">
           <Col style={{ paddingRight: "5em", width: "30%" }}>
             <img style={{ width: "35rem", marginBottom: "20px" }} src={f5} />
@@ -239,14 +239,16 @@ export const HomePage = (props) => {
 
             <h1>About</h1>
             <p>
-            Spots is a customizable App the brings people together, by allowing them to 
-            find their spot in the world where they can connect with each other, 
-            share diverse experiences and express themselves daily, 
+              Spots is a customizable App the brings people together, by
+              allowing them to find their spot in the world where they can
+              connect with each other, share diverse experiences and express
+              themselves daily,
               <br /> <br />
-            Spots wants you to give back once you feel prepared to inspire, by giving you the control 
-            you need to create communities and rooms within them where you connect with 
-            people via text, audio or video, while you have control and setting option for 
-            the communities you own!
+              Spots wants you to give back once you feel prepared to inspire, by
+              giving you the control you need to create communities and rooms
+              within them where you connect with people via text, audio or
+              video, while you have control and setting option for the
+              communities you own!
             </p>
             <button type="submit" className="button">
               <i className="fab fa-apple" style={{ fontSize: "2.3em" }}></i>{" "}
@@ -261,18 +263,13 @@ export const HomePage = (props) => {
             </button>
           </Col>
         </Row>
-<Footer/>
-        <img
-          style={{
-            width: "100%",
-            marginBottom: "20px",
-            height: "55em",
-            position: "absolute",
-            top: "125em",
-            zIndex: "-2",
-          }}
-          src={f7}
-        />
+
+        {/* ************************ Footer ************************* */}
+        <Footer />
+
+        {/* ************************ Background Image ************************* */}
+        <img src={f7} className="bg-img"/>
+
       </div>
     </>
   );
