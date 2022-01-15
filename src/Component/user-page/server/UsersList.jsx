@@ -37,7 +37,7 @@ function UsersList(props) {
                       
                       <Button
                         style={{
-                          background: "white !important",
+                          backgroundColor: "white",
                           color: "#0a94b6",
                           border: "1px solid #0a94b6",
                           borderRadius: "10px",

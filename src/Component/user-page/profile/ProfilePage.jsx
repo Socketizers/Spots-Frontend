@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState} from "react";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
-import cookie from "react-cookies";
 import Footer from "../Footer";
 import Header from "../Header";
 import api from "../../../app/api";
 import CreateServer from "../add-create-server/create/CreateServer";
 import ServerInfo from "./ServerInfo";
-import { getFriendsList } from "../../../features/friends/friendsSlice";
 import { Button, Row, Col, Form } from "react-bootstrap";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../../assets/SPOTSLOGO-PPS.png";
@@ -19,6 +17,7 @@ import "../../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
 
 function ProfilePage() {
+  
   const user = useSelector((state) => state.auth.user);
   const servers = useSelector((state) => state.userServers.servers);
   const userFriends = useSelector((state) => state.friendsList.users);
@@ -27,11 +26,9 @@ function ProfilePage() {
   const [serverUsers, setServerUsers] = useState([]);
   const [serverState, setServerState] = useState({});
   const [openInfo, setOpenInfo] = useState(false);
-  // const [showServerDescriptionModal, setShowServerDescriptionModal] = useState(false);
   const [showCreateServerModal, setShowCreateServerModal] = useState(false);
-  // const [selectedServer, setSelectedServer] = useState({});
 
-  const dispatcher = useDispatch();
+
 
 // ************************ Slider Arrows*************************
   const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
@@ -82,11 +79,7 @@ function ProfilePage() {
   };
   const closeServerInfo = () => setOpenInfo(false);
 
-  useEffect(() => {
-    if (cookie.load("token")) {
-      dispatcher(getFriendsList());
-    }
-  }, [cookie.load("token")]);
+ 
 
   return (
     <div className="body">

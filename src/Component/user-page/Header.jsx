@@ -30,7 +30,7 @@ function UserHeader() {
 
 
   useEffect(() => {
-    const connection = io.connect(process.env.REACT_APP_API_SOCKET_URL);
+    const connection = io.connect("socketizers.herokuapp.com");
     setIoConnection(connection);
 
     connection.emit("join-request-room", user.id);

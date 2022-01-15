@@ -36,7 +36,6 @@ function FriendList(props) {
                         height: "2.5em",
                       }}
                     />
-                    {/* <div className="online"></div> */}
                     {friend.story && (
                       <>
                         <button

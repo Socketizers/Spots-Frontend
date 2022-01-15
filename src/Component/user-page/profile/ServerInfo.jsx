@@ -4,6 +4,7 @@ import CreateRooms from "../add-create-server/create/CreateRooms";
 import logo from "../../../assets/SPOTSLOGO-PP.png";
 
 function ServerInfo(props) {
+  
   const [openRoomModal, setRoomModal] = useState(false);
 
   const addRoomModalOpen = () => setRoomModal(true);
@@ -18,6 +19,8 @@ function ServerInfo(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+
+  {/* ************************ Server's Rooms ************************* */}
         <Row style={{ margin: "2vh 5vh", height: "30vh" }}>
           <div className="rooms">
             <h2>Rooms</h2>
@@ -52,6 +55,8 @@ function ServerInfo(props) {
             />
           </div>
         </Row>
+
+  {/* ************************ Server's Users ************************* */}
         <Row style={{ margin: "2vh 5vh", height: "25vh" }}>
           <div className="server-users">
             <h2>Users</h2>
