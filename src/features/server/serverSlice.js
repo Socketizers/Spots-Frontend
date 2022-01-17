@@ -29,9 +29,9 @@ const serverSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getAllServers.fulfilled, (state, action) => {
-        action.payload.map(server => {
-          if(server.image){server.image = `https://socketizers.herokuapp.com/${server.image}`}
-        })
+        // action.payload.map(server => {
+        //   if(server.image){server.image = `https://socketizers.herokuapp.com/${server.image}`}
+        // })
         
         state.status = "idle";
         state.servers = action.payload;
