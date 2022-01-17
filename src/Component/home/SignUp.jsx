@@ -7,6 +7,7 @@ import { Form, Button, Image } from "react-bootstrap";
 import "./SignUp.css";
 import signUpImg from "../../assets/images/signup.png";
 import logo from "../../assets/SPOTSLOGO-PP.png";
+import { storage } from "../../app/firebase";
 
 function SignUp() {
   const dispatcher = useDispatch();
@@ -14,14 +15,47 @@ function SignUp() {
   // ************************ Handle Submission *************************
   const handleSubmit = (e) => {
     e.preventDefault();
+    const body = {
+      username: e.target.username.value,
+      fullName: e.target.fullName.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      image: null,
+    };
+
     const file = document.getElementById("files").files[0];
-    const body = new FormData();
-    body.append("username", e.target.username.value);
-    body.append("fullName", e.target.fullName.value);
-    body.append("email", e.target.email.value);
-    body.append("password", e.target.password.value);
-    if (file) body.append("image", file);
-    dispatcher(signUp(body));
+
+    if (file !== undefined) {
+      const name = e.target.username.value + "_" + file.name;
+      const uploadTask = storage.ref(`users/${name}`).put(file);
+      console.log("uploaded successfully");
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("users")
+            .child(name)
+            .getDownloadURL()
+            .then((url) => {
+              body.image = url;
+              dispatcher(signUp(body));
+            });
+        }
+      );
+    } else dispatcher(signUp(body));
+
+    // const file = document.getElementById("files").files[0];
+    // const body = new FormData();
+    // body.append("username", e.target.username.value);
+    // body.append("fullName", e.target.fullName.value);
+    // body.append("email", e.target.email.value);
+    // body.append("password", e.target.password.value);
+    // if (file) body.append("image", file);
+    // dispatcher(signUp(body));
   };
 
   return (
@@ -38,7 +72,7 @@ function SignUp() {
           <div id="signUpFormDiv">
             <Form onSubmit={handleSubmit} id="signUpForm">
               <h2>
-                SignUp <br /> <img src={logo} id="logo" />
+                SignUp <br /> <img src={logo} id="logo" alt="" />
               </h2>
               <Form.Group>
                 <Form.Label className="labels">Username</Form.Label>

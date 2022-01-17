@@ -99,7 +99,7 @@ function UserHeader() {
             <Col>
               <Avatar
                 alt={user.username}
-                src={user.image}
+                src={user.image || 'https://socketizers.herokuapp.com/undefined'}
                 sx={{ bgcolor: "#24464e" }}
                 style={{
                   width: "3.5em",

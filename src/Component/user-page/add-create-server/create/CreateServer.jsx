@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { getAllServers } from "../../../../features/server/serverSlice";
 import logo from "../../../../assets/SPOTSLOGO-PP.png";
 import Swal from "sweetalert2";
+import { storage } from "../../../../app/firebase";
+
 
 import "./CreateServer.scss";
 
@@ -14,24 +16,71 @@ function CreateServer(props) {
 
   async function createServer(e) {
     e.preventDefault();
-    // console.log("create server");
-    try{
-      const file = document.getElementById("files").files[0];
-      const body = new FormData();
-      body.append("name", e.target.name.value);
-      body.append("description", e.target.description.value);
-      body.append("category", e.target.category.value);
-      if (file) body.append("image", file);
-      await api.post("/user/server", body);
-      dispatcher(getAllServers());
+    const body = {
+      name: e.target.name.value,
+      description: e.target.description.value,
+      category: e.target.category.value,
+      public: true,
+      image: null,
+    };
 
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Server Created Successfully",
-        showConfirmButton: false,
-        timer: 1500,
+    const file = document.getElementById("files").files[0];
+    try{
+    if (file !== undefined) {
+      const name = e.target.name.value + "_" + file.name;
+      const uploadTask = storage.ref(`servers/${name}`).put(file);
+      console.log("uploaded successfully");
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("servers")
+            .child(name)
+            .getDownloadURL()
+            .then((url) => {
+              body.image = url;
+              api.post("/user/server", body).then(()=>{
+                dispatcher(getAllServers());
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Server Created Successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              });
+            });
+        }
+      );
+    } else {
+      api.post("/user/server", body).then(()=>{
+        dispatcher(getAllServers());
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Server Created Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
+    }
+
+
+    
+      // const file = document.getElementById("files").files[0];
+      // const body = new FormData();
+      // body.append("name", e.target.name.value);
+      // body.append("description", e.target.description.value);
+      // body.append("category", e.target.category.value);
+      // if (file) body.append("image", file);
+      // await api.post("/user/server", body);
+      // dispatcher(getAllServers());
+
+      
     }catch (e) {
       Swal.fire({
         title: "Try again please",
@@ -60,7 +109,7 @@ function CreateServer(props) {
         className="createServerModalBody"
       >
         <h2>Create Server</h2>
-        <img src={logo} width="100"/>
+        <img src={logo} width="100" alt=""/>
         <Form onSubmit={createServer} style={{width:'27em',textAlign:'center'}}>
           <FormGroup>
             <Form.Label>Server Name</Form.Label>

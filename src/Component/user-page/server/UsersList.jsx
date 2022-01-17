@@ -103,7 +103,7 @@ function UsersList(props) {
                   <Col md={2} style={{ position: "relative" }}>
                     <Avatar
                       alt={user.username}
-                      src={`https://socketizers.herokuapp.com/${user.image}`}
+                      src={user.image || 'https://socketizers.herokuapp.com/undefined'}
                       sx={{ bgcolor: "#24464e" }}
                     />
                   </Col>

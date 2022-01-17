@@ -152,7 +152,7 @@ function ProfilePage() {
                       <div className="friend div" key={i}>
                         <Avatar
                           alt={friend.username}
-                          src={`https://socketizers.herokuapp.com/${friend.image}`}
+                          src={friend.image || 'https://socketizers.herokuapp.com/undefined'}
                           sx={{ bgcolor: "#24464e" }}
                           className="img"
                           style={{ fontSize: "2.25rem" }}
